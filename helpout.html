@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>PikaShift</title>
+
+<!-- Load style sheets -->
+<link rel="stylesheet" href=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css">
+
+<link rel="stylesheet" href="mainLayout.css">
+
+<!-- Use mobile-aware viewport -->
+<meta name="viewport" content=
+  "width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Load any supplemental Javascript libraries here -->
+<script src=
+  "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src=
+  "https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.2/seedrandom.js">
+</script>
+<!-- <script src="candy.js"></script> -->
+
+
+<script>
+
+
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+  display_board($("#candy_crush_board"));
+});
+
+
+// Display the board
+var display_board = function(display) {
+  var game_board = $("<table>");
+  game_board.css("width", 320);
+  game_board.css("height", 320);
+  game_board.attr("id", "game_board");
+  var size = 8;
+  var cell_size = 40;
+  for (var i = 0; i < size; i++){
+    var row = $("<tr>");
+    for (var j = 0; j < size; j++){
+      var cell = $("<td>");
+      cell.css("border","1px solid black")
+      row.append(cell);
+    };
+    game_board.append(row);
+  };
+  display.append(game_board);
+};
+
+
+
+/* Event Handlers */
+// access the candy object with info.candy
+
+
+
+// show move event
+$(document).on('click', "#show_move", function(evt)
+{
+  clear_canvas();
+  var canvas = document.getElementById("canvas_arrow");
+  var ctx = canvas.getContext('2d');
+  var info = rules.getRandomValidMove();
+  if (info != null){
+    var candy = info.candy;
+    var direction = info.direction;
+    arrow(ctx, candy, direction);
+  };
+});
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="row" style = "margin-top: 40px">
+    <div class="col-md-6" id="firstColumn">
+          <div id="candy_crush_board"></div>    
+    </div>
+
+    <div class="col-md-6" id="mainColumn" style = "position: relative">
+      <!-- Column 2 Code Here -->
+      <table id="title" style = "width: 100%">
+        <tr>
+          <td style = "width: 33%; text-align: center"> Message </td>
+          <td style = "width: 33%; text-align: center"> Absent </td>
+          <td style = "width: 33%; text-align: center"> Helpouts </td>
+        </tr>
+      </table>
+
+      <table style = "width: 100%">
+        <tr class = "help" id = "new">
+          <td> <a href = "new.html"> New Helpouts</a></td>
+        </tr>
+      </table>
+
+      <table style = "width: 100%">
+        <tr class = "help" id = "upcoming">
+          <td>Upcoming Helpouts</td>
+        </tr>
+      </table>
+
+      <table style = "width: 100%; border: 1px solid black">
+        
+      </table>
+
+      <table style = "width: 100%">
+        <tr class = "help" id = "past">
+          <td>Past Helpouts</td>
+        </tr>
+      </table>
+
+      <table style = "width: 100%; border: 1px solid black">
+        
+      </table>
+
+    </div>
+
+  </div> <!-- class="row" -->
+</div> <!-- class="container" -->
+
+</body>
+
+</html>

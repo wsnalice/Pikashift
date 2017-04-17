@@ -1,0 +1,18 @@
+#mainColumn{
+
+}
+
+.help{
+	text-align: center;
+}
+
+td{
+	border: 1px solid red;
+	text-align: center;
+	width: 180px;
+	padding: 0;
+}
+
+.action{
+	width: 40px;
+}
