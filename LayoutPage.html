@@ -148,7 +148,12 @@ $(document).ready(function()
 
     <!-- End Absence -->
     <div id="helpouts" class="tab-pane fade">
-      <button type="button" class="btn btn-primary btn-block"> New Helpout</button>
+      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
+      <script>
+        $("#newHelpout").on('click', function() {
+          window.location.href = "./newHelpout.html";
+        })
+      </script>
 
       <button type="button" class="btn btn-primary btn-block"> Upcoming Helpouts</button>
       <table style="width:100%">
