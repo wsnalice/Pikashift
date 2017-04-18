@@ -12,3 +12,15 @@
 .lower-border {
 	border-bottom-style: solid;
 }
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.timesheet-daily-checkbox {
+    margin: 10px 50px;
+    padding: 10px;
+    display:inline-block;
+    overflow:hidden
+}
