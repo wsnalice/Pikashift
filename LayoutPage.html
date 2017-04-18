@@ -6,14 +6,47 @@
   <link rel="stylesheet" href="MessageTab.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src='fullcalendar/lib/jquery.min.js'></script>
+  <script src='fullcalendar/lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
+
+  <script>
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+
+  $('#calendar').fullCalendar({
+            defaultDate: '2017-04-17',
+            defaultView: 'agendaWeek',
+            editable: true,
+            //eventLimit: true, // allow "more" link when too many events
+            header: {
+              left: 'prev, next',
+              center: 'title',
+              right: 'agendaWeek, agendaDay'
+            },
+            height: 'auto',
+            minTime: '12:00',
+            maxTime: '24:00',
+            allDaySlot: false,
+            slotDuration: "1:00:00",
+            selectable: true,
+  });
+});
+
+  </script>
 
 </head>
 <body>
 
 <div class="col-md-6"> <!--- Calender Code -->
-    Calender Code :
+    <div id = "calendar" style = 'padding-top: 20px'> </div>
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->
