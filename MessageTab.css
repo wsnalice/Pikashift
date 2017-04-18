@@ -12,3 +12,18 @@
 .lower-border {
 	border-bottom-style: solid;
 }
+<<<<<<< HEAD
+=======
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.timesheet-daily-checkbox {
+    margin: 10px 50px;
+    padding: 10px;
+    display:inline-block;
+    overflow:hidden
+}
+>>>>>>> 7aa4511bc8f5974124345faa784c0e6b7bcc457c
