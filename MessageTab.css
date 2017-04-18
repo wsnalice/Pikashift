@@ -12,6 +12,8 @@
 .lower-border {
 	border-bottom-style: solid;
 }
+<<<<<<< HEAD
+=======
 
 .vertical-align {
     display: flex;
@@ -24,3 +26,4 @@
     display:inline-block;
     overflow:hidden
 }
+>>>>>>> 7aa4511bc8f5974124345faa784c0e6b7bcc457c
