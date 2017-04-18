@@ -66,8 +66,9 @@ $(document).ready(function()
 
     <div id="notifs" class="tab-pane fade in active">
 
+     
 
-      <form class="form-horizontal col-md-12">
+      <form class="form-horizontal col-md-12" id="msg-new-form">
       <fieldset>
       <!-- Form Name -->
       <legend>New Message</legend>
@@ -87,6 +88,7 @@ $(document).ready(function()
 
 
 
+
       <!-- Textarea -->
       <div class="form-group">
         <label class="col-md-2 control-label" for="new-msg-text">Message</label>
@@ -94,17 +96,14 @@ $(document).ready(function()
           <textarea class="form-control" id="new-msg-text" name="new-msg-text"></textarea>
         </div>
       </div>
-
-      <!-- Button -->
-      <div class="form-group">
-        <div class="col-md-10">
-          
-          <button id="new-msg-cancel-btn" class="btn pull-left">Cancel</button>
-          <button id="new-msg-send-btn" class="btn btn-primary pull-right">Send</button>
-        </div>
-      </div>
       </fieldset>
     </form>
+
+     <!-- Button -->
+    <div class="col-md-10">    
+      <button id="new-msg-cancel-btn" class="btn pull-left">Cancel</button>
+      <button id="new-msg-send-btn" class="btn btn-primary pull-right">Send</button>
+    </div>
 
     </div>
 
