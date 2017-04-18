@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="MessageTab.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="col-md-6"> <!--- Calender Code -->
+    Calender Code :
+</div> <!-- End Calender Code -->
+
+<!-- Tabs Code -->
+
+<div class="container col-md-6">
+  <h2>Tab Functionality</h2>
+
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#notifs">Notifications</a></li>
+    <li><a data-toggle="tab" href="#absences">Absences</a></li>
+    <li><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+    <div id="notifs" class="tab-pane fade in active">
+      <h3>Notifs</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <!-- Absence -->
+    <div id="absences" class="tab-pane fade">
+      <button type="button" class="btn btn-primary btn-block"> New Absence</button>
+
+      <table style="width:100%">
+        <tr class="lower-border">
+          <td align="center">
+            <h5>March 15, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+          <td align="center">
+            <h5>Family matter</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>March 10, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+          <td align="center">
+            <h5>Vacation</h5>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- End Absence -->
+    <div id="helpouts" class="tab-pane fade">
+      <h3>Helpout</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    
+  </div>
+</div>  <!-- End Tabs Code -->
+
+</body>
+</html>
