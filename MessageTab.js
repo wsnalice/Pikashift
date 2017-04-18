@@ -34,3 +34,21 @@ $(document).on('click', "#msg-seen-a", function(evt){
   	toggleMsgStatusBtn(btn);
 
 });
+
+
+$(document).on('click', "#new-msg-btn", function(evt){
+    window.location.href = "./NewMessage.html";
+
+});
+
+$(document).on('click', "#new-msg-cancel-btn", function(evt){
+  console.log('Cancel Clicked');
+  //window.location.href = "./LayoutPage.html";
+
+});
+
+$(document).on('click', "#new-msg-send-btn", function(evt){
+  console.log('Send Clicked');
+  //window.location.href = "./LayoutPage.html";
+
+});
