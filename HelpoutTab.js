@@ -1,5 +1,4 @@
-var original_helpout = `
-    <div id="helpouts" class="tab-pane fade in active">
+var helpoutTable = `
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
 
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
@@ -49,18 +48,16 @@ var original_helpout = `
           </td>
         </tr>
       </table>
-    </div>
 `
-var new_helpout = `
-	<div id="helpouts" class="tab-pane fade in active">
+var helpoutForm = `
 	  <center><h3>New Helpout Form</h3></center>
 	  <br>
 	  <div class="bootstrap-iso">
 	   <div class="container-fluid">
 	    <div class="row">
-	    <div class="col-md-2"></div>
+	    <div class="col-md-1"></div>
 
-	     <div class="col-md-8">
+	     <div class="col-md-10">
 	      <form method="form-horizontal">
 
 	       <div class="form-group ">
@@ -190,26 +187,33 @@ var new_helpout = `
 	      </div>
 	               
 	     </div>
-	     <div class="col-md-2"></div>
+	     <div class="col-md-1"></div>
 	    </div>
 	   </div>
 	  </div>
 	</div>
-  </div>
 	`
 
 $(document).on('click', "#helpout-cancel-btn", function(evt){
-	document.getElementById("helpouts").innerHTML = original_helpout;
+	document.getElementById("helpouts").innerHTML = helpoutTable;
 
 });
 
 $(document).on('click', "#helpout-submit-btn", function(evt){
-	document.getElementById("helpouts").innerHTML = original_helpout;
+	document.getElementById("helpouts").innerHTML = helpoutTable;
 });
 
 $(document).on('click', "#newHelpout", function(evt) {
-    document.getElementById("helpouts").innerHTML = new_helpout;
+	console.log("click")
+    document.getElementById("helpouts").innerHTML = helpoutForm;
 });
+
+$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
+  var target = $(e.target).attr("href")
+  if (!$(target).is('helpouts')) {
+  	document.getElementById("helpouts").innerHTML = helpoutTable;	
+  }
+})
 
 
 
