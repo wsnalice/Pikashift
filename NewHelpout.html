@@ -9,7 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
   <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
@@ -36,52 +36,64 @@ $(document).ready(function()
 {
 
   $('#calendar').fullCalendar({
-            defaultDate: '2017-04-17',
-            defaultView: 'agendaWeek',
-            editable: true,
-            //eventLimit: true, // allow "more" link when too many events
-            header: {
-              left: 'prev, next',
-              center: 'title',
-              right: 'agendaWeek, agendaDay'
-            },
-            height: 'auto',
-            minTime: '9:00',
-            maxTime: '21:00',
-            allDaySlot: false,
-            slotDuration: "1:00:00",
-            selectable: true,
-            businessHours: {  //used to set when the worker's shifts are
-              dow: [1,2,3,4,5],
-              start: '9:00',
-              end: '21:00',
-            },
-            selectConstraint: "businessHours", //can only select from same day
-            events: [ //HELPOUTS - hardcoded
-                {
-                    title  : 'helpout',
-                    start  : '2017-04-19T13:00:00',
-                    end    : '2017-04-19T14:00:00',
-                    color  :'blue',
-                    startEditable : false,
-                    durationEditable : false
-                },
-                {
-                    title  : 'helpout',
-                    start  : '2017-04-19T18:00:00',
-                    end    : '2017-04-19T21:00:00',
-                    color  :'blue',
-                    startEditable : false,
-                    durationEditable : false
-                }
-            ],
-            eventClick: function(calEvent, jsEvent, view) {
+      defaultDate: '2017-04-17',
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      selectable: false,
 
-                alert('this should open a new popup for helpout');
+      events: [ //HELPOUTS - hardcoded
+          {
+              title  : 'helpout',
+              start  : '2017-04-19T13:00:00',
+              end    : '2017-04-19T14:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+              text: "they are absent"
+          },
+          {
+              title  : 'helpout',
+              start  : '2017-04-19T18:00:00',
+              end    : '2017-04-19T19:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false
+          }
+      ],
+    eventClick: function(event, jsEvent, view) {
+        //$('#help-popup').css('display', 'block');
+        alert("they are absent");
+        var start = event.start._d;
+        start.setHours(start.getHours() + 4); //actual start time
+        var end = event.end._d;
+        end.setHours(end.getHours() + 4); //actual end time
 
-                //$(this).css('border-color', 'red');
+        console.log("update textbox");
+        var randomtext = 'vaporeon'
+        $("[name=helpout-name]").val(randomtext);
 
-            }
+        // var startText = start.getHours() + "am";
+        // var endText = end.getHours() + 'am';
+        // if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
+        // else if (start.getHours() == 12) {startText = start.getHours() + 'pm';}
+        // if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
+        // else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
+        // var displayText = 'want to helpout ' + startText+ ' - ' + endText + "?";
+        // if (confirm(displayText) == true) {
+        //   console.log('should update helpout form');
+        // } ;
+     }
   });
 });
 
@@ -111,7 +123,29 @@ $(document).ready(function()
 <!-- Navigation Bar --> 
 
 <div class="col-md-6 column"> <!--- Calender Code -->
-    <div id = 'calendar'> </div>
+  <div id = 'calendar'>  </div>   
+
+<!--   <div class = 'helpout-popup' id = 'help-popup' style = "display: none"> </div>
+ -->  <div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->

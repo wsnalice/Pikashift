@@ -188,7 +188,7 @@ $(document).on('click', "#new-msg-cancel-btn", function(evt){
 });
 
 $(document).on('click', "#new-msg-send-btn", function(evt){
-  console.log('Send Clicked');
+  // console.log('Send Clicked');
   var NotifSuccess = NewMessageButton + NewMsgSuccessAlert + NotifTable;
   document.getElementById('notifs').innerHTML = NotifSuccess;
   setButtonClasses();
