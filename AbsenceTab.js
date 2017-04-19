@@ -170,7 +170,7 @@ var absenceTable = `<button type="button" id="newAbsence" class="btn btn-primary
       <table style="width:100%">
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 15, 2017</h5>
+            <h5>Apr 15, 2017</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -181,7 +181,7 @@ var absenceTable = `<button type="button" id="newAbsence" class="btn btn-primary
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 10, 2017</h5>
+            <h5>Apr 10, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -206,7 +206,7 @@ $(document).on('click', "#absence-submit-btn", function(evt){
       <table style="width:100%">
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 17, 2017</h5>
+            <h5>Apr 17, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 7pm</h5>
@@ -217,7 +217,7 @@ $(document).on('click', "#absence-submit-btn", function(evt){
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 15, 2017</h5>
+            <h5>Apr 15, 2017</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -228,7 +228,7 @@ $(document).on('click', "#absence-submit-btn", function(evt){
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 10, 2017</h5>
+            <h5>Apr 10, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -239,7 +239,7 @@ $(document).on('click', "#absence-submit-btn", function(evt){
         </tr>
       </table>`;
   document.getElementById("absences").innerHTML = absenceTable;
-
+  addEvent("Mon Apr 17 2017 22:00:00 GMT-0400 (EDT)", "Mon Apr 17 2017 23:00:00 GMT-0400 (EDT)");
 });
 
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
