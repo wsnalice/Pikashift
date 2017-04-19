@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>PikaShift</title>
   <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="MessageTab.js"></script>
+  <script src="HelpoutTab.js"></script>
 
   <script src='fullcalendar/lib/jquery.min.js'></script>
   <script src='fullcalendar/lib/moment.min.js'></script>
@@ -51,7 +52,7 @@ $(document).ready(function()
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Pika Shift</a>
+      <a class="navbar-brand" href="#">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">My Schedule</a></li>
@@ -69,13 +70,12 @@ $(document).ready(function()
 
 
 <div class="col-md-6"> <!--- Calender Code -->
-    <div id = "calendar" style = 'padding-top: 20px'> </div>
+    <div id = "calendar" class="column"> </div>
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->
 
-<div class="container col-md-5">
-  <h2>Tab Functionality</h2>
+<div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="tab" href="#notifs">Notifications</a></li>
@@ -94,7 +94,7 @@ $(document).ready(function()
         <div id="msg-inbox-a" class="msg-card">
           <!-- Message Header --> 
           <div class="row" >
-            <div class="col-md-5"><h4> Vaporeon <h4> </div>
+            <div class="col-md-5"><h4> Vaporeon </h4> </div>
             <div class="col-md-4"> <h5>8pm, 14 March </h5> </div>
             <div class="col-md-3"> 
               <button type="button" class="btn btn-danger btn-sm" id="msg-seen-a"> Mark Seen </button> 
@@ -169,6 +169,7 @@ $(document).ready(function()
     </div>
 
     <!-- End Absence -->
+
     <div id="helpouts" class="tab-pane fade">
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
       <script>
@@ -177,9 +178,9 @@ $(document).ready(function()
         })
       </script>
 
-      <button type="button" class="btn btn-primary btn-block"> Upcoming Helpouts</button>
+      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table style="width:100%">
-        <tr class="lower-border">
+        <tr class="lower-border top-border">
           <td align="center">
             <h5>Apr 21, 2017</h5>
           </td>
@@ -205,11 +206,11 @@ $(document).ready(function()
         </tr>
       </table>
 
-      <button type="button" class="btn btn-primary btn-block"> Previous Helpouts</button>
+      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
       <table style="width:100%">
-        <tr class="lower-border">
+        <tr class="lower-border top-border">
           <td align="center">
-            <h5>March 15, 2017</h5>
+            <h5>Mar 15, 2017</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -217,7 +218,7 @@ $(document).ready(function()
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>March 10, 2017</h5>
+            <h5>Mar 10, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>

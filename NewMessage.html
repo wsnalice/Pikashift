@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>PikaShift</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="MessageTab.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,15 +45,33 @@ $(document).ready(function()
 
 </head>
 <body>
+<!-- Navigation Bar --> 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">PikaShift</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">My Schedule</a></li>
+      <li><a href="#"> All</a></li>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a></li>
+     
+    </ul>
+  </div>
+</nav>
 
+<!-- Navigation Bar --> 
 
-<div class="col-md-6"> <!--- Calender Code -->
-    <div id = "calendar" style = 'padding-top: 20px'> </div>
+<div class="col-md-6 column"> <!--- Calender Code -->
+    <div id = "calendar"> </div>
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->
 
-<div class="container col-md-6">
+<div class="container col-md-5 column">
  
 
   <ul class="nav nav-tabs nav-justified">
@@ -108,23 +126,29 @@ $(document).ready(function()
 
     <!-- Absence -->
     <div id="absences" class="tab-pane fade">
-      <button type="button" class="btn btn-primary btn-block"> New Absence</button>
+      <button type="button" id="newAbsence" class="btn btn-primary btn-block"> New Absence</button>
+
+      <script>
+        $("#newAbsence").on('click', function() {
+          window.location.href = "./newAbsence.html";
+        })
+      </script>
 
       <table style="width:100%">
         <tr class="lower-border">
           <td align="center">
-            <h5>March 15, 2017</h5>
+            <h5>Mar 15, 2017</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
           </td>
           <td align="center">
-            <h5>Family matter</h5>
+            <h5>Family</h5>
           </td>
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>March 10, 2017</h5>
+            <h5>Mar 10, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -135,14 +159,20 @@ $(document).ready(function()
         </tr>
       </table>
     </div>
+    <!-- Absence Ends -->
 
-    <!-- End Absence -->
+<!-- Helpout -->
     <div id="helpouts" class="tab-pane fade">
-      <button type="button" class="btn btn-primary btn-block"> New Helpout</button>
+      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
+      <script>
+        $("#newHelpout").on('click', function() {
+          window.location.href = "./newHelpout.html";
+        })
+      </script>
 
-      <button type="button" class="btn btn-primary btn-block"> Upcoming Helpouts</button>
+      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table style="width:100%">
-        <tr class="lower-border">
+        <tr class="lower-border top-border">
           <td align="center">
             <h5>Apr 21, 2017</h5>
           </td>
@@ -168,11 +198,11 @@ $(document).ready(function()
         </tr>
       </table>
 
-      <button type="button" class="btn btn-primary btn-block"> Previous Helpouts</button>
+      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
       <table style="width:100%">
-        <tr class="lower-border">
+        <tr class="lower-border top-border">
           <td align="center">
-            <h5>March 15, 2017</h5>
+            <h5>Mar 15, 2017</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -180,7 +210,7 @@ $(document).ready(function()
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>March 10, 2017</h5>
+            <h5>Mar 10, 2017</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -188,8 +218,8 @@ $(document).ready(function()
         </tr>
       </table>
     </div>
-    
-  </div>
+    <!-- Helpout Ends -->
+    <div class="container col-md-1"></div>
 </div>  <!-- End Tabs Code -->
 
 </body>
