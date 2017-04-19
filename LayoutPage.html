@@ -64,16 +64,16 @@ $(document).ready(function()
       events: [ //ABSENCES - hardcoded
           {
               title  : 'absence',
-              start  : '2017-03-15T13:00:00',
-              end    : '2017-03-15T14:00:00',
+              start  : '2017-04-15T13:00:00',
+              end    : '2017-04-15T14:00:00',
               color  :'red',
               startEditable : false,
               durationEditable : false
           },
           {
               title  : 'absence',
-              start  : '2017-03-10T18:00:00',
-              end    : '2017-03-10T21:00:00',
+              start  : '2017-04-10T18:00:00',
+              end    : '2017-04-10T21:00:00',
               color  :'red',
               startEditable : false,
               durationEditable : false
@@ -113,7 +113,6 @@ $(document).ready(function()
       
         $("#absence-start-time").val(startText);
         $("#absence-end-time").val(endText);
-
     }
   });
 
@@ -190,7 +189,6 @@ $(document).ready(function()
     }
     });
 });
-
 
   function addEvent(startTime, endTime) {
     var newEvent = new Object();
