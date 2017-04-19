@@ -13,16 +13,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="MessageTab.js"></script>
   <script src="HelpoutTab.js"></script>
-  <script src="AbsenceTab.js"></script>
 
   <script src='fullcalendar/lib/jquery.min.js'></script>
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
-
-  <!-- Bootstrap Date-Picker Plugin -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
   <script>
 // Final initialization entry point: the Javascript code inside this block
@@ -31,67 +25,22 @@ $(document).ready(function()
 {
 
   $('#calendar').fullCalendar({
-      defaultDate: '2017-04-17',
-      defaultView: 'agendaWeek',
-      editable: true,
-      //eventLimit: true, // allow "more" link when too many events
-      header: {
-        left: 'prev, next',
-        center: 'title',
-        right: 'agendaWeek, agendaDay'
-      },
-      height: 'auto',
-      minTime: '9:00',
-      maxTime: '21:00',
-      allDaySlot: false,
-      slotDuration: "1:00:00",
-      selectable: true,
-      businessHours: {  //used to set when the worker's shifts are
-        dow: [1,2,3,4,5],
-        start: '9:00',
-        end: '21:00',
-      },
-      selectConstraint: "businessHours", //can only select from same day
-
-      events: [ //ABSENCES - hardcoded
-          {
-              title  : 'absence',
-              start  : '2017-03-15T13:00:00',
-              end    : '2017-03-15T14:00:00',
-              color  :'red',
-              startEditable : false,
-              durationEditable : false
-          },
-          {
-              title  : 'absence',
-              start  : '2017-03-10T18:00:00',
-              end    : '2017-03-10T21:00:00',
-              color  :'red',
-              startEditable : false,
-              durationEditable : false
-          }
-      ],
-
-      select: function(startDate, endDate, jsEvent, view) {
-
-        startTime = startDate._d;
-        startTime.setHours(startTime.getHours() + 4); //actual start time
-        endTime = endDate._d;
-        endTime.setHours(endTime.getHours() + 4); //actual end time
-      }
+            defaultDate: '2017-04-17',
+            defaultView: 'agendaWeek',
+            editable: true,
+            //eventLimit: true, // allow "more" link when too many events
+            header: {
+              left: 'prev, next',
+              center: 'title',
+              right: 'agendaWeek, agendaDay'
+            },
+            height: 'auto',
+            minTime: '12:00',
+            maxTime: '24:00',
+            allDaySlot: false,
+            slotDuration: "1:00:00",
+            selectable: true,
   });
-
-
-  function addEvent() {
-    var newEvent = new Object();
-    newEvent.title = 'test event';
-    newEvent.start = startTime;
-    newEvent.end = endTime;
-    newEvent.color = 'red';
-    newEvent.startEditable = false;
-    newEvent.durationEditable = false;
-    $('#calendar').fullCalendar('renderEvent', newEvent, true)
-  }
 });
 
 </script>
@@ -107,11 +56,13 @@ $(document).ready(function()
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">My Schedule</a></li>
-      <li><a href="#"> All</a></li>
+      <li><a href="#"> All Absences </a></li>
+      <li><a href="#"> Waiters </a></li>
+      <li><a href="#"> Chefs </a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres </a></li>
      
     </ul>
   </div>
@@ -129,8 +80,8 @@ $(document).ready(function()
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
-    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs">Notifications</a></li>
-    <li id="absence-tab"><a data-toggle="tab" href="#absences">Absences</a></li>
+    <li class="active"><a data-toggle="tab" href="#notifs">Notifications</a></li>
+    <li><a data-toggle="tab" href="#absences">Absences</a></li>
     <li><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
     
   </ul>
@@ -141,38 +92,39 @@ $(document).ready(function()
       <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
 
       <div id="msg-inbox" class="col-md-12">
-        <!-- Begin Message 1 : Vaporeon --> 
-        <div id="msg-inbox-a" class="msg-card">
+        
+        <!-- Begin Message 1 : Understaffed Alert --> 
+        <div id="msg-inbox-understaff" class="msg-card">
           <!-- Message Header --> 
           <div class="row" >
-            <div class="col-md-5"><h4> Vaporeon </h4> </div>
-            <div class="col-md-4"> <h5>8pm, 14 March </h5> </div>
+            <div class="col-md-5 red-font "><h4> Understaffed </h4> </div>
+            <div class="col-md-4"> <h5>4pm - 10pm, 15 March </h5> </div>
             <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-a"> Mark Seen </button> 
+              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-understaff"> Mark Seen </button> 
             </div>
           </div>
         <!--- Message Body --> 
           <div class="row">
             <div class="col-md-12 well"> 
-                Table 5 needs coffeee. Table 2,3 needs Cleaning. Reservation for Mr. Lapras at 9pm. 
-                Dishwasher Duty today.
+                Only 3 out of 6 waiters available.  
             </div>
           </div>
         </div>  <!-- End Of Message 1 -->
 
+
         <!-- Begin Message 2 --> 
-        <div id="msg-inbox-b" class="msg-card">
+        <div id="msg-inbox-absence" class="msg-card">
           <!-- Message Header --> 
           <div class="row" >
-            <div class="col-md-5"><h4> Manager </h4> </div>
-            <div class="col-md-4"> <h5>9pm, 2 March </h5> </div>
+            <div class="col-md-5"><h4> Absence </h4> </div>
+            <div class="col-md-4"> <h5>1pm -2pm, 15 March </h5> </div>
             <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-b"> Mark Seen </button> 
+              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-absence"> Mark Seen </button> 
             </div>
           </div>
         <!--- Message Body --> 
           <div class="row">
-            <div class="col-md-12 well"> Holiday Tomorrow due to Snow Day </div>
+            <div class="col-md-12 well"> Waiter Pikachu absent due to family reasons. </div>
           </div>
         </div>  <!-- End Of Message 2 -->
 
@@ -184,6 +136,12 @@ $(document).ready(function()
     <!-- Absence -->
     <div id="absences" class="tab-pane fade">
       <button type="button" id="newAbsence" class="btn btn-primary btn-block"> New Absence</button>
+
+      <script>
+        $("#newAbsence").on('click', function() {
+          window.location.href = "./newAbsence.html";
+        })
+      </script>
 
       <!-- Absence Ends -->
 
@@ -217,6 +175,11 @@ $(document).ready(function()
 
     <div id="helpouts" class="tab-pane fade">
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
+      <script>
+        $("#newHelpout").on('click', function() {
+          window.location.href = "./newHelpout.html";
+        })
+      </script>
 
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table style="width:100%">
