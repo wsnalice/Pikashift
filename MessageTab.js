@@ -32,7 +32,20 @@ $(document).on('click', "#msg-seen-a", function(evt){
   	//console.log('Message A Status Clicked');
   	var btn = $('#msg-seen-a');
   	toggleMsgStatusBtn(btn);
+});
 
+$(document).on('click', "#msg-seen-understaff", function(evt){
+  
+    //console.log('Message B Status Clicked');
+    var btn = $('#msg-seen-understaff');
+    toggleMsgStatusBtn(btn);
+});
+
+$(document).on('click', "#msg-seen-absence", function(evt){
+  
+    //console.log('Message A Status Clicked');
+    var btn = $('#msg-seen-absence');
+    toggleMsgStatusBtn(btn);
 });
 
 
@@ -42,7 +55,6 @@ $(document).on('click', "#new-msg-btn", function(evt){
 });
 
 $(document).on('click', "#new-msg-cancel-btn", function(evt){
-  console.log('Cancel Clicked');
   window.location.href = "./LayoutPage.html";
 
 });

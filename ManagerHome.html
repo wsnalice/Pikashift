@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PikaShift</title>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+
+  <link rel="stylesheet" href="MessageTab.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="MessageTab.js"></script>
+  <script src="HelpoutTab.js"></script>
+
+  <script src='fullcalendar/lib/jquery.min.js'></script>
+  <script src='fullcalendar/lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
+
+  <script>
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+
+  $('#calendar').fullCalendar({
+            defaultDate: '2017-04-17',
+            defaultView: 'agendaWeek',
+            editable: true,
+            //eventLimit: true, // allow "more" link when too many events
+            header: {
+              left: 'prev, next',
+              center: 'title',
+              right: 'agendaWeek, agendaDay'
+            },
+            height: 'auto',
+            minTime: '12:00',
+            maxTime: '24:00',
+            allDaySlot: false,
+            slotDuration: "1:00:00",
+            selectable: true,
+  });
+});
+
+</script>
+
+</head>
+<body>
+
+<!-- Navigation Bar --> 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">PikaShift</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">My Schedule</a></li>
+      <li><a href="#"> All Absences </a></li>
+      <li><a href="#"> Waiters </a></li>
+      <li><a href="#"> Chefs </a></li>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres </a></li>
+     
+    </ul>
+  </div>
+</nav>
+
+<!-- Navigation Bar --> 
+
+
+<div class="col-md-6"> <!--- Calender Code -->
+    <div id = "calendar" class="column"> </div>
+</div> <!-- End Calender Code -->
+
+<!-- Tabs Code -->
+
+<div class="container col-md-5 column">
+
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#notifs">Notifications</a></li>
+    <li><a data-toggle="tab" href="#absences">Absences</a></li>
+    <li><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+
+    <div id="notifs" class="tab-pane fade in active">
+      <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
+
+      <div id="msg-inbox" class="col-md-12">
+        
+        <!-- Begin Message 1 : Understaffed Alert --> 
+        <div id="msg-inbox-understaff" class="msg-card">
+          <!-- Message Header --> 
+          <div class="row" >
+            <div class="col-md-5 red-font "><h4> Understaffed </h4> </div>
+            <div class="col-md-4"> <h5>4pm - 10pm, 15 March </h5> </div>
+            <div class="col-md-3"> 
+              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-understaff"> Mark Seen </button> 
+            </div>
+          </div>
+        <!--- Message Body --> 
+          <div class="row">
+            <div class="col-md-12 well"> 
+                Only 3 out of 6 waiters available.  
+            </div>
+          </div>
+        </div>  <!-- End Of Message 1 -->
+
+
+        <!-- Begin Message 2 --> 
+        <div id="msg-inbox-absence" class="msg-card">
+          <!-- Message Header --> 
+          <div class="row" >
+            <div class="col-md-5"><h4> Absence </h4> </div>
+            <div class="col-md-4"> <h5>1pm -2pm, 15 March </h5> </div>
+            <div class="col-md-3"> 
+              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-absence"> Mark Seen </button> 
+            </div>
+          </div>
+        <!--- Message Body --> 
+          <div class="row">
+            <div class="col-md-12 well"> Waiter Pikachu absent due to family reasons. </div>
+          </div>
+        </div>  <!-- End Of Message 2 -->
+
+    </div> <!-- Msg Inbox -->
+
+
+    </div>
+
+    <!-- Absence -->
+    <div id="absences" class="tab-pane fade">
+      <button type="button" id="newAbsence" class="btn btn-primary btn-block"> New Absence</button>
+
+      <script>
+        $("#newAbsence").on('click', function() {
+          window.location.href = "./newAbsence.html";
+        })
+      </script>
+
+      <!-- Absence Ends -->
+
+      <table style="width:100%">
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Mar 15, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+          <td align="center">
+            <h5>Family</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Mar 10, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+          <td align="center">
+            <h5>Vacation</h5>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- End Absence -->
+
+    <div id="helpouts" class="tab-pane fade">
+      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
+      <script>
+        $("#newHelpout").on('click', function() {
+          window.location.href = "./newHelpout.html";
+        })
+      </script>
+
+      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
+      <table style="width:100%">
+        <tr class="lower-border top-border">
+          <td align="center">
+            <h5>Apr 21, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Apr 25, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Apr 28, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 8pm</h5>
+          </td>
+        </tr>
+      </table>
+
+      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
+      <table style="width:100%">
+        <tr class="lower-border top-border">
+          <td align="center">
+            <h5>Mar 15, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Mar 10, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+  </div>
+  <div class="container col-md-1"></div>
+</div>  <!-- End Tabs Code -->
+
+</body>
+</html>
