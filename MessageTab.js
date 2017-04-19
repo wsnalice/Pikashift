@@ -50,8 +50,11 @@ $(document).on('click', "#msg-seen-absence", function(evt){
 
 
 $(document).on('click', "#new-msg-btn", function(evt){
-    window.location.href = "./NewMessage.html";
-
+    //window.location.href = "./NewMessage.html";
+    var notifTab = $('#notif-tab');
+    var absenceTab = $('#absence-tab');
+    notifTab.removeClass('active');
+    absenceTab.addClass('active');
 });
 
 $(document).on('click', "#new-msg-cancel-btn", function(evt){
