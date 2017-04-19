@@ -35,12 +35,38 @@ $(document).ready(function()
               right: 'agendaWeek, agendaDay'
             },
             height: 'auto',
-            minTime: '12:00',
-            maxTime: '24:00',
+            minTime: '9:00',
+            maxTime: '21:00',
             allDaySlot: false,
             slotDuration: "1:00:00",
             selectable: true,
+            businessHours: {  //used to set when the worker's shifts are
+              dow: [1,2,3,4,5],
+              start: '9:00',
+              end: '21:00',
+            },
+            selectConstraint: "businessHours", //can only select from same day
+
+            events: [ //ABSENCES - hardcoded
+                {
+                    title  : 'absence',
+                    start  : '2017-03-15T13:00:00',
+                    end    : '2017-03-15T14:00:00',
+                    color  :'red',
+                    startEditable : false,
+                    durationEditable : false
+                },
+                {
+                    title  : 'absence',
+                    start  : '2017-03-10T18:00:00',
+                    end    : '2017-03-10T21:00:00',
+                    color  :'red',
+                    startEditable : false,
+                    durationEditable : false
+                }
+            ]
   });
+
 });
 
 </script>

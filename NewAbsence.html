@@ -22,6 +22,89 @@
   <script src="MessageTab.js"></script>
   <script src="HelpoutTab.js"></script>
   <script src="AbsenceTab.js"></script>
+
+  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+
+  <script src='fullcalendar/lib/jquery.min.js'></script>
+  <script src='fullcalendar/lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
+
+  <script>
+
+  // datetime variables
+  var startTime;
+  var endTime;
+
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+
+  $('#calendar').fullCalendar({
+            defaultDate: '2017-04-17',
+            defaultView: 'agendaWeek',
+            editable: true,
+            //eventLimit: true, // allow "more" link when too many events
+            header: {
+              left: 'prev, next',
+              center: 'title',
+              right: 'agendaWeek, agendaDay'
+            },
+            height: 'auto',
+            minTime: '9:00',
+            maxTime: '21:00',
+            allDaySlot: false,
+            slotDuration: "1:00:00",
+            selectable: true,
+            businessHours: {  //used to set when the worker's shifts are
+              dow: [1,2,3,4,5],
+              start: '9:00',
+              end: '21:00',
+            },
+            selectConstraint: "businessHours", //can only select from same day
+            events: [ //ABSENCES - hardcoded
+                {
+                    title  : 'absence',
+                    start  : '2017-03-15T13:00:00',
+                    end    : '2017-03-15T14:00:00',
+                    color  :'red',
+                    startEditable : false,
+                    durationEditable : false
+                },
+                {
+                    title  : 'absence',
+                    start  : '2017-03-10T18:00:00',
+                    end    : '2017-03-10T21:00:00',
+                    color  :'red',
+                    startEditable : false,
+                    durationEditable : false
+                }
+            ],
+
+      //if user selects a time on the calendar
+      select: function(startDate, endDate, jsEvent, view) {
+
+        startTime = startDate._d;
+        startTime.setHours(startTime.getHours() + 4); //actual start time
+        endTime = endDate._d;
+        endTIme.setHours(endTime.getHours() + 4); //actual end time
+
+        ///////CREATE the event on calendar - needs to be done in LayoutPage
+
+        //var newEvent = new Object();
+        // newEvent.title = 'test event';
+        // newEvent.start = startTime;
+        // newEvent.end = endTime;
+        // newEvent.color = 'red';
+        // newEvent.startEditable = false;
+        // newEvent.durationEditable = false;
+        //$('#calendar').fullCalendar('renderEvent', newEvent, true)
+      }
+  });
+});
+
+</script>
+
 </head>
 <body>
 
@@ -46,7 +129,7 @@
 <!-- Navigation Bar --> 
 
 <div class="col-md-6 column"> <!--- Calender Code -->
-    Calender Code :
+    <div id = 'calendar'></div>
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->
