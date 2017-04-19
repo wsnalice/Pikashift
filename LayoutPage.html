@@ -92,7 +92,15 @@ $(document).ready(function()
         document.getElementById("absences").innerHTML = absenceForm;
         
         var dateText = new Date();
-        dateText = startTime.getFullYear() + '-0' + startTime.getMonth() + '-' + startTime.getDate(); //hardcoded to only work for month
+        var month = startTime.getMonth() + 1
+        var date = startTime.getDate();
+        if (startTime.getMonth() < 10) {
+          month = '0' + month;
+        }
+        if (startTime.getDate() < 10) {
+          date = '0' + date;
+        }
+        dateText = startTime.getFullYear() + '-' + month + '-' + date; 
 
         $("[name=absence-date]").val(dateText);
 
@@ -109,10 +117,84 @@ $(document).ready(function()
     }
   });
 
+  $('#allAbsences').fullCalendar({
+      defaultDate: '2017-04-17',
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      selectable: false,
 
-  function addEvent() {
+      events: [ //HELPOUTS - hardcoded
+          {
+              title  : 'helpout',
+              start  : '2017-04-19T13:00:00',
+              end    : '2017-04-19T14:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false
+          },
+          {
+              title  : 'helpout',
+              start  : '2017-04-19T18:00:00',
+              end    : '2017-04-19T19:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false
+          }
+      ],
+
+      eventClick: function(event, jsEvent, view) {
+
+        startTime = event.start._d;
+        startTime.setHours(startTime.getHours() + 4); //actual start time
+        endTime = event.end._d;
+        endTime.setHours(endTime.getHours() + 4); //actual end time
+
+
+        //update new absence form
+        document.getElementById("helpouts").innerHTML = helpoutForm;
+        
+        var dateText = new Date();
+        var month = startTime.getMonth() + 1
+        var date = startTime.getDate();
+        if (startTime.getMonth() < 10) {
+          month = '0' + month;
+        }
+        if (startTime.getDate() < 10) {
+          date = '0' + date;
+        }
+        dateText = startTime.getFullYear() + '-' + month + '-' + date; 
+
+        $("[name=helpout-date]").val(dateText);
+
+        var startText = startTime.getHours() + "am";
+        var endText = endTime.getHours() + 'am';
+        if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
+        else if (startTime.getHours() == 12) {startText = startTime.getHours() + 'pm';}
+        if (endTime.getHours() > 12) { endText = (endTime.getHours() - 12) + 'pm';}
+        else if (endTime.getHours() == 12) {endText = endTime.getHours() + 'pm';}
+      
+        $("#helpout-start-time").val(startText);
+        $("#helpout-end-time").val(endText);
+
+    }
+    });
+});
+
+
+  function addEvent(startTime, endTime) {
     var newEvent = new Object();
-    newEvent.title = 'test event';
+    newEvent.title = 'absence';
     newEvent.start = startTime;
     newEvent.end = endTime;
     newEvent.color = 'red';
@@ -120,7 +202,6 @@ $(document).ready(function()
     newEvent.durationEditable = false;
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
-});
 
 </script>
 
@@ -134,8 +215,8 @@ $(document).ready(function()
       <a class="navbar-brand" href="#">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">My Schedule</a></li>
-      <li><a href="#"> All Absences</a></li>
+      <li id="calendar-tab" class="active"><a data-toggle="tab" href="#calendar">My Schedule</a></li>
+      <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> All Absences</a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
@@ -148,18 +229,23 @@ $(document).ready(function()
 <!-- Navigation Bar --> 
 
 
-<div class="col-md-6"> <!--- Calender Code -->
-    <div id = "calendar" class="column"> </div>
+<div class="container col-md-6 column"> <!--- Calender Code -->
+  <!-- <div class="tab-content"> -->
+    <div id = "calendar" class="tab-pane fade in active"></div>
+    <div id = "allAbsences" class="tab-pane fade"> </div>
+  <!-- <div class="tab-content"> -->
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->
+
+
 
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
     <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs">Notifications</a></li>
     <li id="absence-tab"><a data-toggle="tab" href="#absences">Absences</a></li>
-    <li><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
+    <li id="helpout-tab"><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
     
   </ul>
 
