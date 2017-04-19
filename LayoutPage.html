@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
+  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
+
+
   <script>
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
@@ -116,6 +120,30 @@ $(document).ready(function()
     }
   });
 
+var tooltip = $('<div/>').qtip({
+    id: 'fullcalendar',
+    prerender: true,
+    content: {
+      text: ' ',
+      title: {
+        button: true
+      }
+    },
+    position: {
+      my: 'bottom center',
+      at: 'top center',
+      target: 'mouse',
+      viewport: $('#fullcalendar'),
+      adjust: {
+        mouse: false,
+        scroll: false
+      }
+    },
+    show: false,
+    hide: false,
+    style: 'qtip-light'
+  }).qtip('api');
+
   $('#allAbsences').fullCalendar({
       defaultDate: '2017-04-17',
       defaultView: 'agendaWeek',
@@ -132,27 +160,37 @@ $(document).ready(function()
       allDaySlot: false,
       slotDuration: "1:00:00",
       selectable: false,
+      displayEventTime: false,
 
       events: [ //HELPOUTS - hardcoded
           {
-              title  : 'helpout',
+              title  : '3',
               start  : '2017-04-19T13:00:00',
               end    : '2017-04-19T14:00:00',
               color  :'blue',
               startEditable : false,
-              durationEditable : false
+              durationEditable : false,
           },
           {
-              title  : 'helpout',
+              title  : '2',
               start  : '2017-04-19T18:00:00',
               end    : '2017-04-19T19:00:00',
               color  :'blue',
               startEditable : false,
-              durationEditable : false
+              durationEditable : false,
           }
       ],
 
       eventClick: function(event, jsEvent, view) {
+
+        var content = '<h3>'+event.title+'</h3>' + 
+                '<p><b>Start:</b> '+event.start+'<br />' + 
+                (event.end && '<p><b>End:</b> '+event.end+'</p>' || '');
+
+        tooltip.set({
+                'content.text': content
+        })
+        .reposition(jsEvent).show(jsEvent);
 
         startTime = event.start._d;
         startTime.setHours(startTime.getHours() + 4); //actual start time
@@ -164,7 +202,7 @@ $(document).ready(function()
         document.getElementById("helpouts").innerHTML = helpoutForm;
         
         var dateText = new Date();
-        var month = startTime.getMonth() + 1
+        var month = startTime.getMonth() + 1;
         var date = startTime.getDate();
         if (startTime.getMonth() < 10) {
           month = '0' + month;
@@ -185,8 +223,8 @@ $(document).ready(function()
       
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
+      }
 
-    }
     });
 });
 
