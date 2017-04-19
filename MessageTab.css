@@ -43,3 +43,17 @@
     overflow:hidden
 }
 
+div.helpout-popup {
+  position: absolute;
+  height: 42px; width: 220px;
+  font: 30px 'Open Sans';
+  font-weight: 800;
+  cursor: default;
+  padding: 2px;
+  vertical-align: middle;
+  border: 3px solid black;
+  background-color: white;
+  display: none; 
+  background-color: red;
+  z-index: 1000;
+}
