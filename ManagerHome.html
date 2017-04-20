@@ -26,7 +26,7 @@
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
 {
-  
+
 
   $('#all').fullCalendar({
       defaultView: 'agendaWeek',
@@ -52,7 +52,7 @@ $(document).ready(function()
               color  :'red',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+              description: "ABSENT: <br /> Pikachu, Vaporeon, Pichu, Zubat, Meowth  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Eevee, Clefairy"
           },
           {
               title  : '1',
@@ -61,7 +61,7 @@ $(document).ready(function()
               color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mewtwo, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
           },
           {
               title  : '1',
@@ -70,7 +70,7 @@ $(document).ready(function()
               color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
           }
       ],
     
@@ -114,32 +114,14 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
+              title  : '1',
               start  : '2017-04-17T16:00:00',
               end    : '2017-04-17T22:00:00',
-              color  :'red',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
-          },
-          {
-              title  : '2',
-              start  : '2017-04-17T13:00:00',
-              end    : '2017-04-17T14:00:00',
               color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT:  <br /> Pichu, Zubat <br /> ----------- <br /> EXTRA SHIFT: <br /> Eevee "
           },
-          {
-              title  : '2',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
-              color  :'orange',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
-          }
       ],
     
     eventRender: function(event, element) {
@@ -182,31 +164,22 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
-              start  : '2017-04-17T16:00:00',
-              end    : '2017-04-17T22:00:00',
-              color  :'red',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
-          },
-          {
-              title  : '2',
+              title  : '1',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T14:00:00',
               color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mew <br /> -----------"
           },
           {
-              title  : '2',
+              title  : '1',
               start  : '2017-04-20T13:00:00',
               end    : '2017-04-20T15:00:00',
               color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
           }
       ],
     
@@ -250,32 +223,24 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
+              title  : '2',
               start  : '2017-04-17T16:00:00',
               end    : '2017-04-17T22:00:00',
-              color  :'red',
+              color  :'orange',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+              description: "ABSENT: <br /> Pikachu, Vaporeon, Meowth <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefairy"
           },
           {
-              title  : '2',
+              title  : '0',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T14:00:00',
-              color  :'orange',
+              color  :'green',
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
           },
-          {
-              title  : '2',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
-              color  :'orange',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
-          }
+
       ],
     
     eventRender: function(event, element) {
