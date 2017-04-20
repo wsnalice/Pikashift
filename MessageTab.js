@@ -89,7 +89,7 @@ var NotifTable = `<div id="msg-inbox" class="col-md-12">
           <!-- Message Header --> 
           <div class="row" >
             <div class="col-md-5"><h4> Vaporeon </h4> </div>
-            <div class="col-md-4"> <h5>8pm, 14 March </h5> </div>
+            <div class="col-md-4"> <h5>8pm, March 14</h5> </div>
             <div class="col-md-3"> 
               <button type="button" class="btn btn-danger btn-sm" id="msg-seen-a"> Mark Seen </button> 
             </div>
@@ -108,7 +108,7 @@ var NotifTable = `<div id="msg-inbox" class="col-md-12">
           <!-- Message Header --> 
           <div class="row" >
             <div class="col-md-5"><h4> Manager </h4> </div>
-            <div class="col-md-4"> <h5>9pm, 2 March </h5> </div>
+            <div class="col-md-4"> <h5>9pm, March 2</h5> </div>
             <div class="col-md-3"> 
               <button type="button" class="btn btn-danger btn-sm" id="msg-seen-b"> Mark Seen </button> 
             </div>
