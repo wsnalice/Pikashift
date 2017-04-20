@@ -66,7 +66,7 @@ var NotifTable =  `<div id="msg-inbox" class="col-md-12">
           <!-- Message Header --> 
           <div class="row" >
             <div class="col-md-5 red-font "><h4> Understaffed </h4> </div>
-            <div class="col-md-4"> <h5>4pm - 10pm, April 17 </h5> </div>
+            <div class="col-md-4"> <h5>4pm - 9pm, April 17 </h5> </div>
             <div class="col-md-3"> 
               <button type="button" class="btn btn-danger btn-sm" id="msg-seen-understaff"> Mark Seen </button> 
             </div>
@@ -74,7 +74,7 @@ var NotifTable =  `<div id="msg-inbox" class="col-md-12">
         <!--- Message Body --> 
           <div class="row">
             <div class="col-md-12 well"> 
-                Only 3 out of 6 waiters available.  
+                Only 2 out of 5 absent workers are covered.   
             </div>
           </div>
         </div>  <!-- End Of Message 1 -->
@@ -92,7 +92,7 @@ var NotifTable =  `<div id="msg-inbox" class="col-md-12">
           </div>
         <!--- Message Body --> 
           <div class="row">
-            <div class="col-md-12 well"> Waiter Pikachu absent due to family reasons. </div>
+            <div class="col-md-12 well"> Waiter Mewtwo absent due to family reasons. </div>
           </div>
         </div>  <!-- End Of Message 2 -->
 
@@ -139,13 +139,20 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+$(document).ready(function()
+{
+  document.getElementById("notifs").innerHTML = NewMessageButton + NotifTable; 
+    
+});
+
+
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
   var target = $(e.target).attr("href") // activated tab
   if (!$(target).is('notifs')) {
     document.getElementById("notifs").innerHTML = NewMessageButton + NotifTable; 
     setButtonClasses();
   }
-})
+});
 
 $(document).on('click', "#new-msg-btn", function(evt){
     document.getElementById('notifs').innerHTML = NotifForm;
