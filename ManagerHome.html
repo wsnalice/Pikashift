@@ -29,6 +29,7 @@ $(document).ready(function()
 
 
   $('#all').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -97,6 +98,7 @@ $(document).ready(function()
 
 
   $('#cashiers').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -147,6 +149,7 @@ $(document).ready(function()
 
 
   $('#chefs').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -206,6 +209,7 @@ $(document).ready(function()
 
 
   $('#waiters').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -264,6 +268,12 @@ $(document).ready(function()
         }
   });
 });
+
+$(document).on('click', '#all-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
 
 $(document).on('click', '#cashier-tab', function(e) {
     setTimeout(function(){
