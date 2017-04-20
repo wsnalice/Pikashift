@@ -26,9 +26,213 @@
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
 {
+  
 
-  $('#calendar').fullCalendar({
-      defaultDate: '2017-04-17',
+  $('#all').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '3',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '1',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '1',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#cashiers').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '5',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#chefs').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '5',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#waiters').fullCalendar({
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -96,9 +300,28 @@ $(document).ready(function()
   });
 });
 
-</script>
+$(document).on('click', '#cashier-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
 
+$(document).on('click', '#chef-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
+
+$(document).on('click', '#waiter-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
+
+</script>
 </head>
+
+
 <body>
 
 <!-- Navigation Bar --> 
@@ -108,10 +331,10 @@ $(document).ready(function()
       <a class="navbar-brand" href="#">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">My Schedule</a></li>
-      <li><a href="#"> All Absences </a></li>
-      <li><a href="#"> Waiters </a></li>
-      <li><a href="#"> Chefs </a></li>
+      <li id = "all-tab" class="active"><a data-toggle="tab" href="#all">All Absences</a></li>
+      <li id = "cashier-tab"><a data-toggle="tab" href="#cashiers"> Cashiers </a></li>
+      <li id = "chef-tab"><a data-toggle="tab" href="#chefs"> Chefs </a></li>
+      <li id = "waiter-tab"><a data-toggle="tab" href="#waiters"> Waiters </a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
@@ -124,9 +347,14 @@ $(document).ready(function()
 <!-- Navigation Bar --> 
 
 
-<div class="col-md-6"> <!--- Calender Code -->
-    <div id = "calendar" class="column"> </div>
-</div> <!-- End Calender Code -->
+<div class="container col-md-6 column"> <!--- Calender Code -->
+  <div class="tab-content">
+    <div id="all" class="tab-pane fade in active"></div>
+    <div id="cashiers" class="tab-pane fade"> </div>
+    <div id="chefs" class="tab-pane fade"> </div>
+    <div id="waiters" class="tab-pane fade"> </div>
+  </div>
+</div><!-- End Calender Code -->
 
 <!-- Tabs Code -->
 
@@ -139,47 +367,6 @@ $(document).ready(function()
   <div class="tab-content">
 
     <div id="notifs" class="tab-pane fade in active">
-      <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message </button>
-      <div id="msg-inbox" class="col-md-12">
-        
-        <!-- Begin Message 1 : Understaffed Alert --> 
-        <div id="msg-inbox-understaff" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5 red-font "><h4> Understaffed </h4> </div>
-            <div class="col-md-4"> <h5>4pm - 10pm, April 17</h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-understaff"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> 
-                Only 3 out of 6 waiters available.  
-            </div>
-          </div>
-        </div>  <!-- End Of Message 1 -->
-
-
-        <!-- Begin Message 2 --> 
-        <div id="msg-inbox-absence" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Absence </h4> </div>
-            <div class="col-md-4"> <h5>1pm -2pm, April 17 </h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-absence"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> Waiter Pikachu absent due to family reasons. </div>
-          </div>
-        </div>  <!-- End Of Message 2 -->
-
-      </div> <!-- Msg Inbox -->
-
-
     </div>
     
   </div>
