@@ -120,30 +120,6 @@ $(document).ready(function()
     }
   });
 
-var tooltip = $('<div/>').qtip({
-    id: 'fullcalendar',
-    prerender: true,
-    content: {
-      text: ' ',
-      title: {
-        button: true
-      }
-    },
-    position: {
-      my: 'bottom center',
-      at: 'top center',
-      target: 'mouse',
-      viewport: $('#fullcalendar'),
-      adjust: {
-        mouse: false,
-        scroll: false
-      }
-    },
-    show: false,
-    hide: false,
-    style: 'qtip-light'
-  }).qtip('api');
-
   $('#allAbsences').fullCalendar({
       defaultDate: '2017-04-17',
       defaultView: 'agendaWeek',
@@ -182,15 +158,6 @@ var tooltip = $('<div/>').qtip({
       ],
 
       eventClick: function(event, jsEvent, view) {
-
-        var content = '<h3>'+event.title+'</h3>' + 
-                '<p><b>Start:</b> '+event.start+'<br />' + 
-                (event.end && '<p><b>End:</b> '+event.end+'</p>' || '');
-
-        tooltip.set({
-                'content.text': content
-        })
-        .reposition(jsEvent).show(jsEvent);
 
         startTime = event.start._d;
         startTime.setHours(startTime.getHours() + 4); //actual start time
