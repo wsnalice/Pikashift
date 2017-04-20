@@ -33,7 +33,6 @@
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
 {
-
   $('#calendar').fullCalendar({
       defaultDate: '2017-04-17',
       defaultView: 'agendaWeek',
@@ -62,9 +61,7 @@ $(document).ready(function()
         end: '21:00',
       }
       ],
-
       selectConstraint: "businessHours", //can only select from same day
-
       events: [ //ABSENCES - hardcoded
           {
               title  : 'absence',
@@ -83,15 +80,11 @@ $(document).ready(function()
               durationEditable : false
           }
       ],
-
       select: function(startDate, endDate, jsEvent, view) {
-
         startTime = startDate._d;
         startTime.setHours(startTime.getHours() + 4); //actual start time
         endTime = endDate._d;
         endTime.setHours(endTime.getHours() + 4); //actual end time
-
-
         //update new absence form
         document.getElementById("absences").innerHTML = absenceForm;
         
@@ -105,9 +98,7 @@ $(document).ready(function()
           date = '0' + date;
         }
         dateText = startTime.getFullYear() + '-' + month + '-' + date; 
-
         $("[name=absence-date]").val(dateText);
-
         var startText = startTime.getHours() + "am";
         var endText = endTime.getHours() + 'am';
         if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
@@ -136,11 +127,10 @@ $(document).ready(function()
       allDaySlot: false,
       slotDuration: "1:00:00",
       selectable: false,
-      displayEventTime: false,
 
       events: [ //HELPOUTS - hardcoded
           {
-              title  : '3',
+              title  : 'helpout',
               start  : '2017-04-19T13:00:00',
               end    : '2017-04-19T14:00:00',
               color  :'blue',
@@ -148,7 +138,7 @@ $(document).ready(function()
               durationEditable : false,
           },
           {
-              title  : '2',
+              title  : 'helpout',
               start  : '2017-04-19T18:00:00',
               end    : '2017-04-19T19:00:00',
               color  :'blue',
@@ -156,15 +146,11 @@ $(document).ready(function()
               durationEditable : false,
           }
       ],
-
       eventClick: function(event, jsEvent, view) {
-
         startTime = event.start._d;
         startTime.setHours(startTime.getHours() + 4); //actual start time
         endTime = event.end._d;
         endTime.setHours(endTime.getHours() + 4); //actual end time
-
-
         //update new absence form
         document.getElementById("helpouts").innerHTML = helpoutForm;
         
@@ -178,9 +164,7 @@ $(document).ready(function()
           date = '0' + date;
         }
         dateText = startTime.getFullYear() + '-' + month + '-' + date; 
-
         $("[name=helpout-date]").val(dateText);
-
         var startText = startTime.getHours() + "am";
         var endText = endTime.getHours() + 'am';
         if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
@@ -190,8 +174,7 @@ $(document).ready(function()
       
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
-      }
-
+        },
     });
 });
 
@@ -205,6 +188,12 @@ $(document).ready(function()
     newEvent.durationEditable = false;
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
+
+$(document).on('click', '#all-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
 
 </script>
 
@@ -225,18 +214,17 @@ $(document).ready(function()
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a></li>
      
-    </ul>
-  </div>
+    </ul>  </div>
 </nav>
 
 <!-- Navigation Bar --> 
 
 
 <div class="container col-md-6 column"> <!--- Calender Code -->
-  <!-- <div class="tab-content"> -->
+  <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
-  <!-- <div class="tab-content"> -->
+  </div>
 </div> <!-- End Calender Code -->
 
 <!-- Tabs Code -->

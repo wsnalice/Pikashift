@@ -248,7 +248,6 @@ $(document).on('click', "#helpout-submit-btn", function(evt){
 });
 
 $(document).on('click', "#newHelpout", function(evt) {
-	console.log("click")
     document.getElementById("helpouts").innerHTML = helpoutForm;
 });
 
