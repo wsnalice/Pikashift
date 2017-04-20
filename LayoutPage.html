@@ -147,30 +147,30 @@ $(document).ready(function()
           }
       ],
       eventClick: function(event, jsEvent, view) {
-        startTime = event.start._d;
-        startTime.setHours(startTime.getHours() + 4); //actual start time
-        endTime = event.end._d;
-        endTime.setHours(endTime.getHours() + 4); //actual end time
+        var start = new Date();
+        start.setHours(event.start._d.getHours() + 4); //actual start time
+        var end = new Date();
+        end.setHours(event.end._d.getHours() + 4); //actual end time
         //update new absence form
         document.getElementById("helpouts").innerHTML = helpoutForm;
         
         var dateText = new Date();
-        var month = startTime.getMonth() + 1;
-        var date = startTime.getDate();
-        if (startTime.getMonth() < 10) {
+        var month = start.getMonth() + 1;
+        var date = start.getDate();
+        if (start.getMonth() < 10) {
           month = '0' + month;
         }
-        if (startTime.getDate() < 10) {
+        if (start.getDate() < 10) {
           date = '0' + date;
         }
-        dateText = startTime.getFullYear() + '-' + month + '-' + date; 
+        dateText = start.getFullYear() + '-' + month + '-' + date; 
         $("[name=helpout-date]").val(dateText);
-        var startText = startTime.getHours() + "am";
-        var endText = endTime.getHours() + 'am';
-        if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
-        else if (startTime.getHours() == 12) {startText = startTime.getHours() + 'pm';}
-        if (endTime.getHours() > 12) { endText = (endTime.getHours() - 12) + 'pm';}
-        else if (endTime.getHours() == 12) {endText = endTime.getHours() + 'pm';}
+        var startText = start.getHours() + "am";
+        var endText = end.getHours() + 'am';
+        if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
+        else if (start.getHours() == 12) {startText = start.getHours() + 'pm';}
+        if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
+        else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
       
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
