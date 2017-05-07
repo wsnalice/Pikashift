@@ -1,47 +1,3 @@
-var helpoutTable = `
-      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
-
-      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
-      <table style="width:100%">
-        <tr class="lower-border top-border">
-          <td align="center">
-            <h5>Apr 21, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-        </tr>
-
-        <tr class="lower-border">
-          <td align="center">
-            <h5>Apr 28, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 8pm</h5>
-          </td>
-        </tr>
-      </table>
-
-      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
-      <table style="width:100%">
-        <tr class="lower-border top-border">
-          <td align="center">
-            <h5>Mar 15, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>Mar 10, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 9pm</h5>
-          </td>
-        </tr>
-      </table>
-`
 var helpoutForm = `
 	  <center><h3>New Helpout Form</h3></center>
 	  <br>
@@ -188,75 +144,22 @@ var helpoutForm = `
 	`
 
 $(document).on('click', "#helpout-cancel-btn", function(evt){
-	document.getElementById("helpouts").innerHTML = helpoutTable;
-
+	document.getElementById("helpouts").innerHTML = document.getElementById("dummy").innerHTML;
 });
 
 $(document).on('click', "#helpout-submit-btn", function(evt){
-	helpoutTable = `
-      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
-
-      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
-      <table style="width:100%">
-        <tr class="lower-border top-border">
-          <td align="center">
-            <h5>Apr 21, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>Apr 25, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 9pm</h5>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>Apr 28, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 8pm</h5>
-          </td>
-        </tr>
-      </table>
-
-      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
-      <table style="width:100%">
-        <tr class="lower-border top-border">
-          <td align="center">
-            <h5>Mar 15, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>Mar 10, 2017</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 9pm</h5>
-          </td>
-        </tr>
-      </table>
-	`
-	document.getElementById("helpouts").innerHTML = helpoutTable;
+	console.log("---")
+    var table = document.getElementById("stupid");
+    console.log(table)
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = "NEW CELL1";
+    cell2.innerHTML = "NEW CELL2";
+	document.getElementById("helpouts").innerHTML = document.getElementById("dummy").innerHTML;
 });
 
-$(document).on('click', "#newHelpout", function(evt) {
-    document.getElementById("helpouts").innerHTML = helpoutForm;
-});
 
-$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
-  var target = $(e.target).attr("href")
-  if (!$(target).is('helpouts')) {
-  	document.getElementById("helpouts").innerHTML = helpoutTable;	
-  }
-})
 
 
 
