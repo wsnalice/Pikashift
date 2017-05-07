@@ -239,8 +239,13 @@ $(document).on('click', '#all-tab', function(e) {
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a></li>
-      
+      <!-- <li id="welcome-btn"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</li> -->
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a>
+        <ul class="dropdown-menu">
+          <li><a href="Login.html">Logout</a></li>
+        </ul>
+      </li>    
     </ul>  </div>
 </nav>
 
