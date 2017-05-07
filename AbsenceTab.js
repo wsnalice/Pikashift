@@ -239,7 +239,7 @@ $(document).on('click', "#absence-submit-btn", function(evt){
         </tr>
       </table>`;
   document.getElementById("absences").innerHTML = absenceTable;
-  addEvent("Mon Apr 17 2017 22:00:00 GMT-0400 (EDT)", "Mon Apr 17 2017 23:00:00 GMT-0400 (EDT)");
+  //addEvent("Mon Apr 17 2017 22:00:00 GMT-0400 (EDT)", "Mon Apr 17 2017 23:00:00 GMT-0400 (EDT)");
 });
 
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {

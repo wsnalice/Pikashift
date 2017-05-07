@@ -39,7 +39,7 @@ $(document).ready(function()
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
       header: {
-        left: 'prev, next',
+        left: 'today prev, next',
         center: 'title',
         right: 'agendaWeek, agendaDay'
       },
@@ -78,7 +78,7 @@ $(document).ready(function()
               title  : 'workhour',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T21:00:00',
-              color  :'green',
+              color  :'blue',
               startEditable : false,
               durationEditable : false,
               rendering: 'background',
@@ -88,7 +88,7 @@ $(document).ready(function()
               title  : 'workhour',
               start  : '2017-04-19T13:00:00',
               end    : '2017-04-19T21:00:00',
-              color  :'green',
+              color  :'blue',
               startEditable : false,
               durationEditable : false,
               rendering: 'background',
@@ -98,7 +98,7 @@ $(document).ready(function()
               title  : 'workhour',
               start  : '2017-04-21T13:00:00',
               end    : '2017-04-21T21:00:00',
-              color  :'green',
+              color  :'blue',
               startEditable : false,
               durationEditable : false,
               rendering: 'background',
@@ -132,6 +132,14 @@ $(document).ready(function()
       
         $("#absence-start-time").val(startText);
         $("#absence-end-time").val(endText);
+
+        //listener for submit button - TEMPORARY
+        // WANT: submit - if input valid - call on addEvent()
+        $(document).on('click', "#absence-submit-btn", function(evt)
+        {
+          addEvent(startTime, endTime)
+
+        });
     }
   });
 
@@ -141,7 +149,7 @@ $(document).ready(function()
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
       header: {
-        left: 'prev, next',
+        left: 'today prev, next',
         center: 'title',
         right: 'agendaWeek, agendaDay'
       },
