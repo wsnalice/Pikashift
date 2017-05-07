@@ -5,26 +5,32 @@
   <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 
   <link rel="stylesheet" href="MessageTab.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="MessageTab.js"></script>
 
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- fullcalendar -->
   <script src='fullcalendar/lib/jquery.min.js'></script>
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
+
 
   <!-- Bootstrap Date-Picker Plugin -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
-  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
-
+  <script src="MessageTab.js"></script>
 
   <script>
 // Final initialization entry point: the Javascript code inside this block
@@ -63,6 +69,7 @@ $(document).ready(function()
       events: [ //ABSENCES - hardcoded
           {
               title  : 'absent',
+              id     : 'absences',
               start  : '2017-04-15T13:00:00',
               end    : '2017-04-15T14:00:00',
               color  :'red',
@@ -71,6 +78,7 @@ $(document).ready(function()
           },
           {
               title  : 'absent',
+              id     : 'absences',
               start  : '2017-04-10T18:00:00',
               end    : '2017-04-10T21:00:00',
               color  :'red',
@@ -107,14 +115,17 @@ $(document).ready(function()
               rendering: 'background',
           }
       ],
+
+      //selecting absence time on calendar 
       select: function(startDate, endDate, jsEvent, view) {
         startTime = startDate._d;
         startTime.setHours(startTime.getHours() + 4); //actual start time
         endTime = endDate._d;
         endTime.setHours(endTime.getHours() + 4); //actual end time
-        //update new absence form
-        document.getElementById("absences").innerHTML = absenceForm;
         
+        //bring up new absence form & populates it
+       $("#newAbsence").trigger('click');
+
         var dateText = new Date();
         var month = startTime.getMonth() + 1
         var date = startTime.getDate();
@@ -125,7 +136,7 @@ $(document).ready(function()
           date = '0' + date;
         }
         dateText = startTime.getFullYear() + '-' + month + '-' + date; 
-        $("[name=absence-date]").val(dateText);
+        $("#absence-date").val(dateText);
         var startText = startTime.getHours() + "am";
         var endText = endTime.getHours() + 'am';
         if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
@@ -136,15 +147,20 @@ $(document).ready(function()
         $("#absence-start-time").val(startText);
         $("#absence-end-time").val(endText);
 
-        //listener for submit button - TEMPORARY
         // WANT: submit - if input valid - call on addEvent()
-        $(document).on('click', "#absence-submit-btn", function(evt)
-        {
-          addEvent(startTime, endTime)
-
-        });
+        // $(document).on('click', "#absence-submit-btn", function(evt)
+        // {
+        //   var startInput = $('#absenceModal #absence-start-time').val();
+        //   var endInput = $('#absenceModal #absence-end-time').val();
+        //   var absenceDate = $('#absence-date').val();
+        //   addAbsence(absenceDate, startInput, endInput, 'hello');
+        // });
     }
   });
+
+//////////////////
+//////////////////
+//////////////////
 
   $('#allAbsences').fullCalendar({
       defaultView: 'agendaWeek',
@@ -206,6 +222,7 @@ $(document).ready(function()
         if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
         else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
       
+
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
         },
@@ -221,6 +238,31 @@ $(document).ready(function()
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
     newEvent.overlap = true;
+    $('#calendar').fullCalendar('renderEvent', newEvent, true)
+  }
+
+  function addAbsence(date, startTime, endTime, reason) {
+    var startModified;
+    if (startTime.indexOf('am') != -1) {
+      startModified = startTime.slice(0,-2);
+    } else {
+      startModified = parseInt(startTime.slice(0,-2)) + 12;
+    }
+    var endModified;
+    if (endTime.indexOf('am') != -1) {
+      endModified = endTime.slice(0,-2);
+    } else {
+      endModified = parseInt(endTime.slice(0,-2)) + 12;
+    }
+
+    var newEvent = new Object();
+    newEvent.title = 'absent';
+    newEvent.id = 'absences';
+    newEvent.start = date + 'T' + startModified + ':00:00Z';
+    newEvent.end = date + 'T' + endModified + ':00:00Z';
+    newEvent.color = 'red';
+    newEvent.startEditable = false;
+    newEvent.durationEditable = false;
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
 
@@ -323,7 +365,7 @@ $(document).on('click', '#all-tab', function(e) {
 
     <!-- Absence -->
     <div id="absences" class="tab-pane fade">
-      <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#helpoutModal"> New Absence</button>
+      <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#absenceModal"> New Absence</button>
 
       <!-- Absence Ends -->
 
@@ -421,7 +463,7 @@ $(document).on('click', '#all-tab', function(e) {
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <input type="date" name="absence-date" min="2000-01-01" style="width:100%">
+                      <input type="date" id="absence-date" min="2000-01-01" style="width:100%">
                     </div>
                   </div>
                  </div>
@@ -562,7 +604,7 @@ $(document).on('click', '#all-tab', function(e) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary pull-right" id="helpout-submit-btn" data-dismiss="modal">
+            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
               Submit
             </button>
           </div>
