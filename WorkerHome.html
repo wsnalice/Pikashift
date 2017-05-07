@@ -210,15 +210,28 @@ $(document).ready(function()
     });
 });
 
-  function addEvent(startTime, endTime) {
+function addAbsence(date, startTime, endTime, reason) {
+    var startModified;
+    if (startTime.indexOf('am') != -1) {
+      startModified = startTime.slice(0,-2);
+    } else {
+      startModified = parseInt(startTime.slice(0,-2)) + 12;
+    }
+    var endModified;
+    if (endTime.indexOf('am') != -1) {
+      endModified = endTime.slice(0,-2);
+    } else {
+      endModified = parseInt(endTime.slice(0,-2)) + 12;
+    }
+
     var newEvent = new Object();
     newEvent.title = 'absent';
-    newEvent.start = startTime;
-    newEvent.end = endTime;
+    newEvent.id = 'absences';
+    newEvent.start = date + 'T' + startModified + ':00:00Z';
+    newEvent.end = date + 'T' + endModified + ':00:00Z';
     newEvent.color = 'red';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    newEvent.overlap = true;
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
 
@@ -237,7 +250,7 @@ $(document).on('click', '#all-tab', function(e) {
     var startTime = $("#absence-start-time").val();
     var endTime = $("#absence-end-time").val();
     var reason = $("#absence-reason").val();
-    addAbsenceEvent(date, startTime, endTime, reason);
+    addAbsence(date, startTime, endTime, reason);
     addAbsenceEvent(date, startTime, endTime, reason);
   });
 
@@ -247,9 +260,6 @@ $(document).on('click', '#all-tab', function(e) {
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
-    cell1.attr("align","center");
-    cell2.attr("align","center");
-    cell3.attr("align","center");
     cell1.innerHTML = date;
     cell2.innerHTML = startTime + " - " + endTime;
     cell3.innerHTML = reason;
