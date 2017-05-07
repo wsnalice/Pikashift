@@ -19,6 +19,15 @@
 	border-bottom-style: solid;
 }
 
+#absenceTable td{
+	text-align: center;
+	border-bottom-style: solid;
+}
+
+#upcoming-helpouts td{
+	text-align: center;
+	border-bottom-style: solid;
+}
 
 .red-font {
 	color: #ED4337;
