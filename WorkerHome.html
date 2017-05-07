@@ -2,36 +2,33 @@
 <html lang="en">
 <head>
   <title>PikaShift</title>
+
+    <!--script src='fullcalendar/lib/jquery.min.js'></script-->
+
   <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 
-  <link rel="stylesheet" href="MessageTab.css">
-
-  <!-- jQuery -->
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <!-- fullcalendar -->
-  <script src='fullcalendar/lib/jquery.min.js'></script>
+  <link rel="stylesheet" href="MessageTab.css">
+  <script src="MessageTab.js"></script>
+
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
-
 
   <!-- Bootstrap Date-Picker Plugin -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
-  <script src="MessageTab.js"></script>
-  <script src="CalendarSetup.js"></script>
+  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
+  <script src='CalendarSetup.js'></script>
 
 <script>
 // Final initialization entry point: the Javascript code inside this block
@@ -162,6 +159,14 @@ $(document).ready(function()
 //     $('#calendar').fullCalendar('rerenderEvents');
 // })
 
+  $(document).on('click', '#absence-close-btn', function(e) {
+    $("#absence-form").trigger('reset');
+  });
+
+  $(document).on('click', '#helpout-close-btn', function(e) {
+    $("#absence-form").trigger('reset');
+  });
+
   $(document).on('click', '#absence-submit-btn', function(e) {
     var date = $("#absence-date").val();
     var startTime = $("#absence-start-time").val();
@@ -169,6 +174,9 @@ $(document).ready(function()
     var reason = $("#absence-reason").val();
     addAbsence(date, startTime, endTime, reason);
     addAbsenceEvent(date, startTime, endTime, reason);
+    $("#absence-form").trigger('reset');
+    $('.nav-tabs a[href="#absences-tab"]').tab('show');
+    // $('.nav-tabs a[href="#allAbsences"]').tab('show');
   });
 
   $(document).on('click', '#helpout-submit-btn', function(e) {
@@ -177,6 +185,9 @@ $(document).ready(function()
     var endTime = $("#helpout-end-time").val();
     // removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
+    $("#helpout-form").trigger('reset');
+    $('.nav-tabs a[href="#helpouts-tab"]').tab('show');
+    // $('.nav-tabs a[href="#calendar"]').tab('show');
   });
 
   function addAbsenceEvent(date, startTime, endTime, reason){
@@ -192,7 +203,6 @@ $(document).ready(function()
   }
 
   function addHelpoutEvent(date, startTime, endTime){
-    console.log('lol')
     var table = document.getElementById("upcoming-helpouts");
     var row = table.insertRow(0);
     var cell1 = row.insertCell(0);
@@ -219,8 +229,13 @@ $(document).ready(function()
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a></li>
-      
+      <!-- <li id="welcome-btn"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</li> -->
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a>
+        <ul class="dropdown-menu">
+          <li><a href="Login.html">Logout</a></li>
+        </ul>
+      </li>    
     </ul>  </div>
 </nav>
 
@@ -248,15 +263,15 @@ $(document).ready(function()
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
-    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs">Notifications</a></li>
-    <li id="absence-tab"><a data-toggle="tab" href="#absences">Absences</a></li>
-    <li id="helpout-tab"><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
+    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs-tab">Notifications</a></li>
+    <li id="absence-tab"><a data-toggle="tab" href="#absences-tab">Absences</a></li>
+    <li id="helpout-tab"><a data-toggle="tab" href="#helpouts-tab">Helpouts</a></li>
     
   </ul>
 
   <div class="tab-content">
 
-    <div id="notifs" class="tab-pane fade in active">
+    <div id="notifs-tab" class="tab-pane fade in active">
       <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
 
       <div id="msg-inbox" class="col-md-12">
@@ -301,7 +316,7 @@ $(document).ready(function()
     </div>
 
     <!-- Absence -->
-    <div id="absences" class="tab-pane fade">
+    <div id="absences-tab" class="tab-pane fade">
       <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#absenceModal"> New Absence</button>
 
       <!-- Absence Ends -->
@@ -334,7 +349,7 @@ $(document).ready(function()
 
     <!-- End Absence -->
 
-    <div id="helpouts" class="tab-pane fade">
+    <div id="helpouts-tab" class="tab-pane fade">
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout" data-toggle="modal" data-target="#helpoutModal"> New Helpout</button>
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table id="upcoming-helpouts" style="width:100%">
@@ -540,7 +555,7 @@ $(document).ready(function()
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default pull-left" id="absence-close-btn" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
               Submit
             </button>
@@ -689,7 +704,7 @@ $(document).ready(function()
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default pull-left" id="helpout-close-btn" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary pull-right" id="helpout-submit-btn" data-dismiss="modal">
               Submit
             </button>

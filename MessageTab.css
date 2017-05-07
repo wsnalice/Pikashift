@@ -54,3 +54,7 @@
     display:inline-block;
     overflow:hidden
 }
+
+.my-legend {
+  max-width: 300px !important;
+  }
