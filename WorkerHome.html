@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="MessageTab.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <script src="MessageTab.js"></script>
 
   <script src='fullcalendar/lib/jquery.min.js'></script>
@@ -31,6 +32,11 @@
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
 {
+
+  $('#absenceForm').on('success.form.fv', function(e) {
+    console.log("lol")
+  })
+
   $('#calendar').fullCalendar({
       defaultDate: '2017-04-17',
       defaultView: 'agendaWeek',
@@ -224,6 +230,40 @@ $(document).on('click', '#all-tab', function(e) {
 
 </script>
 
+<script>
+
+  $(document).on('click', '#absence-submit-btn', function(e) {
+
+
+
+    var reason = document.getElementById("absence-reason").value;
+
+    console.log(reason)
+    
+    var dateText = new Date();
+    var month = start.getMonth() + 1;
+    var date = start.getDate();
+    if (start.getMonth() < 10) {
+      month = '0' + month;
+    }
+    if (start.getDate() < 10) {
+      date = '0' + date;
+    }
+    dateText = start.getFullYear() + '-' + month + '-' + date; 
+    $("[name=helpout-date]").val(dateText);
+    var startText = start.getHours() + "am";
+    var endText = end.getHours() + 'am';
+    if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
+    else if (start.getHours() == 12) {startText = start.getHours() + 'pm';}
+    if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
+    else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
+
+    $("#helpout-start-time").val(startText);
+    $("#helpout-end-time").val(endText);
+  })
+
+</script>
+
 </head>
 <body>
 
@@ -315,7 +355,7 @@ $(document).on('click', '#all-tab', function(e) {
 
     <!-- Absence -->
     <div id="absences" class="tab-pane fade">
-      <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#helpoutModal"> New Absence</button>
+      <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#absenceModal"> New Absence</button>
 
       <!-- Absence Ends -->
 
@@ -403,7 +443,7 @@ $(document).on('click', '#all-tab', function(e) {
             <div class="bootstrap-iso">
              <div class="container-fluid">
               <div class="row">
-                <form method="form-horizontal">
+                <form method="post", class="form-horizontal" id="absence-form">
                  <div class="form-group ">
                   <div class="row vertical-align">
                     <label class="control-label requiredField col-md-4" for="absence-date">
@@ -521,14 +561,14 @@ $(document).on('click', '#all-tab', function(e) {
                  </div>
                  <div class="form-group " id="div_absence-reason">
                   <div class="row vertical-align">
-                    <label class="control-label requiredField col-md-4" for="absence-end-time">
+                    <label class="control-label requiredField col-md-4" for="absence-reason">
                      Reason
                      <span class="asteriskField">
                       *
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <select class="select form-control" id="absence-end-time" name="absence-end-time">
+                      <select class="select form-control" id="absence-reason" name="absence-reason">
                         <option disabled selected value> -- select an option -- </option>
                        <option value="sickness">
                         Sickness
@@ -554,7 +594,7 @@ $(document).on('click', '#all-tab', function(e) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary pull-right" id="helpout-submit-btn" data-dismiss="modal">
+            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
               Submit
             </button>
           </div>
@@ -576,7 +616,7 @@ $(document).on('click', '#all-tab', function(e) {
             <div class="bootstrap-iso">
              <div class="container-fluid">
               <div class="row">
-                <form method="form-horizontal">
+                <form method="form-horizontal" id="helpout-form">
 
                  <div class="form-group ">
                   <div class="row vertical-align">
