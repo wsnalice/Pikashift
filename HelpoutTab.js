@@ -148,15 +148,59 @@ $(document).on('click', "#helpout-cancel-btn", function(evt){
 });
 
 $(document).on('click', "#helpout-submit-btn", function(evt){
-	console.log("---")
-    var table = document.getElementById("stupid");
-    console.log(table)
-    var row = table.insertRow(0);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = "NEW CELL1";
-    cell2.innerHTML = "NEW CELL2";
-	document.getElementById("helpouts").innerHTML = document.getElementById("dummy").innerHTML;
+	helpoutTable = `
+      <button type="button" class="btn btn-primary btn-block" id = "newHelpout"> New Helpout</button>
+
+      <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
+      <table style="width:100%">
+        <tr class="lower-border top-border">
+          <td align="center">
+            <h5>Apr 21, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Apr 25, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Apr 28, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 8pm</h5>
+          </td>
+        </tr>
+      </table>
+
+      <div class="helpout-title"><h4> Previous Helpouts</h4></div>
+      <table style="width:100%">
+        <tr class="lower-border top-border">
+          <td align="center">
+            <h5>Mar 15, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>1pm - 2pm</h5>
+          </td>
+        </tr>
+        <tr class="lower-border">
+          <td align="center">
+            <h5>Mar 10, 2017</h5>
+          </td>
+          <td align="center">
+            <h5>6pm - 9pm</h5>
+          </td>
+        </tr>
+      </table>
+	`
+	document.getElementById("helpouts").innerHTML = helpoutTable;
+	$('#allAbsences').fullCalendar('removeEvents', 'help1');
 });
 
 
