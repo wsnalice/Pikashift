@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 
-  <link rel="stylesheet" href="MessageTab.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <link rel="stylesheet" href="MessageTab.css">
   <script src="MessageTab.js"></script>
 
-  <script src='fullcalendar/lib/jquery.min.js'></script>
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
 
@@ -142,21 +142,9 @@ $(document).ready(function()
       
         $("#absence-start-time").val(startText);
         $("#absence-end-time").val(endText);
-
-        // WANT: submit - if input valid - call on addEvent()
-        $(document).on('click', "#absence-submit-btn", function(evt)
-        {
-          var startInput = $('#absenceModal #absence-start-time').val();
-          var endInput = $('#absenceModal #absence-end-time').val();
-          var absenceDate = $('#absence-date').val();
-          addAbsence(absenceDate, startInput, endInput, 'hello');
-        });
     }
   });
 
-//////////////////
-//////////////////
-//////////////////
 
   $('#allAbsences').fullCalendar({
       defaultView: 'agendaWeek',
@@ -260,6 +248,13 @@ $(document).on('click', '#all-tab', function(e) {
 </script>
 
 <script>
+  $(document).on('click', '#absence-close-btn', function(e) {
+    $("#absence-form").trigger('reset');
+  });
+
+  $(document).on('click', '#helpout-close-btn', function(e) {
+    $("#absence-form").trigger('reset');
+  });
 
   $(document).on('click', '#absence-submit-btn', function(e) {
     var date = $("#absence-date").val();
@@ -268,6 +263,9 @@ $(document).on('click', '#all-tab', function(e) {
     var reason = $("#absence-reason").val();
     addAbsence(date, startTime, endTime, reason);
     addAbsenceEvent(date, startTime, endTime, reason);
+    $("#absence-form").trigger('reset');
+    $('.nav-tabs a[href="#absences-tab"]').tab('show');
+    // $('.nav-tabs a[href="#allAbsences"]').tab('show');
   });
 
   $(document).on('click', '#helpout-submit-btn', function(e) {
@@ -276,6 +274,9 @@ $(document).on('click', '#all-tab', function(e) {
     var endTime = $("#helpout-end-time").val();
     // removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
+    $("#helpout-form").trigger('reset');
+    $('.nav-tabs a[href="#helpouts-tab"]').tab('show');
+    // $('.nav-tabs a[href="#calendar"]').tab('show');
   });
 
   function addAbsenceEvent(date, startTime, endTime, reason){
@@ -291,7 +292,6 @@ $(document).on('click', '#all-tab', function(e) {
   }
 
   function addHelpoutEvent(date, startTime, endTime){
-    console.log('lol')
     var table = document.getElementById("upcoming-helpouts");
     var row = table.insertRow(0);
     var cell1 = row.insertCell(0);
@@ -340,15 +340,15 @@ $(document).on('click', '#all-tab', function(e) {
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
-    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs">Notifications</a></li>
-    <li id="absence-tab"><a data-toggle="tab" href="#absences">Absences</a></li>
-    <li id="helpout-tab"><a data-toggle="tab" href="#helpouts">Helpouts</a></li>
+    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs-tab">Notifications</a></li>
+    <li id="absence-tab"><a data-toggle="tab" href="#absences-tab">Absences</a></li>
+    <li id="helpout-tab"><a data-toggle="tab" href="#helpouts-tab">Helpouts</a></li>
     
   </ul>
 
   <div class="tab-content">
 
-    <div id="notifs" class="tab-pane fade in active">
+    <div id="notifs-tab" class="tab-pane fade in active">
       <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
 
       <div id="msg-inbox" class="col-md-12">
@@ -393,7 +393,7 @@ $(document).on('click', '#all-tab', function(e) {
     </div>
 
     <!-- Absence -->
-    <div id="absences" class="tab-pane fade">
+    <div id="absences-tab" class="tab-pane fade">
       <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#absenceModal"> New Absence</button>
 
       <!-- Absence Ends -->
@@ -426,7 +426,7 @@ $(document).on('click', '#all-tab', function(e) {
 
     <!-- End Absence -->
 
-    <div id="helpouts" class="tab-pane fade">
+    <div id="helpouts-tab" class="tab-pane fade">
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout" data-toggle="modal" data-target="#helpoutModal"> New Helpout</button>
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table id="upcoming-helpouts" style="width:100%">
@@ -632,7 +632,7 @@ $(document).on('click', '#all-tab', function(e) {
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default pull-left" id="absence-close-btn" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
               Submit
             </button>
@@ -781,7 +781,7 @@ $(document).on('click', '#all-tab', function(e) {
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default pull-left" id="helpout-close-btn" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary pull-right" id="helpout-submit-btn" data-dismiss="modal">
               Submit
             </button>
