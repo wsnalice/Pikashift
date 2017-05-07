@@ -233,34 +233,27 @@ $(document).on('click', '#all-tab', function(e) {
 <script>
 
   $(document).on('click', '#absence-submit-btn', function(e) {
+    var date = $("#absence-date").val();
+    var startTime = $("#absence-start-time").val();
+    var endTime = $("#absence-end-time").val();
+    var reason = $("#absence-reason").val();
+    addAbsenceEvent(date, startTime, endTime, reason);
+    addAbsenceEvent(date, startTime, endTime, reason);
+  });
 
-
-
-    var reason = document.getElementById("absence-reason").value;
-
-    console.log(reason)
-    
-    var dateText = new Date();
-    var month = start.getMonth() + 1;
-    var date = start.getDate();
-    if (start.getMonth() < 10) {
-      month = '0' + month;
-    }
-    if (start.getDate() < 10) {
-      date = '0' + date;
-    }
-    dateText = start.getFullYear() + '-' + month + '-' + date; 
-    $("[name=helpout-date]").val(dateText);
-    var startText = start.getHours() + "am";
-    var endText = end.getHours() + 'am';
-    if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
-    else if (start.getHours() == 12) {startText = start.getHours() + 'pm';}
-    if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
-    else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
-
-    $("#helpout-start-time").val(startText);
-    $("#helpout-end-time").val(endText);
-  })
+  function addAbsenceEvent(date, startTime, endTime, reason){
+    var table = document.getElementById("absenceTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.attr("align","center");
+    cell2.attr("align","center");
+    cell3.attr("align","center");
+    cell1.innerHTML = date;
+    cell2.innerHTML = startTime + " - " + endTime;
+    cell3.innerHTML = reason;
+  }
 
 </script>
 
@@ -359,7 +352,7 @@ $(document).on('click', '#all-tab', function(e) {
 
       <!-- Absence Ends -->
 
-      <table style="width:100%">
+      <table id="absenceTable" style="width:100%">
         <tr class="lower-border">
           <td align="center">
             <h5>Mar 15, 2017</h5>
@@ -453,7 +446,7 @@ $(document).on('click', '#all-tab', function(e) {
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <input type="date" name="absence-date" min="2000-01-01" style="width:100%">
+                      <input type="date" id="absence-date" min="2000-01-01" style="width:100%">
                     </div>
                   </div>
                  </div>
@@ -627,7 +620,7 @@ $(document).on('click', '#all-tab', function(e) {
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <input type="date" name="helpout-date" min="2000-01-01" style="width:100%">
+                      <input type="date" id="helpout-date" min="2000-01-01" style="width:100%">
                     </div>
                   </div>
                  </div>
