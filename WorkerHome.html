@@ -31,137 +31,15 @@
     <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
 
   <script src="MessageTab.js"></script>
+  <script src="CalendarSetup.js"></script>
 
-  <script>
+<script>
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
+
 $(document).ready(function()
 {
-  $('#calendar').fullCalendar({
-      defaultDate: '2017-04-17',
-      defaultView: 'agendaWeek',
-      editable: true,
-      //eventLimit: true, // allow "more" link when too many events
-      header: {
-        left: 'prev, next today',
-        center: 'title',
-        right: 'agendaWeek, agendaDay'
-      },
-      height: 'auto',
-      minTime: '9:00',
-      maxTime: '21:00',
-      allDaySlot: false,
-      slotDuration: "1:00:00",
-      selectable: true,
-      selectConstraint: 
-        {
-          dow: [1,3,5],
-          start: '13:00',
-          end: '21:00',
-        },
-      events: [
-        {
-            title  : 'absent',
-            id     : 'absences',
-            start  : '2017-04-15T13:00:00',
-            end    : '2017-04-15T14:00:00',
-            color  :'red',
-            startEditable : false,
-            durationEditable : false
-        },
-        {
-            title  : 'absent',
-            id     : 'absences',
-            start  : '2017-04-10T18:00:00',
-            end    : '2017-04-10T21:00:00',
-            color  :'red',
-            startEditable : false,
-            durationEditable : false,
-        },
-        {
-            title  : 'workhour',
-            dow    : [1,3,5],
-            start  : '13:00',
-            end    : '21:00',
-            color  :'blue',
-            startEditable : false,
-            durationEditable : false,
-            rendering: 'background',
-        }
-      ],
-      
-      ////////////////////////////////////////
-      ///selecting absence time on calendar///
-      //////////////////////////////////////// 
-      select: function(startDate, endDate, jsEvent, view) {
-        startTime = startDate._d;
-        startTime.setHours(startTime.getHours() + 4); //actual start time
-        endTime = endDate._d;
-        endTime.setHours(endTime.getHours() + 4); //actual end time
-        
-        //bring up new absence form & populates it
-        $("#newAbsence").trigger('click');
-
-        var dateText = new Date();
-        var month = startTime.getMonth() + 1
-        var date = startTime.getDate();
-        if (startTime.getMonth() < 10) {
-          month = '0' + month;
-        }
-        if (startTime.getDate() < 10) {
-          date = '0' + date;
-        }
-        dateText = startTime.getFullYear() + '-' + month + '-' + date; 
-        $("#absence-date").val(dateText);
-        var startText = startTime.getHours() + "am";
-        var endText = endTime.getHours() + 'am';
-        if (startTime.getHours() > 12) {startText = (startTime.getHours() - 12)+ 'pm';}
-        else if (startTime.getHours() == 12) {startText = startTime.getHours() + 'pm';}
-        if (endTime.getHours() > 12) { endText = (endTime.getHours() - 12) + 'pm';}
-        else if (endTime.getHours() == 12) {endText = endTime.getHours() + 'pm';}
-      
-        $("#absence-start-time").val(startText);
-        $("#absence-end-time").val(endText);
-
-        // WANT: submit - if input valid - call on addEvent()
-        // $(document).on('click', "#absence-submit-btn", function(evt)
-        // {
-        //   var startInput = $('#absenceModal #absence-start-time').val();
-        //   var endInput = $('#absenceModal #absence-end-time').val();
-        //   var absenceDate = $('#absence-date').val();
-        //   addAbsence(absenceDate, startInput, endInput, 'hello');
-        // });
-    },
-
-    // eventRender: function eventRender(event, element, view) {
-    //   var checkedEvents = [];
-    //   if ($('#show-absences').checked == true) {
-    //     checkedEvents.concat(['all', event.id] == $('#show-absences').value());
-    //   }
-    //   if ($('#show-absences').checked == true) {
-    //     checkedEvents.concat(['all', event.id] == $('#show-absences').value());
-    //   }
-    //   return checkedEvents;
-    //   //return ['all', event.school].indexOf($('#school_selector').val()) >= 0
-    // }
-  });
-
-  //$('#school_selector').on('change',function(){
-  //  $('#calendar').fullCalendar('rerenderEvents');
-  //})
-  
-  function handleChange(checkbox) {
-    if(checkbox.checked == true){
-      $('#calendar').fullCalendar('rerenderEvents');
-        //document.getElementById("submit").removeAttribute("disabled");
-    }else{
-      $('#calendar').fullCalendar('rerenderEvents');
-        //document.getElementById("submit").addAttribute("disabled");
-   }
-  }
-//////////////////
-//////////////////
-//////////////////
+  myScheduleSetup(); //sets up My Schedule
 
   $('#allAbsences').fullCalendar({
       defaultView: 'agendaWeek',
@@ -182,16 +60,18 @@ $(document).ready(function()
       events: [ //HELPOUTS - hardcoded
           {
               title  : 'Helpout',
-              start  : '2017-04-19T13:00:00',
-              end    : '2017-04-19T15:00:00',
+              id     : '2017-05-081pm3pm',
+              start  : '2017-05-08T13:00:00',
+              end    : '2017-05-08T15:00:00',
               color  : 'blue',
               startEditable : false,
               durationEditable : false,
           },
           {
               title  : 'Helpout',
-              start  : '2017-04-19T18:00:00',
-              end    : '2017-04-19T20:00:00',
+              id     : '2017-05-106pm8pm',
+              start  : '2017-05-10T18:00:00',
+              end    : '2017-05-10T20:00:00',
               color  :'blue',
               startEditable : false,
               durationEditable : false,
@@ -203,7 +83,8 @@ $(document).ready(function()
         var end = new Date();
         end.setHours(event.end._d.getHours() + 4); //actual end time
         //update new absence form
-        document.getElementById("helpouts").innerHTML = helpoutForm;
+        
+        $("#newHelpout").trigger('click');
         
         var dateText = new Date();
         var month = start.getMonth() + 1;
@@ -215,7 +96,7 @@ $(document).ready(function()
           date = '0' + date;
         }
         dateText = start.getFullYear() + '-' + month + '-' + date; 
-        $("[name=helpout-date]").val(dateText);
+        $("#helpout-date").val(dateText);
         var startText = start.getHours() + "am";
         var endText = end.getHours() + 'am';
         if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
@@ -229,6 +110,16 @@ $(document).ready(function()
         },
     });
 });
+
+  function handleChange(checkbox) {
+    $('#calendar').fullCalendar('rerenderEvents');
+    // if (checkbox.checked == true) {
+    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'absences');
+    //    }
+    //    if (document.getElementById('show-helpouts').checked == true) {
+    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'helpouts');
+    //    }
+  }
 
   function addAbsence(date, startTime, endTime, reason) {
     var startModified;
@@ -255,15 +146,65 @@ $(document).ready(function()
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
 
-$(document).on('click', '#all-tab', function(e) {
-    setTimeout(function(){
-      $('.fc-agendaWeek-button').click();
-    }, 150) 
-})
+  function removeHelpout(date, startTime, endTime) {
+      var removeID = date + startTime + endTime
+      $('#allAbsences').fullCalendar('removeEvents', removeID);
+  }
+
+  $(document).on('click', '#all-tab', function(e) {
+      setTimeout(function(){
+        $('.fc-agendaWeek-button').click();
+      }, 150) 
+  })
+
+// $('#school_selector').on('change',function(){
+//     console.log()
+//     $('#calendar').fullCalendar('rerenderEvents');
+// })
+
+  $(document).on('click', '#absence-submit-btn', function(e) {
+    var date = $("#absence-date").val();
+    var startTime = $("#absence-start-time").val();
+    var endTime = $("#absence-end-time").val();
+    var reason = $("#absence-reason").val();
+    addAbsence(date, startTime, endTime, reason);
+    addAbsenceEvent(date, startTime, endTime, reason);
+  });
+
+  $(document).on('click', '#helpout-submit-btn', function(e) {
+    var date = $("#helpout-date").val();
+    var startTime = $("#helpout-start-time").val();
+    var endTime = $("#helpout-end-time").val();
+    // removeHelpout(date, startTime, endTime);
+    addHelpoutEvent(date, startTime, endTime);
+  });
+
+  function addAbsenceEvent(date, startTime, endTime, reason){
+    var table = document.getElementById("absenceTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var time = startTime + " - " + endTime;
+    cell1.innerHTML = "<h5>" + date +"</h5>";
+    cell2.innerHTML = "<h5>" + time +"</h5>";
+    cell3.innerHTML = "</h5>" + reason + "</h5>";
+  }
+
+  function addHelpoutEvent(date, startTime, endTime){
+    console.log('lol')
+    var table = document.getElementById("upcoming-helpouts");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var time = startTime + " - " + endTime;
+    cell1.innerHTML = "<h5>" + date +"</h5>";
+    cell2.innerHTML = "<h5>" + time +"</h5>";
+  }
 
 </script>
-
 </head>
+
 <body>
 
 <!-- Navigation Bar --> 
@@ -285,26 +226,25 @@ $(document).on('click', '#all-tab', function(e) {
 
 <!-- Navigation Bar --> 
 
-
-<div class="container col-md-6 column"> <!--- Calender Code -->
+<!--- CALENDAR Code -->
+<div class="container col-md-6 column"> 
   <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
     <div class='row event-filter container'> 
-      <form class='event-filter'> 
-        <input type="checkbox" onchange='handleChange(this);' id='show-absences' value='absences' checked>
+      <form class='event-filter' id = 'school_selector'> 
+        <input type="checkbox" onchange='handleChange(this);' id='show-absences' value='1' checked>
            Absences 
-        <input type="checkbox" onchange='handleChange(this);' id='show-helpouts' value='helpouts' checked>
+        <input type="checkbox" onchange='handleChange(this);' id='show-helpouts' value='2' checked style='margin-left:20px'>
            Helpouts 
       </form>
     </div>
   </div>
-</div> <!-- End Calender Code -->
+</div> 
+<!-- End Calender Code -->
+
 
 <!-- Tabs Code -->
-
-
-
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
@@ -366,10 +306,10 @@ $(document).on('click', '#all-tab', function(e) {
 
       <!-- Absence Ends -->
 
-      <table style="width:100%">
+      <table id='absenceTable' style="width:100%">
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 15, 2017</h5>
+            <h5>2017-03-15</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -380,7 +320,7 @@ $(document).on('click', '#all-tab', function(e) {
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 10, 2017</h5>
+            <h5>2017-03-10</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -400,7 +340,7 @@ $(document).on('click', '#all-tab', function(e) {
       <table id="upcoming-helpouts" style="width:100%">
         <tr class="lower-border top-border">
           <td align="center">
-            <h5>Apr 21, 2017</h5>
+            <h5>2017-04-21</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -408,7 +348,7 @@ $(document).on('click', '#all-tab', function(e) {
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Apr 28, 2017</h5>
+            <h5>2017-04-28</h5>
           </td>
           <td align="center">
             <h5>6pm - 8pm</h5>
@@ -420,7 +360,7 @@ $(document).on('click', '#all-tab', function(e) {
       <table id="previous-helpouts" style="width:100%">
         <tr class="lower-border top-border">
           <td align="center">
-            <h5>Mar 15, 2017</h5>
+            <h5>2017-03-15</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -428,7 +368,7 @@ $(document).on('click', '#all-tab', function(e) {
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>Mar 10, 2017</h5>
+            <h5>2017-03-10</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
@@ -450,7 +390,7 @@ $(document).on('click', '#all-tab', function(e) {
             <div class="bootstrap-iso">
              <div class="container-fluid">
               <div class="row">
-                <form method="form-horizontal">
+                <form method="post", class="form-horizontal" id="absence-form">
                  <div class="form-group ">
                   <div class="row vertical-align">
                     <label class="control-label requiredField col-md-4" for="absence-date">
@@ -568,25 +508,25 @@ $(document).on('click', '#all-tab', function(e) {
                  </div>
                  <div class="form-group " id="div_absence-reason">
                   <div class="row vertical-align">
-                    <label class="control-label requiredField col-md-4" for="absence-end-time">
+                    <label class="control-label requiredField col-md-4" for="absence-reason">
                      Reason
                      <span class="asteriskField">
                       *
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <select class="select form-control" id="absence-end-time" name="absence-end-time">
+                      <select class="select form-control" id="absence-reason" name="absence-reason">
                         <option disabled selected value> -- select an option -- </option>
-                       <option value="sickness">
+                       <option value="Sickness">
                         Sickness
                        </option>
-                       <option value="vacation">
+                       <option value="Vacation">
                         Vacation
                        </option>
-                       <option value="family">
+                       <option value="Family">
                         Family
                        </option>
-                       <option value="other">
+                       <option value="Other">
                         Other
                        </option>
                       </select>
@@ -634,7 +574,7 @@ $(document).on('click', '#all-tab', function(e) {
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <input type="date" name="helpout-date" min="2000-01-01" style="width:100%">
+                      <input type="date" id="helpout-date" min="2000-01-01" style="width:100%">
                     </div>
                   </div>
                  </div>
