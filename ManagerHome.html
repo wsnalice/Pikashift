@@ -25,7 +25,7 @@
 
 function scheduleColor(numAbsences) {
   if (numAbsences <= 1) {
-    return "#F0F8FF"; // healthy
+    return "#C1ECFA"; // healthy
   } else if (numAbsences <= 3) {
     return "#87CEFA"; // minor
   } else if (numAbsences <= 5) {
@@ -315,7 +315,7 @@ $(document).on('click', '#waiter-tab', function(e) {
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">PikaShift</a>
+      <a class="navbar-brand" href="ManagerHome.html">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
       <li id = "all-tab" class="active"><a data-toggle="tab" href="#all">All Absences</a></li>
@@ -348,7 +348,7 @@ $(document).on('click', '#waiter-tab', function(e) {
     <div class='my-legend' align="center">
       <div class='legend-scale' align="center">
         <ul class='legend-labels'>
-          <li><span style='background:#F0F8FF;'></span>Healthy</li>
+          <li><span style='background:#C1ECFA;'></span>Healthy</li>
           <li><span style='background:#87CEFA;'></span>Minor</li>
           <li><span style='background:#1E90FF;'></span>Major</li>
           <li><span style='background:#0000CD;'></span>Fatal</li>
