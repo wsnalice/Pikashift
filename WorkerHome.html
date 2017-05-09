@@ -27,7 +27,7 @@
   <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
   <script src='CalendarSetup.js'></script>
-
+  
   <script src='validation.js'></script>
   <script src='announcement.js'></script>
 
@@ -503,13 +503,13 @@ $(document).ready(function()
           <!-- Sample Post 0 -->
           <div id="post-0" class="announcement">
            <div class="row"> 
-            <div class="col col-md-9">
+            <div class="col col-md-10">
 
               <div class="row post-person">Manager  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
                 <span id="post-to-0">Waiters</span></div> 
               <div class="row post-time"> 3 hrs </div> 
             </div> <!-- To From Stuff --> 
-            <div class="col col-md-3">
+            <div class="col col-md-2 no-side-margin">
               <!-- No buttons for pikachu -->
             </div> <!-- End of Edit/ Remove Button Stuff -->
            </div> <!-- End Post Header -->
@@ -523,13 +523,13 @@ $(document).ready(function()
           <!-- Sample Post 1 -->
           <div id="post-1" class="announcement">
            <div class="row"> 
-            <div class="col col-md-9">
+            <div class="col col-md-10">
 
               <div class="row post-person"> Pikachu  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
                 <span id="post-to-1">PassOn</span></div> 
               <div class="row post-time"> 10 hrs </div> 
             </div> <!-- To From Stuff --> 
-            <div class="col col-md-3">
+            <div class="col col-md-2 no-side-margin">
               <!--- Delete Button -->
               <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
               <!-- Edit Button -->
@@ -556,8 +556,9 @@ $(document).ready(function()
 
     <!-- Absence -->
     <div id="absences-tab" class="tab-pane fade">
-      <button type="button" id="newAbsence" class="btn btn-primary btn-block" data-toggle="modal" data-target="#absenceModal"> New Absence</button>
-
+      <div class= "wrapper">
+      <button type="button" id="newAbsence" class="btn btn-primary" data-toggle="modal" data-target="#absenceModal" > New Absence</button>
+    </div>
       <!-- Absence Ends -->
 
       <table id='absenceTable' style="width:100%">
@@ -580,7 +581,10 @@ $(document).ready(function()
     <!-- End Absence -->
 
     <div id="helpouts-tab" class="tab-pane fade">
-      <button type="button" class="btn btn-primary btn-block" id = "newHelpout" data-toggle="modal" data-target="#helpoutModal"> New Helpout</button>
+       <!-- Commenting out the New Helpout Button --> 
+      <!--<button type="button" class="btn btn-primary btn-block" id = "newHelpout" data-toggle="modal" data-target="#helpoutModal"> New Helpout</button> --> 
+
+
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table id="upcoming-helpouts" style="width:100%">
       </table>

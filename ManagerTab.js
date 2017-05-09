@@ -12,7 +12,7 @@ var Header = ` <div class="row">
 var headToTime = `</div><div class="row post-time"> `
  
 var timeToButtons = ` </div> </div> <!-- To From Stuff --> 
-        <div class="col col-md-3"> `
+        <div class="col col-md-3 no-side-margin"> `
 
 var startDelete = '<button class="btn btn-xs  post-del" id="post-del-btn-'
 var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>'
