@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 
-  <link rel="stylesheet" href="MessageTab.css">
+  <link rel="stylesheet" href="MainLayout.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="ManagerTab.js"></script>
@@ -404,7 +404,7 @@ $(document).on('click', '#waiter-tab', function(e) {
 </div><!-- End Calender Code -->
 
 <!-- Begin Announcement Code -->
-<div class="container col-md-5 column"> 
+ <div class="container col-md-5 column"> 
   <h2 align="center"> Announcements </h2>
   <div id="new-post">  
     <div class="row">
@@ -425,8 +425,6 @@ $(document).on('click', '#waiter-tab', function(e) {
         <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
       </div>
     </div> <!-- End of Footer -->
-    
-
   </div>  <!-- End of New Post -->
 
   <div id="all-posts">
@@ -435,7 +433,7 @@ $(document).on('click', '#waiter-tab', function(e) {
        <div class="row"> 
         <div class="col col-md-9">
 
-          <div class="row post-person">Manager  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+          <div class="row post-person"> Moltres <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
             <span id="post-to-0">Waiters</span></div> 
           <div class="row post-time"> 3 hrs </div> 
         </div> <!-- To From Stuff --> 
@@ -461,21 +459,20 @@ $(document).on('click', '#waiter-tab', function(e) {
        <div class="row"> 
         <div class="col col-md-9">
 
-          <div class="row post-person"> Pikashift <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
-            <span id="post-to-1"> Manager </span></div> 
+          <div class="row post-person">Pikashift<span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+            <span id="post-to-1">Moltres</span></div> 
           <div class="row post-time"> 10 hrs </div> 
         </div> <!-- To From Stuff --> 
         <div class="col col-md-3">
           <!--- Delete Button -->
           <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
-          
           <!-- No Edit button for this --> 
         </div> <!-- End of Edit/ Remove Button Stuff -->
        </div> <!-- End Post Header -->
        <div class="row">
-          <div class="col col-md-12 post-details gappy" id="post-details-0"> 
+          <div class="col col-md-12 post-details gappy" id="post-details-1"> 
              <strong> Restaurant Understaffed </strong> <br> 
-             Only 3 waiters out of 6 absentees are covered. 
+              Only 3 waiters out of 6 absentees are covered. 
           </div>
         </div> <!-- End of Row Containing Text -->
       </div> <!-- End Of Sample Post 1-->

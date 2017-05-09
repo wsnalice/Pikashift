@@ -14,9 +14,7 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" href="MessageTab.css">
-  <script src="MessageTab.js"></script>
+  <link rel="stylesheet" href="MainLayout.css">
 
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
@@ -29,14 +27,38 @@
   <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
   <script src='CalendarSetup.js'></script>
+<<<<<<< HEAD
   <script src='validation.js'></script>
+  <script src='announcement.js'></script>
 
 <script>
+  var otherHelpoutSources = [
+            {
+              title  : 'Helpout',
+              id     : 'h2017-05-101pm3pm',
+              start  : '2017-05-10T13:00:00',
+              end    : '2017-05-10T15:00:00',
+              color  : 'blue',
+              startEditable : false,
+              durationEditable : false,
+          },
+          {
+              title  : 'Helpout',
+              id     : 'h2017-05-116pm8pm',
+              start  : '2017-05-11T18:00:00',
+              end    : '2017-05-11T20:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+          }
+  ];
+  var myHelpoutSources = [];
+  var absenceSources = [];
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
-
 $(document).ready(function()
 {
+
   myScheduleSetup(); //sets up My Schedule
 
   $('#allAbsences').fullCalendar({
@@ -54,27 +76,7 @@ $(document).ready(function()
       allDaySlot: false,
       slotDuration: "1:00:00",
       selectable: false,
-
-      events: [ //HELPOUTS - hardcoded
-          {
-              title  : 'Helpout',
-              id     : '2017-05-081pm3pm',
-              start  : '2017-05-08T13:00:00',
-              end    : '2017-05-08T15:00:00',
-              color  : 'blue',
-              startEditable : false,
-              durationEditable : false,
-          },
-          {
-              title  : 'Helpout',
-              id     : '2017-05-106pm8pm',
-              start  : '2017-05-10T18:00:00',
-              end    : '2017-05-10T20:00:00',
-              color  :'blue',
-              startEditable : false,
-              durationEditable : false,
-          }
-      ],
+      eventSources: [otherHelpoutSources],
       eventClick: function(event, jsEvent, view) {
         var start = new Date();
         start.setHours(event.start._d.getHours() + 4); //actual start time
@@ -96,53 +98,26 @@ $(document).ready(function()
         $("#helpout-end-time").val(endText);
         },
     });  //.fullcalendar()
-
-  $('#absence-form').formValidation({
-    framework: 'bootstrap',
-        excluded: ':disabled',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-              },
-        fields: {
-            date: {
-                validators: {
-                    callback: {
-                        message: 'Please enter a valid date',
-                        callback: function (value, validator, $field) {
-
-                          if (value == null) {
-                              return false;
-                            }    
-                            var dateObj = new Date()
-                            dateObj.setFullYear(parseInt(date.slice(0,4)));
-                            dateObj.setMonth(parseInt(date.slice(5,7)));
-                            dateObj.setDate(parseInt(date.slice(8,10)));
-
-                              var workDays = [1,3,5]
-                            if (workDays.indexOf(dateObj.getDay()) == -1) {
-                              return false;
-                            }
-
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-  });
-  
 }); //document.ready()
 
-  function handleChange(checkbox) {
-    $('#calendar').fullCalendar('rerenderEvents');
-    // if (checkbox.checked == true) {
-    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'absences');
-    //    }
-    //    if (document.getElementById('show-helpouts').checked == true) {
-    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'helpouts');
-    //    }
+  $("body").on("hidden.bs.modal", function(){
+    $("#absence-form").trigger('reset');
+  });
+
+  function handleAbsenceChange() {
+    if (document.getElementById('show-absences').checked) {
+      $('#calendar').fullCalendar('addEventSource', absenceSources);
+    } else {
+      $('#calendar').fullCalendar('removeEventSource', absenceSources);
+    }
+  }
+
+  function handleHelpoutChange() {
+    if (document.getElementById('show-helpouts').checked) {
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
+    } else {
+      $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
+    }
   }
 
   function addAbsence(date, startTime, endTime, reason) {
@@ -161,13 +136,27 @@ $(document).ready(function()
 
     var newEvent = new Object();
     newEvent.title = 'absent';
-    newEvent.id = 'absences';
+    newEvent.id = 'a' + date + startTime + endTime;
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
     newEvent.color = 'black';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    $('#calendar').fullCalendar('renderEvent', newEvent, true)
+    absenceSources.push(newEvent);
+    $('#calendar').fullCalendar('addEventSource', absenceSources);
+  }
+
+  function removeAbsence(date, startTime, endTime) {
+    $('#calendar').fullCalendar('removeEventSource', absenceSources);
+    var id = 'a' + date + startTime + endTime;
+    var dummy = [];
+    for (var i = 0; i < absenceSources.length; i++) {
+      if (absenceSources[i].id != id) {
+        dummy.push(absenceSources[i]);
+      }
+    }
+    absenceSources = dummy;
+    $('#calendar').fullCalendar('addEventSource', absenceSources);
   }
 
   function addHelpout(date, startTime, endTime, calendarID) {
@@ -186,24 +175,60 @@ $(document).ready(function()
 
     var newEvent = new Object();
     newEvent.title = 'Helpout';
-    newEvent.id = 'helpouts';
+    newEvent.id = 'h' + date + startTime + endTime;
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
     newEvent.color = 'blue';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    if (calendarID == "all") {
-      $('#calendar').fullCalendar('renderEvent', newEvent, true)
+    console.log("Beginning my", myHelpoutSources);
+    console.log("Other", otherHelpoutSources);
+    $('#allAbsences').fullCalendar('removeEventSource', otherHelpoutSources);
+    $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
+    if (calendarID == "all") { // I claimed a shift and now we add it to my calendar
+      myHelpoutSources.push(newEvent);
+      var dummy = [];
+      for (var i = 0; i < otherHelpoutSources.length; i++) {
+        if (otherHelpoutSources[i].id != newEvent.id) {
+          dummy.push(otherHelpoutSources[i]);
+        }
+      }
+      otherHelpoutSources = dummy;
+      
+      $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
     }
-    else {
-      $('#allAbsences').fullCalendar('renderEvent', newEvent, true)
+    else { // I add a helpout;
+      otherHelpoutSources.push(newEvent);
+      var dummy = [];
+      for (var i = 0; i < myHelpoutSources.length; i++) {
+        if (myHelpoutSources[i].id != newEvent.id) {
+          dummy.push(myHelpoutSources[i]);
+        }
+      }
+      myHelpoutSources = dummy;
+      $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
     }
+    console.log(myHelpoutSources);
+    console.log(otherHelpoutSources);
   }
 
-  function removeHelpout(date, startTime, endTime) {
-      var removeID = date + startTime + endTime;
-      $('#allAbsences').fullCalendar('removeEvents', removeID);
-  }
+  // function removeHelpout(date, startTime, endTime) {
+  //     var removeID = date + startTime + endTime;
+  //     $('#allAbsences').fullCalendar('removeEvents', removeID);
+  // }
+  // function removeHelpout(date, startTime, endTime) {
+  //     var removeID = 'h' + date + startTime + endTime;
+  //     var dummy = [];
+  //     for (var i = 0; i < otherHelpoutSources.length; i++) {
+  //       if (otherHelpoutSources[i].id != removeID) {
+  //         dummy.push(otherHelpoutSources[i]);
+  //       }
+  //     }
+  //     otherHelpoutSources = dummy;
+  //     $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+  // }
 
   $(document).on('click', '#all-tab', function(e) {
       setTimeout(function(){
@@ -216,7 +241,7 @@ $(document).ready(function()
   });
 
   $(document).on('click', '#helpout-close-btn', function(e) {
-    $("#absence-form").trigger('reset');
+    $("#helpout-form").trigger('reset');
   });
 
   $(document).on('click', '#absence-submit-btn', function(e) {
@@ -224,19 +249,43 @@ $(document).ready(function()
     var startTime = $("#absence-start-time").val();
     var endTime = $("#absence-end-time").val();
     var reason = $("#absence-reason").val();
-    //var isValid = inputValidation(date, startTime, endTime, reason);
-    console.log(dateValidation(date));
+
     if (!dateValidation(date)) {
-      $("#dateInvalid").innerHTML = "Please enter a valid date";
-
+      $("#date-failed").html("Please enter a date that you have a work shift.");
     }
-    else{
-        addAbsence(date, startTime, endTime, reason);
-        addAbsenceEvent(date, startTime, endTime, reason);
-        $("#absence-form").trigger('reset');
+    else {
+      $("#date-failed").html("&nbsp;");
+
+        if (!startValidation(startTime)) {
+          $('#start-failed').html("Please enter a valid start time");
+        }
+        else{
+          $("#start-failed").html("&nbsp;");
+          if (!endValidation(endTime)){
+            $('#end-failed').html("Please enter a valid end time");
+          }else {
+            $("#end-failed").html("&nbsp;");
+          
+            if (!startEndValidation(startTime, endTime)) {
+              $('#end-failed').html("End time should be after start time.");
+            }
+            else {
+              $("#end-failed").html("&nbsp;");
+
+              if (!reasonValidation(reason)) {
+                $("#reason-failed").html("Please enter a reason");
+              }
+              else{
+                $("#reason-failed").html("&nbsp;");
+                addAbsence(date, startTime, endTime, reason);
+                addAbsenceEvent(date, startTime, endTime, reason);
+                $("#absence-form").trigger('reset');
+                $("#absence-close-btn").trigger("click");
+            }
+          }
+        }
+      }
     }
-
-
     //$('.nav-tabs a[href="#absences-tab"]').tab('show');
     // $('.nav-tabs a[href="#allAbsences"]').tab('show');
   });
@@ -245,13 +294,16 @@ $(document).ready(function()
     var date = $("#helpout-date").val();
     var startTime = $("#helpout-start-time").val();
     var endTime = $("#helpout-end-time").val();
-    removeHelpout(date, startTime, endTime);
+    // removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
     addHelpout(date, startTime, endTime, 'all');
     $("#helpout-form").trigger('reset');
     $('.nav-tabs a[href="#helpouts-tab"]').tab('show');
     // $('.nav-tabs a[href="#calendar"]').tab('show');
   });
+
+  var hStartDelete = '<button class="btn btn-xs  helpout-del" id="helpout-del-btn-';
+  var hEndDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>';
 
   function addAbsenceEvent(date, startTime, endTime, reason){
     var table = document.getElementById("absenceTable");
@@ -265,14 +317,32 @@ $(document).ready(function()
     cell3.innerHTML = "</h5>" + reason + "</h5>";
   }
 
+ $(document).on('click', ".helpout-del", function(evt)
+{
+   var btnId = $(this).attr('id');
+   var id = btnId.substring(16);
+   var row = $(this).parent().parent();
+   console.log("Row:", row);
+   row.remove();
+   console.log(id);
+
+   var date = id.substring(1,11);
+   var startTime = id.substring(11,14);
+   var endTime = id.substring(14,17);
+
+   addHelpout(date, startTime, endTime, "notall");
+});
+
   function addHelpoutEvent(date, startTime, endTime){
     var table = document.getElementById("upcoming-helpouts");
     var row = table.insertRow(0);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
     var time = startTime + " - " + endTime;
     cell1.innerHTML = "<h5>" + date +"</h5>";
     cell2.innerHTML = "<h5>" + time +"</h5>";
+    cell3.innerHTML = hStartDelete + "h" + date + startTime + endTime + hEndDelete;
   }
 
 </script>
@@ -292,7 +362,6 @@ $(document).ready(function()
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <!-- <li id="welcome-btn"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</li> -->
       <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a>
         <ul class="dropdown-menu">
@@ -309,6 +378,14 @@ $(document).ready(function()
   <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
+    <div class='row event-filter container'> 
+      <form class='event-filter' id = 'school_selector'> 
+        <input class="calFilter" type="checkbox" value='show-absences' onchange='handleAbsenceChange();' id='show-absences' value='1' checked>
+           Absences 
+        <input class="calFilter" type="checkbox" value='show-helpouts' onchange='handleHelpoutChange(this);' id='show-helpouts' value='2' checked style='margin-left:20px'>
+           Helpouts 
+      </form>
+    </div>
   </div>
 </div> 
 <!-- End Calender Code -->
@@ -318,57 +395,89 @@ $(document).ready(function()
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
-    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs-tab">Notifications</a></li>
+    <li class="active" id="notif-tab"> <a data-toggle="tab" href="#notifs-tab"> Announcements </a></li>
     <li id="absence-tab"><a data-toggle="tab" href="#absences-tab">Absences</a></li>
     <li id="helpout-tab"><a data-toggle="tab" href="#helpouts-tab">Helpouts</a></li>
     
   </ul>
 
   <div class="tab-content">
-
     <div id="notifs-tab" class="tab-pane fade in active">
-      <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
-
-      <div id="msg-inbox" class="col-md-12">
-        <!-- Begin Message 1 : Vaporeon --> 
-        <div id="msg-inbox-a" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Vaporeon </h4> </div>
-            <div class="col-md-4"> <h5>8pm, March 14</h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-a"> Mark Seen </button> 
-            </div>
+      <!-- Begin Announcement Code -->
+      <div id="new-post">  
+        <div class="row">
+          <label for="new-post-input">Create an Announcement </label>
+          <textarea class="form-control" rows="3" id="new-post-input" placeholder="Write a new Announcement "></textarea>
+        </div> <!-- End of Textbox -->
+        <div class="row">
+          <div class= "col col-md-3">
+            <select class="form-control gappy" id="post-to">
+              <option selected>Manager</option>
+              <option>Waiters</option>
+              <option>PassOn</option>
+            </select>
           </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> 
-                Table 5 needs coffeee. Table 2,3 needs Cleaning. Reservation for Mr. Lapras at 9pm. 
-                Dishwasher Duty today.
-            </div>
+          <div class= "col col-md-4"> </div>
+          <div class= "col col-md-5" >
+            <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
           </div>
-        </div>  <!-- End Of Message 1 -->
+        </div> <!-- End of Footer -->
+      </div>  <!-- End of New Post -->
 
-        <!-- Begin Message 2 --> 
-        <div id="msg-inbox-b" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Manager </h4> </div>
-            <div class="col-md-4"> <h5>9pm, March 2</h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-b"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> Holiday Tomorrow due to Snow Day </div>
-          </div>
-        </div>  <!-- End Of Message 2 -->
+      <div id="all-posts">
+          <!-- Sample Post 0 -->
+          <div id="post-0" class="announcement">
+           <div class="row"> 
+            <div class="col col-md-9">
 
-    </div> <!-- Msg Inbox -->
+              <div class="row post-person">Manager  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+                <span id="post-to-0">Waiters</span></div> 
+              <div class="row post-time"> 3 hrs </div> 
+            </div> <!-- To From Stuff --> 
+            <div class="col col-md-3">
+              <!-- No buttons for pikachu -->
+            </div> <!-- End of Edit/ Remove Button Stuff -->
+           </div> <!-- End Post Header -->
+           <div class="row">
+              <div class="col col-md-12 post-details gappy" id="post-details-0"> Happy Hour Today </div>
+            </div> <!-- End of Row Containing Text -->
+          </div> <!-- End Of Sample Post 0-->
 
 
-    </div>
+          <!-- Bristy --> 
+          <!-- Sample Post 1 -->
+          <div id="post-1" class="announcement">
+           <div class="row"> 
+            <div class="col col-md-9">
+
+              <div class="row post-person"> Pikachu  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+                <span id="post-to-1">PassOn</span></div> 
+              <div class="row post-time"> 10 hrs </div> 
+            </div> <!-- To From Stuff --> 
+            <div class="col col-md-3">
+              <!--- Delete Button -->
+              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+              <!-- Edit Button -->
+              <button class="btn btn-xs post-edit" id="post-edit-btn-1"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
+              data-toggle="modal" data-target="#postEditModal"></span> </button>
+
+              <!-- No Edit button for this --> 
+            </div> <!-- End of Edit/ Remove Button Stuff -->
+           </div> <!-- End Post Header -->
+           <div class="row">
+              <div class="col col-md-12 post-details gappy" id="post-details-1"> Reservation of Mr. Yokonami at 3pm. Dishwashing Duty today. Clean Tables 1-4 before you leave. </div>
+            </div> <!-- End of Row Containing Text -->
+          </div> <!-- End Of Sample Post 1-->
+
+
+
+            
+        </div> <!-- End of All Posts -->
+
+
+
+    </div> <!--- End of Notifs Tab -->
+   
 
     <!-- Absence -->
     <div id="absences-tab" class="tab-pane fade">
@@ -415,6 +524,9 @@ $(document).ready(function()
           <td align="center">
             <h5>1pm - 2pm</h5>
           </td>
+          <td align="center">
+            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-211pm2pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+          </td>
         </tr>
         <tr class="lower-border">
           <td align="center">
@@ -422,6 +534,10 @@ $(document).ready(function()
           </td>
           <td align="center">
             <h5>6pm - 8pm</h5>
+          </td>
+          <td>
+            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-286pm8pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+
           </td>
         </tr>
       </table>
@@ -473,6 +589,8 @@ $(document).ready(function()
                     </label>
                     <div class="controls col-md-8">
                       <input type="date" id="absence-date" min="2000-01-01" style="width:100%" class='form-control'>
+                      <span style="color: red; font-size: 12px" id="date-failed">&nbsp;  </span>
+
                     </div>
                   </div>
                  </div>
@@ -512,6 +630,7 @@ $(document).ready(function()
                         8pm
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="start-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -551,6 +670,7 @@ $(document).ready(function()
                         9pm
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="end-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -578,6 +698,7 @@ $(document).ready(function()
                         Other
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="reason-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -589,7 +710,7 @@ $(document).ready(function()
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" id="absence-close-btn" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
+            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn">
               Submit
             </button>
           </div>
@@ -749,5 +870,50 @@ $(document).ready(function()
   <div class="container col-md-1"></div>
 </div>  <!-- End Tabs Code -->
 
+
+
+<!--- Edit Post Modal Code  : Bristy Sikder--> 
+
+<div class="modal fade" id="postEditModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Announcement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <div class="row">
+            <textarea class="form-control" rows="3" id="edit-post-input" placeholder="Write a new Announcement "></textarea>
+          </div> <!-- End of Textbox -->
+          
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class= "col col-md-3">
+            <select class="form-control gappy" id="edit-post-to">
+              <option value="1">Manager</option>
+              <option value="2">Waiters</option>
+              <option value="3">PassOn</option>
+            </select>
+          </div>
+          <div class= "col col-md-6"> </div>
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-save-btn" data-dismiss="modal" > Save </button>
+          </div>
+          <!-- No delete button for now 
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-delete-btn" data-dismiss="modal" > Delete </button>
+          </div>
+          --> 
+        </div> <!-- End of Footer -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Modal -->
 </body>
 </html>
