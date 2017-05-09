@@ -2,6 +2,10 @@ textarea {
    resize: none;
 }
 
+.no-side-margin {
+	padding : 0px;
+	text-align : right;
+}
 .wrapper {
 	text-align: center;
 	margin:  8px;
