@@ -1,3 +1,48 @@
+textarea {
+   resize: none;
+}
+
+/* CSS for Manager Announcement Sections */
+#new-post {
+	border-bottom :2px solid #d2e1f0;
+	margin: 4px;
+}
+
+.announcement{
+	border : 1px solid #00008B;
+	margin:  10px;
+}
+
+.gappy {
+	margin : 5px ;
+}
+
+.post-person {
+ 	font-size: 1.2em;
+ 	font-weight: bold;
+ 	color: #000080;
+}
+
+.post-details{
+	font-size : 1.1em;
+}
+.post-time{
+	font-size: 0.9em;
+	color: #2F4F4F;
+}
+
+.glyphicon.glyphicon-triangle-right {
+    font-size: 0.7em;
+}
+
+.btn-xs {
+	margin: 3px;
+}
+
+.btn-primary {
+	margin: 8px;
+}
+
 .msg-card{
 	border-bottom :2px solid #00008B;
 	padding : 2px;
