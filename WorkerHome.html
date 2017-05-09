@@ -16,7 +16,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="MainLayout.css">
-  <script src="MessageTab.js"></script>
 
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
@@ -31,10 +30,10 @@
   <script src='CalendarSetup.js'></script>
 
 <script>
-  var helpoutSources = [ //HELPOUTS - hardcoded
-          {
+  var otherHelpoutSources = [
+            {
               title  : 'Helpout',
-              id     : '2017-05-081pm3pm',
+              id     : 'h2017-05-081pm3pm',
               start  : '2017-05-08T13:00:00',
               end    : '2017-05-08T15:00:00',
               color  : 'blue',
@@ -43,14 +42,15 @@
           },
           {
               title  : 'Helpout',
-              id     : '2017-05-106pm8pm',
+              id     : 'h2017-05-106pm8pm',
               start  : '2017-05-10T18:00:00',
               end    : '2017-05-10T20:00:00',
               color  :'blue',
               startEditable : false,
               durationEditable : false,
           }
-      ];
+  ];
+  var myHelpoutSources = [];
   var absenceSources = [];
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
@@ -74,7 +74,7 @@ $(document).ready(function()
       allDaySlot: false,
       slotDuration: "1:00:00",
       selectable: false,
-      eventSources: [helpoutSources, absenceSources],
+      eventSources: [otherHelpoutSources],
       eventClick: function(event, jsEvent, view) {
         var start = new Date();
         start.setHours(event.start._d.getHours() + 4); //actual start time
@@ -108,9 +108,9 @@ $(document).ready(function()
 
   function handleHelpoutChange() {
     if (document.getElementById('show-helpouts').checked) {
-      $('#allAbsences').fullCalendar('addEventSource', helpoutSources);
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
     } else {
-      $('#allAbsences').fullCalendar('removeEventSource', helpoutSources);
+      $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
     }
   }
 
@@ -130,13 +130,26 @@ $(document).ready(function()
 
     var newEvent = new Object();
     newEvent.title = 'absent';
-    newEvent.id = 'absences';
+    newEvent.id = 'a' + date + startTime + endTime;
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
     newEvent.color = 'black';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
     absenceSources.push(newEvent);
+    $('#calendar').fullCalendar('addEventSource', absenceSources);
+  }
+
+  function removeAbsence(date, startTime, endTime) {
+    $('#calendar').fullCalendar('removeEventSource', absenceSources);
+    var id = 'a' + date + startTime + endTime;
+    var dummy = [];
+    for (var i = 0; i < absenceSources.length; i++) {
+      if (absenceSources[i].id != id) {
+        dummy.push(absenceSources[i]);
+      }
+    }
+    absenceSources = dummy;
     $('#calendar').fullCalendar('addEventSource', absenceSources);
   }
 
@@ -156,31 +169,56 @@ $(document).ready(function()
 
     var newEvent = new Object();
     newEvent.title = 'Helpout';
-    newEvent.id = 'helpouts';
+    newEvent.id = 'h' + date + startTime + endTime;
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
     newEvent.color = 'blue';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    if (calendarID == "all") {
-      $('#calendar').fullCalendar('renderEvent', newEvent, true)
-    }
-    else {
-      $('#allAbsences').fullCalendar('renderEvent', newEvent, true)
-    }
-  }
-
-  function removeHelpout(date, startTime, endTime) {
-      var removeID = date + startTime + endTime;
-      for (var i = 0; i < helpoutSources.length; i++) {
-        if (helpoutSources[i].id == removeID) {
-          delete helpoutSources[i];
-          break;
+    console.log("Beginning my", myHelpoutSources);
+    console.log("Other", otherHelpoutSources);
+    $('#allAbsences').fullCalendar('removeEventSource', otherHelpoutSources);
+    $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
+    if (calendarID == "all") { // I claimed a shift and now we add it to my calendar
+      myHelpoutSources.push(newEvent);
+      var dummy = [];
+      for (var i = 0; i < otherHelpoutSources.length; i++) {
+        if (otherHelpoutSources[i].id != newEvent.id) {
+          dummy.push(otherHelpoutSources[i]);
         }
       }
-      $('#allAbsences').fullCalendar('addEventSource', helpoutSources);
-      // $('#allAbsences').fullCalendar('removeEvents', removeID);
+      otherHelpoutSources = dummy;
+      
+      $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
+    }
+    else { // I add a helpout;
+      otherHelpoutSources.push(newEvent);
+      var dummy = [];
+      for (var i = 0; i < myHelpoutSources.length; i++) {
+        if (myHelpoutSources[i].id != newEvent.id) {
+          dummy.push(myHelpoutSources[i]);
+        }
+      }
+      myHelpoutSources = dummy;
+      $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+      $('#calendar').fullCalendar('addEventSource', myHelpoutSources);
+    }
+    console.log(myHelpoutSources);
+    console.log(otherHelpoutSources);
   }
+
+  // function removeHelpout(date, startTime, endTime) {
+  //     var removeID = 'h' + date + startTime + endTime;
+  //     var dummy = [];
+  //     for (var i = 0; i < otherHelpoutSources.length; i++) {
+  //       if (otherHelpoutSources[i].id != removeID) {
+  //         dummy.push(otherHelpoutSources[i]);
+  //       }
+  //     }
+  //     otherHelpoutSources = dummy;
+  //     $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
+  // }
 
   $(document).on('click', '#all-tab', function(e) {
       setTimeout(function(){
@@ -212,7 +250,7 @@ $(document).ready(function()
     var date = $("#helpout-date").val();
     var startTime = $("#helpout-start-time").val();
     var endTime = $("#helpout-end-time").val();
-    removeHelpout(date, startTime, endTime);
+    // removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
     addHelpout(date, startTime, endTime, 'all');
     $("#helpout-form").trigger('reset');
