@@ -41,7 +41,6 @@ $(document).ready(function()
 
 
   $('#all').fullCalendar({
-      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -60,17 +59,26 @@ $(document).ready(function()
       events: [ 
           {
               title  : '',
-              start  : '2017-04-17T16:00:00',
-              end    : '2017-04-17T22:00:00',
-              color  : scheduleColor(3),
+              start  : '2017-05-09T16:00:00',
+              end    : '2017-05-09T17:00:00',
+              color  : scheduleColor(2),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu, Vaporeon, Pichu, Zubat, Meowth  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Eevee, Clefairy"
+              description: "ABSENT: <br /> Vaporeon, Pichu, Zubat, Meowth  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Eevee, Clefairy"
           },
           {
               title  : '',
-              start  : '2017-04-17T13:00:00',
-              end    : '2017-04-17T14:00:00',
+              start  : '2017-05-09T17:00:00',
+              end    : '2017-05-09T18:00:00',
+              color  : scheduleColor(1),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Vaporeon, Pichu  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefairy"
+          },
+          {
+              title  : '',
+              start  : '2017-05-10T13:00:00',
+              end    : '2017-04-10T15:00:00',
               color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
@@ -78,12 +86,21 @@ $(document).ready(function()
           },
           {
               title  : '',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
-              color  : scheduleColor(1),
+              start  : '2017-05-12T18:00:00',
+              end    : '2017-05-12T20:00:00',
+              color  : scheduleColor(6),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
+              description: "ABSENT: <br /> Pikachu, Vaporeon, Pichu, Pidgy, Mew, Mewtwo <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
+          },
+          {
+              title  : '',
+              start  : '2017-05-11T14:00:00',
+              end    : '2017-05-11T15:00:00',
+              color  : scheduleColor(0),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Vaporeon <br /> ----------- <br /> EXTRA SHIFT:  <br /> Pikachu"
           }
       ],
     
@@ -110,7 +127,6 @@ $(document).ready(function()
 
 
   $('#cashiers').fullCalendar({
-      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -126,16 +142,43 @@ $(document).ready(function()
       slotDuration: "1:00:00",
       displayEventTime: false,
 
-      events: [ 
+      events: [ // Vaporeon, Pikachu
           {
               title  : '',
-              start  : '2017-04-17T16:00:00',
-              end    : '2017-04-17T22:00:00',
+              start  : '2017-05-09T16:00:00',
+              end    : '2017-05-09T17:00:00',
               color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT:  <br /> Pichu, Zubat <br /> ----------- <br /> EXTRA SHIFT: <br /> Eevee "
+              description: "ABSENT: <br /> Vaporeon  <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
           },
+          {
+              title  : '',
+              start  : '2017-05-09T17:00:00',
+              end    : '2017-05-09T18:00:00',
+              color  : scheduleColor(1),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Vaporeon  <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
+          },
+          {
+              title  : '',
+              start  : '2017-05-12T18:00:00',
+              end    : '2017-05-12T20:00:00',
+              color  : scheduleColor(2),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu, Vaporeon  <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
+          },
+          {
+              title  : '',
+              start  : '2017-05-11T14:00:00',
+              end    : '2017-05-11T15:00:00',
+              color  : scheduleColor(0),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Vaporeon <br /> ----------- <br /> EXTRA SHIFT:  <br /> Pikachu"
+          }
       ],
     
     eventRender: function(event, element) {
@@ -161,7 +204,6 @@ $(document).ready(function()
 
 
   $('#chefs').fullCalendar({
-      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -177,24 +219,33 @@ $(document).ready(function()
       slotDuration: "1:00:00",
       displayEventTime: false,
 
-      events: [ 
+      events: [ // Pichu, Zubat, Eevee, Clefairy
           {
               title  : '',
-              start  : '2017-04-17T13:00:00',
-              end    : '2017-04-17T14:00:00',
-              color  : scheduleColor(1),
+              start  : '2017-05-09T16:00:00',
+              end    : '2017-05-09T17:00:00',
+              color  : scheduleColor(0),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mew <br /> -----------"
+              description: "ABSENT: <br /> Pichu, Zubat  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Eevee, Clefairy"
           },
           {
               title  : '',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
+              start  : '2017-05-09T17:00:00',
+              end    : '2017-05-09T18:00:00',
+              color  : scheduleColor(0),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pichu  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefairy"
+          },
+          {
+              title  : '',
+              start  : '2017-05-12T18:00:00',
+              end    : '2017-05-12T20:00:00',
               color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
+              description: "ABSENT: <br /> Pichu <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
           }
       ],
     
@@ -221,7 +272,6 @@ $(document).ready(function()
 
 
   $('#waiters').fullCalendar({
-      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -237,25 +287,43 @@ $(document).ready(function()
       slotDuration: "1:00:00",
       displayEventTime: false,
 
-      events: [ 
+      events: [ // Meowth, Mewtwo, Mew, Dratini, Pidgy
           {
               title  : '',
-              start  : '2017-04-17T16:00:00',
-              end    : '2017-04-17T22:00:00',
-              color  : scheduleColor(2),
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pikachu, Vaporeon, Meowth <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefairy"
-          },
-          {
-              title  : '',
-              start  : '2017-04-17T13:00:00',
-              end    : '2017-04-17T14:00:00',
+              start  : '2017-05-09T16:00:00',
+              end    : '2017-05-09T17:00:00',
               color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
+              description: "ABSENT: <br /> Meowth  <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
           },
+          {
+              title  : '',
+              start  : '2017-05-10T13:00:00',
+              end    : '2017-04-10T15:00:00',
+              color  : scheduleColor(1),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
+          },
+          {
+              title  : '',
+              start  : '2017-05-12T18:00:00',
+              end    : '2017-05-12T20:00:00',
+              color  : scheduleColor(3),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy, Mew, Mewtwo <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
+          },
+          {
+              title  : '',
+              start  : '2017-05-12T13:00:00',
+              end    : '2017-05-12T14:00:00',
+              color  : scheduleColor(1),
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> ----------- <br /> EXTRA SHIFT:  <br /> "
+          }
 
       ],
     
@@ -421,7 +489,7 @@ $(document).on('click', '#waiter-tab', function(e) {
         </select>
       </div>
       <div class= "col col-md-4"> </div>
-      <div class= "col col-md-5" >
+      <div class= "col col-md-5" align="right">
         <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
       </div>
     </div> <!-- End of Footer -->
@@ -438,11 +506,12 @@ $(document).on('click', '#waiter-tab', function(e) {
           <div class="row post-time"> 3 hrs </div> 
         </div> <!-- To From Stuff --> 
         <div class="col col-md-2 no-side-margin">
-          <!--- Delete Button -->
-          <button class="btn btn-xs  post-del" id="post-del-btn-0"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+          
           <!-- Edit Button -->
           <button class="btn btn-xs post-edit" id="post-edit-btn-0"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
           data-toggle="modal" data-target="#postEditModal"></span> </button>
+          <!--- Delete Button -->
+          <button class="btn btn-xs  post-del" id="post-del-btn-0"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
 
         </div> <!-- End of Edit/ Remove Button Stuff -->
        </div> <!-- End Post Header -->
@@ -471,7 +540,7 @@ $(document).on('click', '#waiter-tab', function(e) {
        <div class="row">
           <div class="col col-md-12 post-details gappy" id="post-details-1"> 
              <strong> Restaurant Understaffed </strong> <br> 
-              Only 3 waiters out of 6 absentees are covered. 
+              Six absentees on Friday 5/12 6-8pm are not covered. 
           </div>
         </div> <!-- End of Row Containing Text -->
       </div> <!-- End Of Sample Post 1-->

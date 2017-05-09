@@ -24,7 +24,7 @@
   <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
   <script src='CalendarSetup.js'></script>
-  
+
   <script src='validation.js'></script>
   <script src='announcement.js'></script>
 
@@ -32,18 +32,18 @@
   var otherHelpoutSources = [
             {
               title  : 'Helpout',
-              id     : 'h2017-05-101pm3pm',
-              start  : '2017-05-10T13:00:00',
-              end    : '2017-05-10T15:00:00',
+              id     : 'h2017-05-094pm6pm',
+              start  : '2017-05-09T16:00:00',
+              end    : '2017-05-09T18:00:00',
               color  : 'blue',
               startEditable : false,
               durationEditable : false,
           },
           {
               title  : 'Helpout',
-              id     : 'h2017-05-116pm8pm',
-              start  : '2017-05-11T18:00:00',
-              end    : '2017-05-11T20:00:00',
+              id     : 'h2017-05-126pm8pm',
+              start  : '2017-05-12T18:00:00',
+              end    : '2017-05-12T20:00:00',
               color  :'blue',
               startEditable : false,
               durationEditable : false,
@@ -146,9 +146,9 @@ $(document).ready(function()
   addHelpoutEvent("2017-05-11", "2pm", "3pm");
   addHelpoutEvent("2017-05-18", "6pm", "8pm");
   // addAbsence("2017-04-10", "6pm", "9pm", "Vacation");
-  addAbsence("2017-05-12", "1pm", "2pm", "Family");
+  addAbsence("2017-05-12", "6pm", "8pm", "Family");
   // addAbsenceEvent("2017-04-10", "6pm", "9pm", "Vacation");
-  addAbsenceEvent("2017-05-12", "1pm", "2pm", "Family");
+  addAbsenceEvent("2017-05-12", "6pm", "8pm", "Family");
 }); //document.ready()
 
   $("body").on("hidden.bs.modal", function(){
@@ -433,6 +433,8 @@ $(document).ready(function()
       <li id="calendar-tab" class="active"><a data-toggle="tab" href="#calendar">My Schedule</a></li>
       <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> Claim Helpout</a></li>
     </ul>
+
+
     
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
@@ -442,6 +444,8 @@ $(document).ready(function()
         </ul>
       </li>    
     </ul>  </div>
+
+    
 </nav>
 
 <!-- Navigation Bar --> 
@@ -451,16 +455,25 @@ $(document).ready(function()
   <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
-    <div class='row event-filter container'> 
-      <form class='event-filter' id = 'school_selector'> 
+    <div class='row event-filter container' id="filters"> 
+      <form class='event-filter' id = 'selector'> 
         <input class="calFilter" type="checkbox" value='show-absences' onchange='handleAbsenceChange();' id='show-absences' value='1' checked>
            Absences 
-        <input class="calFilter" type="checkbox" value='show-helpouts' onchange='handleHelpoutChange(this);' id='show-helpouts' value='2' checked style='margin-left:20px'>
+        <input class="calFilter" type="checkbox" value='show-helpouts' onchange='handleHelpoutChange();' id='show-helpouts' value='2' checked style='margin-left:20px'>
            Helpouts 
       </form>
     </div>
   </div>
 </div> 
+
+<script type="text/javascript">
+      $('#calendar-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "visible";
+      });
+      $('#all-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "hidden";
+      })
+</script>
 <!-- End Calender Code -->
 
 
@@ -483,14 +496,14 @@ $(document).ready(function()
         </div> <!-- End of Textbox -->
         <div class="row">
           <div class= "col col-md-3">
-            <select class="form-control gappy" id="post-to">
+            <select class="form-control gappy" id="post-to" align="left">
               <option selected>Manager</option>
               <option>Waiters</option>
               <option>PassOn</option>
             </select>
           </div>
           <div class= "col col-md-4"> </div>
-          <div class= "col col-md-5" >
+          <div class= "col col-md-5"  align="right">
             <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
           </div>
         </div> <!-- End of Footer -->
@@ -527,11 +540,12 @@ $(document).ready(function()
               <div class="row post-time"> 10 hrs </div> 
             </div> <!-- To From Stuff --> 
             <div class="col col-md-2 no-side-margin">
-              <!--- Delete Button -->
-              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+              
               <!-- Edit Button -->
               <button class="btn btn-xs post-edit" id="post-edit-btn-1"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
               data-toggle="modal" data-target="#postEditModal"></span> </button>
+              <!--- Delete Button -->
+              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
 
               <!-- No Edit button for this --> 
             </div> <!-- End of Edit/ Remove Button Stuff -->
