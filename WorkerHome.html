@@ -438,6 +438,8 @@ $(document).ready(function()
       <li id="calendar-tab" class="active"><a data-toggle="tab" href="#calendar">My Schedule</a></li>
       <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> Claim Helpout</a></li>
     </ul>
+
+
     
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
@@ -447,6 +449,8 @@ $(document).ready(function()
         </ul>
       </li>    
     </ul>  </div>
+
+    
 </nav>
 
 <!-- Navigation Bar --> 
@@ -456,7 +460,7 @@ $(document).ready(function()
   <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
-    <div class='row event-filter container'> 
+    <div class='row event-filter container' id="filters"> 
       <form class='event-filter' id = 'selector'> 
         <input class="calFilter" type="checkbox" value='show-absences' onchange='handleAbsenceChange();' id='show-absences' value='1' checked>
            Absences 
@@ -466,6 +470,15 @@ $(document).ready(function()
     </div>
   </div>
 </div> 
+
+<script type="text/javascript">
+      $('#calendar-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "visible";
+      });
+      $('#all-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "hidden";
+      })
+</script>
 <!-- End Calender Code -->
 
 
@@ -535,11 +548,12 @@ $(document).ready(function()
               <div class="row post-time"> 10 hrs </div> 
             </div> <!-- To From Stuff --> 
             <div class="col col-md-2 no-side-margin">
-              <!--- Delete Button -->
-              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+              
               <!-- Edit Button -->
               <button class="btn btn-xs post-edit" id="post-edit-btn-1"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
               data-toggle="modal" data-target="#postEditModal"></span> </button>
+              <!--- Delete Button -->
+              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
 
               <!-- No Edit button for this --> 
             </div> <!-- End of Edit/ Remove Button Stuff -->
