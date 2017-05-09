@@ -64,6 +64,15 @@ textarea {
 	border-bottom-style: solid;
 }
 
+#absenceTable td{
+	text-align: center;
+	border-bottom-style: solid;
+}
+
+#upcoming-helpouts td{
+	text-align: center;
+	border-bottom-style: solid;
+}
 
 .red-font {
 	color: #ED4337;
@@ -90,3 +99,7 @@ textarea {
     display:inline-block;
     overflow:hidden
 }
+
+.my-legend {
+  max-width: 300px !important;
+  }

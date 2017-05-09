@@ -22,13 +22,26 @@
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
 
   <script>
+
+function scheduleColor(numAbsences) {
+  if (numAbsences <= 1) {
+    return "#C1ECFA"; // healthy
+  } else if (numAbsences <= 3) {
+    return "#87CEFA"; // minor
+  } else if (numAbsences <= 5) {
+    return "#1E90FF"; // major
+  } else {
+    return "#0000CD"; // fatal
+  }
+}
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
 {
-  
+
 
   $('#all').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -46,31 +59,31 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '3',
+              title  : '',
               start  : '2017-04-17T16:00:00',
               end    : '2017-04-17T22:00:00',
-              color  :'red',
+              color  : scheduleColor(3),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+              description: "ABSENT: <br /> Pikachu, Vaporeon, Pichu, Zubat, Meowth  <br /> ----------- <br /> EXTRA SHIFT:  <br /> Eevee, Clefairy"
           },
           {
-              title  : '1',
+              title  : '',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T14:00:00',
-              color  :'orange',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mewtwo, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
           },
           {
-              title  : '1',
+              title  : '',
               start  : '2017-04-20T13:00:00',
               end    : '2017-04-20T15:00:00',
-              color  :'orange',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
           }
       ],
     
@@ -97,6 +110,7 @@ $(document).ready(function()
 
 
   $('#cashiers').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -114,32 +128,14 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
+              title  : '',
               start  : '2017-04-17T16:00:00',
               end    : '2017-04-17T22:00:00',
-              color  :'red',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+              description: "ABSENT:  <br /> Pichu, Zubat <br /> ----------- <br /> EXTRA SHIFT: <br /> Eevee "
           },
-          {
-              title  : '2',
-              start  : '2017-04-17T13:00:00',
-              end    : '2017-04-17T14:00:00',
-              color  :'orange',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
-          },
-          {
-              title  : '2',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
-              color  :'orange',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
-          }
       ],
     
     eventRender: function(event, element) {
@@ -165,6 +161,7 @@ $(document).ready(function()
 
 
   $('#chefs').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -182,31 +179,22 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
-              start  : '2017-04-17T16:00:00',
-              end    : '2017-04-17T22:00:00',
-              color  :'red',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
-          },
-          {
-              title  : '2',
+              title  : '',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T14:00:00',
-              color  :'orange',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mew <br /> -----------"
           },
           {
-              title  : '2',
+              title  : '',
               start  : '2017-04-20T13:00:00',
               end    : '2017-04-20T15:00:00',
-              color  :'orange',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Pidgy, Mew <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefable"
           }
       ],
     
@@ -233,6 +221,7 @@ $(document).ready(function()
 
 
   $('#waiters').fullCalendar({
+      defaultDate: '2017-04-18',
       defaultView: 'agendaWeek',
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
@@ -250,32 +239,24 @@ $(document).ready(function()
 
       events: [ 
           {
-              title  : '5',
+              title  : '',
               start  : '2017-04-17T16:00:00',
               end    : '2017-04-17T22:00:00',
-              color  :'red',
+              color  : scheduleColor(2),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+              description: "ABSENT: <br /> Pikachu, Vaporeon, Meowth <br /> ----------- <br /> EXTRA SHIFT:  <br /> Clefairy"
           },
           {
-              title  : '2',
+              title  : '',
               start  : '2017-04-17T13:00:00',
               end    : '2017-04-17T14:00:00',
-              color  :'orange',
+              color  : scheduleColor(1),
               startEditable : false,
               durationEditable : false,
-              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> EXTRA SHIFT:  <br /> Dratini"
           },
-          {
-              title  : '2',
-              start  : '2017-04-20T13:00:00',
-              end    : '2017-04-20T15:00:00',
-              color  :'orange',
-              startEditable : false,
-              durationEditable : false,
-              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
-          }
+
       ],
     
     eventRender: function(event, element) {
@@ -299,6 +280,12 @@ $(document).ready(function()
         }
   });
 });
+
+$(document).on('click', '#all-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
 
 $(document).on('click', '#cashier-tab', function(e) {
     setTimeout(function(){
@@ -328,7 +315,7 @@ $(document).on('click', '#waiter-tab', function(e) {
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">PikaShift</a>
+      <a class="navbar-brand" href="ManagerHome.html">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
       <li id = "all-tab" class="active"><a data-toggle="tab" href="#all">All Absences</a></li>
@@ -338,14 +325,16 @@ $(document).on('click', '#waiter-tab', function(e) {
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres </a></li>
-     
+      <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres </a></li> -->
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres</a>
+        <ul class="dropdown-menu">
+          <li><a href="Login.html">Logout</a></li>
+        </ul>
+      </li>   
     </ul>
   </div>
 </nav>
-
-<!-- Navigation Bar --> 
-
 
 <div class="container col-md-6 column"> <!--- Calender Code -->
   <div class="tab-content">
@@ -354,6 +343,64 @@ $(document).on('click', '#waiter-tab', function(e) {
     <div id="chefs" class="tab-pane fade"> </div>
     <div id="waiters" class="tab-pane fade"> </div>
   </div>
+  <br></br>
+  <div align="center">
+    <div class='my-legend' align="center">
+      <div class='legend-scale' align="center">
+        <ul class='legend-labels'>
+          <li><span style='background:#C1ECFA;'></span>Healthy</li>
+          <li><span style='background:#87CEFA;'></span>Minor</li>
+          <li><span style='background:#1E90FF;'></span>Major</li>
+          <li><span style='background:#0000CD;'></span>Fatal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <style type='text/css'>
+      .my-legend {
+        display: table;   /* Allow the centering to work */
+        margin: 0 auto;
+      }
+      .my-legend .legend-title {
+        text-align: left;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 90%;
+        }
+      .my-legend .legend-scale ul {
+        margin: 0;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .my-legend .legend-scale ul li {
+        display: block;
+        float: left;
+        width: 80px;
+        margin-bottom: 6px;
+        text-align: center;
+        font-size: 100%;
+        list-style: none;
+        }
+      .my-legend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 15px;
+        width: 80px;
+        }
+      .my-legend .legend-source {
+        font-size: 70%;
+        color: #999;
+        clear: both;
+        }
+      .my-legend a {
+        color: #777;
+      }
+      ul li {
+        display: inline;
+      }
+    </style>
 </div><!-- End Calender Code -->
 
 <!-- Begin Announcement Code -->

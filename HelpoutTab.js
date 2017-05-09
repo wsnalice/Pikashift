@@ -245,6 +245,7 @@ $(document).on('click', "#helpout-submit-btn", function(evt){
       </table>
 	`
 	document.getElementById("helpouts").innerHTML = helpoutTable;
+	$('#allAbsences').fullCalendar('removeEvents', 'help1');
 });
 
 $(document).on('click', "#newHelpout", function(evt) {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PikaShift</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="LoginLayout.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="LoginPage.js"></script>
+
+</head>
+
+<body>
+<div class="login-page">
+  <div class="form">
+    <form class="login-form">
+      <h1> PikaShift </h1>
+      <input type="text" placeholder="username" id="username"/>
+      <input type="password" placeholder="password" id="password"/>
+      <span style="color: red; font-size: 12px" id="login_failed">  </span>
+      <br></br>
+      <button id="loginButton" onclick="validate()" type="reset">login</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
