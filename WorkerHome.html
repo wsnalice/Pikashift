@@ -33,18 +33,18 @@
   var otherHelpoutSources = [
             {
               title  : 'Helpout',
-              id     : 'h2017-05-081pm3pm',
-              start  : '2017-05-08T13:00:00',
-              end    : '2017-05-08T15:00:00',
+              id     : 'h2017-05-101pm3pm',
+              start  : '2017-05-10T13:00:00',
+              end    : '2017-05-10T15:00:00',
               color  : 'blue',
               startEditable : false,
               durationEditable : false,
           },
           {
               title  : 'Helpout',
-              id     : 'h2017-05-106pm8pm',
-              start  : '2017-05-10T18:00:00',
-              end    : '2017-05-10T20:00:00',
+              id     : 'h2017-05-116pm8pm',
+              start  : '2017-05-11T18:00:00',
+              end    : '2017-05-11T20:00:00',
               color  :'blue',
               startEditable : false,
               durationEditable : false,
@@ -258,6 +258,9 @@ $(document).ready(function()
     // $('.nav-tabs a[href="#calendar"]').tab('show');
   });
 
+  var hStartDelete = '<button class="btn btn-xs  helpout-del" id="helpout-del-btn-';
+  var hEndDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>';
+
   function addAbsenceEvent(date, startTime, endTime, reason){
     var table = document.getElementById("absenceTable");
     var row = table.insertRow(0);
@@ -270,14 +273,32 @@ $(document).ready(function()
     cell3.innerHTML = "</h5>" + reason + "</h5>";
   }
 
+ $(document).on('click', ".helpout-del", function(evt)
+{
+   var btnId = $(this).attr('id');
+   var id = btnId.substring(16);
+   var row = $(this).parent().parent();
+   console.log("Row:", row);
+   row.remove();
+   console.log(id);
+
+   var date = id.substring(1,11);
+   var startTime = id.substring(11,14);
+   var endTime = id.substring(14,17);
+
+   addHelpout(date, startTime, endTime, "notall");
+});
+
   function addHelpoutEvent(date, startTime, endTime){
     var table = document.getElementById("upcoming-helpouts");
     var row = table.insertRow(0);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
     var time = startTime + " - " + endTime;
     cell1.innerHTML = "<h5>" + date +"</h5>";
     cell2.innerHTML = "<h5>" + time +"</h5>";
+    cell3.innerHTML = hStartDelete + "h" + date + startTime + endTime + hEndDelete;
   }
 
 </script>
@@ -459,6 +480,9 @@ $(document).ready(function()
           <td align="center">
             <h5>1pm - 2pm</h5>
           </td>
+          <td align="center">
+            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-211pm2pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+          </td>
         </tr>
         <tr class="lower-border">
           <td align="center">
@@ -466,6 +490,10 @@ $(document).ready(function()
           </td>
           <td align="center">
             <h5>6pm - 8pm</h5>
+          </td>
+          <td>
+            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-286pm8pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+
           </td>
         </tr>
       </table>
