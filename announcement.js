@@ -52,7 +52,6 @@ function constructPost(inpText, toPerson, postNum) {
 
 $(document).on('click', "#post-btn", function(evt)
 {
-  console.log($('#new-post-input').val());
   if ($('#new-post-input').val() == ''){
       $('#empty-msg').html("Cannot post nothing");
   }
