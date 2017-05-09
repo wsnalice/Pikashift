@@ -43,7 +43,7 @@ $(document).ready(function()
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
       header: {
-        left: 'today prev, next',
+        left: 'prev, next today',
         center: 'title',
         right: 'agendaWeek, agendaDay'
       },
@@ -83,17 +83,6 @@ $(document).ready(function()
         
         $("#newHelpout").trigger('click');
         
-        var dateText = new Date();
-        var month = start.getMonth() + 1;
-        var date = start.getDate();
-        if (start.getMonth() < 10) {
-          month = '0' + month;
-        }
-        if (start.getDate() < 10) {
-          date = '0' + date;
-        }
-        dateText = start.getFullYear() + '-' + month + '-' + date; 
-        $("#helpout-date").val(dateText);
         var startText = start.getHours() + "am";
         var endText = end.getHours() + 'am';
         if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
@@ -101,12 +90,12 @@ $(document).ready(function()
         if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
         else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
       
-
+        $("#helpout-date").val(event.start._i.slice(0,10));
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
         },
-    });
-});
+    });  //.fullcalendar()
+}); //document.ready()
 
   function handleChange(checkbox) {
     $('#calendar').fullCalendar('rerenderEvents');
@@ -137,14 +126,45 @@ $(document).ready(function()
     newEvent.id = 'absences';
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
-    newEvent.color = 'red';
+    newEvent.color = 'black';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
     $('#calendar').fullCalendar('renderEvent', newEvent, true)
   }
 
+  function addHelpout(date, startTime, endTime, calendarID) {
+    var startModified;
+    if (startTime.indexOf('am') != -1) {
+      startModified = startTime.slice(0,-2);
+    } else {
+      startModified = parseInt(startTime.slice(0,-2)) + 12;
+    }
+    var endModified;
+    if (endTime.indexOf('am') != -1) {
+      endModified = endTime.slice(0,-2);
+    } else {
+      endModified = parseInt(endTime.slice(0,-2)) + 12;
+    }
+
+    var newEvent = new Object();
+    newEvent.title = 'Helpout';
+    newEvent.id = 'helpouts';
+    newEvent.start = date + 'T' + startModified + ':00:00Z';
+    newEvent.end = date + 'T' + endModified + ':00:00Z';
+    newEvent.color = 'blue';
+    newEvent.startEditable = false;
+    newEvent.durationEditable = false;
+    if (calendarID == "all") {
+      $('#calendar').fullCalendar('renderEvent', newEvent, true)
+    }
+    else {
+      $('#allAbsences').fullCalendar('renderEvent', newEvent, true)
+    }
+  }
+
   function removeHelpout(date, startTime, endTime) {
-      var removeID = date + startTime + endTime
+      var removeID = date + startTime + endTime;
+      console.log(removeID);
       $('#allAbsences').fullCalendar('removeEvents', removeID);
   }
 
@@ -183,8 +203,9 @@ $(document).ready(function()
     var date = $("#helpout-date").val();
     var startTime = $("#helpout-start-time").val();
     var endTime = $("#helpout-end-time").val();
-    // removeHelpout(date, startTime, endTime);
+    removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
+    addHelpout(date, startTime, endTime, 'all');
     $("#helpout-form").trigger('reset');
     $('.nav-tabs a[href="#helpouts-tab"]').tab('show');
     // $('.nav-tabs a[href="#calendar"]').tab('show');
