@@ -22,24 +22,24 @@ function myScheduleSetup() {
           end: '21:00',
         },
       events: [
-        {
-            title  : 'absent',
-            id     : 'absences',
-            start  : '2017-04-15T13:00:00',
-            end    : '2017-04-15T14:00:00',
-            color  :'red',
-            startEditable : false,
-            durationEditable : false
-        },
-        {
-            title  : 'absent',
-            id     : 'absences',
-            start  : '2017-04-10T18:00:00',
-            end    : '2017-04-10T21:00:00',
-            color  :'red',
-            startEditable : false,
-            durationEditable : false,
-        },
+        // {
+        //     title  : 'absent',
+        //     id     : 'absences',
+        //     start  : '2017-05-12T13:00:00',
+        //     end    : '2017-05-12T14:00:00',
+        //     color  :'red',
+        //     startEditable : false,
+        //     durationEditable : false
+        // },
+        // {
+        //     title  : 'absent',
+        //     id     : 'absences',
+        //     start  : '2017-04-10T18:00:00',
+        //     end    : '2017-04-10T21:00:00',
+        //     color  :'red',
+        //     startEditable : false,
+        //     durationEditable : false,
+        // },
         {
             title  : 'workhour',
             id     : 'workhour',
@@ -52,6 +52,7 @@ function myScheduleSetup() {
             rendering: 'background',
         }
       ],
+      eventSources: [myHelpoutSources, absenceSources],
       
       ////////////////////////////////////////
       ///selecting absence time on calendar///

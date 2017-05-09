@@ -50,8 +50,52 @@
               durationEditable : false,
           }
   ];
-  var myHelpoutSources = [];
-  var absenceSources = [];
+  var myHelpoutSources = [{
+              title  : 'Helpout',
+              id     : 'h2017-05-112pm3pm',
+              start  : '2017-05-11T14:00:00',
+              end    : '2017-05-11T15:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+          },
+          {
+              title  : 'Helpout',
+              id     : 'h2017-05-186pm8pm',
+              start  : '2017-05-18T18:00:00',
+              end    : '2017-05-18T20:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+          },
+          {
+              title  : 'Helpout',
+              id     : 'h2017-04-151pm2pm',
+              start  : '2017-04-15T13:00:00',
+              end    : '2017-04-15T14:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+          },
+          {
+              title  : 'Helpout',
+              id     : 'h2017-04-116pm9pm',
+              start  : '2017-04-11T18:00:00',
+              end    : '2017-04-11T21:00:00',
+              color  :'blue',
+              startEditable : false,
+              durationEditable : false,
+          }];
+  var absenceSources = [
+        {
+            title  : 'Absent',
+            id     : 'a2017-04-106pm9pm',
+            start  : '2017-04-10T18:00:00',
+            end    : '2017-04-10T21:00:00',
+            color  :'black',
+            startEditable : false,
+            durationEditable : false,
+        }];
 // Final initialization entry point: the Javascript code inside this block
 // runs at the end of start-up when the page has finished loading.
 $(document).ready(function()
@@ -96,6 +140,13 @@ $(document).ready(function()
         $("#helpout-end-time").val(endText);
         },
     });  //.fullcalendar()
+
+  addHelpoutEvent("2017-05-11", "2pm", "3pm");
+  addHelpoutEvent("2017-05-18", "6pm", "8pm");
+  // addAbsence("2017-04-10", "6pm", "9pm", "Vacation");
+  addAbsence("2017-05-12", "1pm", "2pm", "Family");
+  // addAbsenceEvent("2017-04-10", "6pm", "9pm", "Vacation");
+  addAbsenceEvent("2017-05-12", "1pm", "2pm", "Family");
 }); //document.ready()
 
   function handleAbsenceChange() {
@@ -115,6 +166,7 @@ $(document).ready(function()
   }
 
   function addAbsence(date, startTime, endTime, reason) {
+    $('#calendar').fullCalendar('removeEventSource', absenceSources);
     var startModified;
     if (startTime.indexOf('am') != -1) {
       startModified = startTime.slice(0,-2);
@@ -129,7 +181,7 @@ $(document).ready(function()
     }
 
     var newEvent = new Object();
-    newEvent.title = 'absent';
+    newEvent.title = 'Absent';
     newEvent.id = 'a' + date + startTime + endTime;
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
@@ -141,6 +193,7 @@ $(document).ready(function()
   }
 
   function removeAbsence(date, startTime, endTime) {
+    console.log(absenceSources);
     $('#calendar').fullCalendar('removeEventSource', absenceSources);
     var id = 'a' + date + startTime + endTime;
     var dummy = [];
@@ -151,6 +204,7 @@ $(document).ready(function()
     }
     absenceSources = dummy;
     $('#calendar').fullCalendar('addEventSource', absenceSources);
+    console.log(absenceSources);
   }
 
   function addHelpout(date, startTime, endTime, calendarID) {
@@ -258,6 +312,9 @@ $(document).ready(function()
     // $('.nav-tabs a[href="#calendar"]').tab('show');
   });
 
+  var aStartDelete = '<button class="btn btn-xs  absence-del" id="absence-del-btn-';
+  var aEndDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>';
+
   var hStartDelete = '<button class="btn btn-xs  helpout-del" id="helpout-del-btn-';
   var hEndDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>';
 
@@ -267,11 +324,29 @@ $(document).ready(function()
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
     var time = startTime + " - " + endTime;
     cell1.innerHTML = "<h5>" + date +"</h5>";
     cell2.innerHTML = "<h5>" + time +"</h5>";
-    cell3.innerHTML = "</h5>" + reason + "</h5>";
+    cell3.innerHTML = "<h5>" + reason + "</h5>";
+    cell4.innerHTML = aStartDelete + "a" + date + startTime + endTime + aEndDelete;
   }
+
+ $(document).on('click', ".absence-del", function(evt)
+{
+   var btnId = $(this).attr('id');
+   var id = btnId.substring(16);
+   var row = $(this).parent().parent();
+   console.log("Row:", row);
+   row.remove();
+   console.log(id);
+
+   var date = id.substring(1,11);
+   var startTime = id.substring(11,14);
+   var endTime = id.substring(14,17);
+
+   removeAbsence(date, startTime, endTime);
+});  
 
  $(document).on('click', ".helpout-del", function(evt)
 {
@@ -444,24 +519,15 @@ $(document).ready(function()
       <table id='absenceTable' style="width:100%">
         <tr class="lower-border">
           <td align="center">
-            <h5>2017-03-15</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-          <td align="center">
-            <h5>Family</h5>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>2017-03-10</h5>
+            <h5>2017-04-10</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
           </td>
           <td align="center">
             <h5>Vacation</h5>
+          </td>
+          <td>
           </td>
         </tr>
       </table>
@@ -473,36 +539,13 @@ $(document).ready(function()
       <button type="button" class="btn btn-primary btn-block" id = "newHelpout" data-toggle="modal" data-target="#helpoutModal"> New Helpout</button>
       <div class="helpout-title" style="padding-top: 10px"><h4> Upcoming Helpouts</h4></div>
       <table id="upcoming-helpouts" style="width:100%">
-        <tr class="lower-border top-border">
-          <td align="center">
-            <h5>2017-04-21</h5>
-          </td>
-          <td align="center">
-            <h5>1pm - 2pm</h5>
-          </td>
-          <td align="center">
-            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-211pm2pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
-          </td>
-        </tr>
-        <tr class="lower-border">
-          <td align="center">
-            <h5>2017-04-28</h5>
-          </td>
-          <td align="center">
-            <h5>6pm - 8pm</h5>
-          </td>
-          <td>
-            <button class="btn btn-xs  helpout-del" id="helpout-del-btn-h2017-04-286pm8pm"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
-
-          </td>
-        </tr>
       </table>
 
       <div class="helpout-title"><h4> Previous Helpouts</h4></div>
       <table id="previous-helpouts" style="width:100%">
         <tr class="lower-border top-border">
           <td align="center">
-            <h5>2017-03-15</h5>
+            <h5>2017-04-15</h5>
           </td>
           <td align="center">
             <h5>1pm - 2pm</h5>
@@ -510,7 +553,7 @@ $(document).ready(function()
         </tr>
         <tr class="lower-border">
           <td align="center">
-            <h5>2017-03-10</h5>
+            <h5>2017-04-11</h5>
           </td>
           <td align="center">
             <h5>6pm - 9pm</h5>
