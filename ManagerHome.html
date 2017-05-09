@@ -25,7 +25,7 @@
 
 function scheduleColor(numAbsences) {
   if (numAbsences <= 1) {
-    return "#F0F8FF"; // healthy
+    return "#C1ECFA"; // healthy
   } else if (numAbsences <= 3) {
     return "#87CEFA"; // minor
   } else if (numAbsences <= 5) {
@@ -315,7 +315,7 @@ $(document).on('click', '#waiter-tab', function(e) {
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">PikaShift</a>
+      <a class="navbar-brand" href="ManagerHome.html">PikaShift</a>
     </div>
     <ul class="nav navbar-nav">
       <li id = "all-tab" class="active"><a data-toggle="tab" href="#all">All Absences</a></li>
@@ -348,7 +348,7 @@ $(document).on('click', '#waiter-tab', function(e) {
     <div class='my-legend' align="center">
       <div class='legend-scale' align="center">
         <ul class='legend-labels'>
-          <li><span style='background:#F0F8FF;'></span>Healthy</li>
+          <li><span style='background:#C1ECFA;'></span>Healthy</li>
           <li><span style='background:#87CEFA;'></span>Minor</li>
           <li><span style='background:#1E90FF;'></span>Major</li>
           <li><span style='background:#0000CD;'></span>Fatal</li>
@@ -403,23 +403,134 @@ $(document).on('click', '#waiter-tab', function(e) {
     </style>
 </div><!-- End Calender Code -->
 
-<!-- Tabs Code -->
-
-<div class="container col-md-5 column">
-
-  <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a data-toggle="tab" href="#notifs"><h4> Notifications  </h4></a></li>
-  </ul>
-
-  <div class="tab-content">
-
-    <div id="notifs" class="tab-pane fade in active">
-    </div>
+<!-- Begin Announcement Code -->
+<div class="container col-md-5 column"> 
+  <h2 align="center"> Announcements </h2>
+  <div id="new-post">  
+    <div class="row">
+      <label for="new-post-input">Create an Announcement </label>
+      <textarea class="form-control" rows="3" id="new-post-input" placeholder="Write a new Announcement "></textarea>
+    </div> <!-- End of Textbox -->
+    <div class="row">
+      <div class= "col col-md-3">
+        <select class="form-control gappy" id="post-to">
+          <option selected>Waiters</option>
+          <option>Chefs</option>
+          <option>Cashiers</option>
+           <option>All</option>
+        </select>
+      </div>
+      <div class= "col col-md-4"> </div>
+      <div class= "col col-md-5" >
+        <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
+      </div>
+    </div> <!-- End of Footer -->
     
-  </div>
 
-  <div class="container col-md-1"></div>
-</div>  <!-- End Tabs Code -->
+  </div>  <!-- End of New Post -->
+
+  <div id="all-posts">
+      <!-- Sample Post 0 -->
+      <div id="post-0" class="announcement">
+       <div class="row"> 
+        <div class="col col-md-9">
+
+          <div class="row post-person">Manager  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+            <span id="post-to-0">Waiters</span></div> 
+          <div class="row post-time"> 3 hrs </div> 
+        </div> <!-- To From Stuff --> 
+        <div class="col col-md-3">
+          <!--- Delete Button -->
+          <button class="btn btn-xs  post-del" id="post-del-btn-0"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+          
+          <!-- Edit Button -->
+          <button class="btn btn-xs post-edit" id="post-edit-btn-0"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
+          data-toggle="modal" data-target="#postEditModal"></span> </button>
+
+        </div> <!-- End of Edit/ Remove Button Stuff -->
+       </div> <!-- End Post Header -->
+       <div class="row">
+          <div class="col col-md-12 post-details gappy" id="post-details-0"> Happy Hour Today </div>
+        </div> <!-- End of Row Containing Text -->
+      </div> <!-- End Of Sample Post 0-->
+
+
+
+      <!-- Sample Post 1 -->
+      <div id="post-1" class="announcement">
+       <div class="row"> 
+        <div class="col col-md-9">
+
+          <div class="row post-person"> Pikashift <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+            <span id="post-to-1"> Manager </span></div> 
+          <div class="row post-time"> 10 hrs </div> 
+        </div> <!-- To From Stuff --> 
+        <div class="col col-md-3">
+          <!--- Delete Button -->
+          <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+          
+          <!-- No Edit button for this --> 
+        </div> <!-- End of Edit/ Remove Button Stuff -->
+       </div> <!-- End Post Header -->
+       <div class="row">
+          <div class="col col-md-12 post-details gappy" id="post-details-0"> 
+             <strong> Restaurant Understaffed </strong> <br> 
+             Only 3 waiters out of 6 absentees are covered. 
+          </div>
+        </div> <!-- End of Row Containing Text -->
+      </div> <!-- End Of Sample Post 1-->
+
+
+      
+  </div> <!-- End of All Posts -->
+</div>  <!-- End Announcement Code-->
+
+
+<!--- Edit Post Modal Code --> 
+
+<div class="modal fade" id="postEditModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Announcement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <div class="row">
+            <textarea class="form-control" rows="3" id="edit-post-input" placeholder="Write a new Announcement "></textarea>
+          </div> <!-- End of Textbox -->
+          
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class= "col col-md-3">
+            <select class="form-control gappy" id="edit-post-to">
+              <option value="1">Waiters</option>
+              <option value="2">Chefs</option>
+              <option value="3">Cashiers</option>
+               <option  value="4">All</option>
+            </select>
+          </div>
+          <div class= "col col-md-6"> </div>
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-save-btn" data-dismiss="modal" > Save </button>
+          </div>
+          <!-- No delete button for now 
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-delete-btn" data-dismiss="modal" > Delete </button>
+          </div>
+          --> 
+        </div> <!-- End of Footer -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Model -->
+
 
 </body>
 </html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PikaShift</title>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+
+  <link rel="stylesheet" href="MessageTab.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src='fullcalendar/lib/jquery.min.js'></script>
+  <script src='fullcalendar/lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
+
+    <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
+
+  <script>
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+  
+
+  $('#all').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '3',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '1',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '1',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#cashiers').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '5',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#chefs').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '5',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+
+
+  $('#waiters').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      displayEventTime: false,
+
+      events: [ 
+          {
+              title  : '5',
+              start  : '2017-04-17T16:00:00',
+              end    : '2017-04-17T22:00:00',
+              color  :'red',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pikachu <br /> Vaporeon <br /> Pichu <br /> ----------- <br /> COVERED:  <br /> Zubat  <br /> Meowth"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-17T13:00:00',
+              end    : '2017-04-17T14:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Mewtwo <br /> ----------- <br /> COVERED:  <br /> Mew"
+          },
+          {
+              title  : '2',
+              start  : '2017-04-20T13:00:00',
+              end    : '2017-04-20T15:00:00',
+              color  :'orange',
+              startEditable : false,
+              durationEditable : false,
+              description: "ABSENT: <br /> Pidgy <br /> ----------- <br /> COVERED:  <br /> Mew"
+          }
+      ],
+    
+    eventRender: function(event, element) {
+            element.qtip({
+                content: event.description,
+                style: {
+                    //background: 'black',
+                    //color: '#FFFFFF'
+                    classes: 'qtip-tipsy'
+                },
+                position: {
+                    my: 'left bottom',
+                    at: 'right center',
+                    target: 'center'
+                   // corner: {
+                    //    target: 'center',
+                     //   tooltip: 'bottomMiddle'
+                    //}
+                }
+            });
+        }
+  });
+});
+
+$(document).on('click', '#cashier-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
+
+$(document).on('click', '#chef-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
+
+$(document).on('click', '#waiter-tab', function(e) {
+    setTimeout(function(){
+      $('.fc-agendaWeek-button').click();
+    }, 150) 
+})
+
+</script>
+</head>
+
+
+<body>
+
+<!-- Navigation Bar --> 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">PikaShift</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li id = "all-tab" class="active"><a data-toggle="tab" href="#all">All Absences</a></li>
+      <li id = "cashier-tab"><a data-toggle="tab" href="#cashiers"> Cashiers </a></li>
+      <li id = "chef-tab"><a data-toggle="tab" href="#chefs"> Chefs </a></li>
+      <li id = "waiter-tab"><a data-toggle="tab" href="#waiters"> Waiters </a></li>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, Moltres </a></li>
+     
+    </ul>
+  </div>
+</nav>
+
+<!-- Navigation Bar --> 
+
+
+<div class="container col-md-6 column"> <!--- Calender Code -->
+  <div class="tab-content">
+    <div id="all" class="tab-pane fade in active"></div>
+    <div id="cashiers" class="tab-pane fade"> </div>
+    <div id="chefs" class="tab-pane fade"> </div>
+    <div id="waiters" class="tab-pane fade"> </div>
+  </div>
+</div><!-- End Calender Code -->
+
+<!-- Tabs Code -->
+
+<div class="container col-md-5 column">
+
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#notifs"><h4> Notifications  </h4></a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="notifs" class="tab-pane fade in active">
+      Simple Text 
+      <div id="new-post"> New Post </div> <!-- End New Post Code-->
+      <div id="newsfeed">  News Feed </div> <!-- End of The News Feed --> 
+    </div> 
+  </div>
+
+  <div class="container col-md-1"></div>
+</div>  <!-- End Tabs Code -->
+
+</body>
+</html>

@@ -1,174 +1,167 @@
-var classMsgUnderstaff = 'btn-danger';
-var classMsgAbsence = 'btn-danger';
 
-function toggleMsgStatusBtn(btn){
-	if (btn.hasClass('btn-success')){
-  		btn.removeClass('btn-success');
-  		btn.addClass('btn-danger');
-  		btn.text('Mark Seen');
-  	}else{
-  		btn.addClass('btn-success');
-  		btn.removeClass('btn-danger');
-  		btn.text('Mark Unseen');
-  	}
-}
+var postNum = 10;
+var FromPerson = "Moltres";
+var initialDate 
 
-function getButtonClass(btn) {
-  if (btn.hasClass('btn-success')){
-    return 'btn-success';
-  }else{
-    return 'btn-danger';
-  }
-} 
+var Header = ` <div class="row"> 
+        <div class="col col-md-9">
+          <div class="row post-person">Manager  
+          <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>`
 
 
-function setButtonClasses() {
+var headToTime = `</div><div class="row post-time"> `
+ 
+var timeToButtons = ` </div> </div> <!-- To From Stuff --> 
+        <div class="col col-md-3"> `
 
-  var btnA = $('#msg-seen-absence');
-  if (!btnA.hasClass(classMsgAbsence)){
-    toggleMsgStatusBtn(btnA);
-  }
+var startDelete = '<button class="btn btn-xs  post-del" id="post-del-btn-'
+var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>'
+          
+var startEdit = '<button class="btn btn-xs post-edit" id="post-edit-btn-'
+var endEdit = '"> <span class="glyphicon glyphicon-edit " aria-hidden="true" data-toggle="modal" data-target="#postEditModal"></span> </button>'
 
-  var btnB = $('#msg-seen-understaff');
-  if (!btnB.hasClass(classMsgUnderstaff)){
-    toggleMsgStatusBtn(btnB);
-  }
-}
+var ButtonToContent = `</div> <!-- End of Edit/ Remove Button Stuff -->
+        </div> <!-- End Post Header -->
+       <div class="row"> `
 
-$(document).on('click', "#msg-seen-understaff", function(evt){
+var msgStart = '<div class="col col-md-12 post-details gappy" id="post-details-';  
+var Footer = '</div> </div>';
+
+// RES = header + waiter + headToTime + Time + 
+
+
+function constructPost(inpText, toPerson, postNum) {
+
+  var postString = postNum.toString()
+  var ToStaff = '<span id="post-to-' + postString + '">' + toPerson + '</span>';
+  var delBtn = startDelete + postString + endDelete;
+  var editBtn = startEdit + postString + endEdit;
+  var msgHTML = msgStart + postString + '">' + inpText; 
+
+
+  var curDate = new Date(); // for now
+  console.log(curDate, initialDate);
+  var minsPassed = curDate.getMinutes() - initialDate.getMinutes(); 
+  var timeString = minsPassed.toString() + ' mins';
+
+  var result = Header + ToStaff + headToTime + timeString + timeToButtons;
+  result = result + delBtn + editBtn + ButtonToContent + msgHTML + Footer; 
+    return result;
   
-    //console.log('Message B Status Clicked');
-    var btn = $('#msg-seen-understaff');
-    toggleMsgStatusBtn(btn);
-    classMsgUnderstaff= getButtonClass(btn);
-});
-
-$(document).on('click', "#msg-seen-absence", function(evt){
-  
-    //console.log('Message A Status Clicked');
-    var btn = $('#msg-seen-absence');
-    toggleMsgStatusBtn(btn);
-    classMsgAbsence = getButtonClass(btn);
-});
-
-
-var NewMsgSuccessAlert = `<div class="alert alert-success alert-dismissable">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    <strong>Success!</strong> Your Message has been sent.
-  </div>`;
-
-var NewMessageButton = '<button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button> <br>';
-
-var NotifTable =  `<div id="msg-inbox" class="col-md-12">
-        
-        <!-- Begin Message 1 : Understaffed Alert --> 
-        <div id="msg-inbox-understaff" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5 red-font "><h4> Understaffed </h4> </div>
-            <div class="col-md-4"> <h5>4pm - 9pm, April 17 </h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-understaff"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> 
-                Only 2 out of 5 absent workers are covered.   
-            </div>
-          </div>
-        </div>  <!-- End Of Message 1 -->
-
-
-        <!-- Begin Message 2 --> 
-        <div id="msg-inbox-absence" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Absence </h4> </div>
-            <div class="col-md-4"> <h5>1pm -2pm, April 17 </h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-absence"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> Waiter Mewtwo absent due to family reasons. </div>
-          </div>
-        </div>  <!-- End Of Message 2 -->
-
-      </div> <!-- Msg Inbox -->`
-
-var NotifForm = `<form class="form-horizontal col-md-12" id="msg-new-form">
-      <fieldset>
-      <!-- Form Name -->
-      <legend>New Message</legend>
-
-      <!-- Select Basic -->
-      <div class="form-group">
-        <label class="col-md-2 control-label" for="new-msg-to">To</label>
-        <div class="col-md-8">
-          <select id="new-msg-to" name="new-msg-to" class="form-control">
-            <option value="1">Manager</option>
-            <option value="2">All Waiters</option>
-            <option value="3">Moltres</option>
-            <option value="4">Vaporeon</option>
-          </select>
-        </div>
-      </div>
-
-
-
-
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="col-md-2 control-label" for="new-msg-text">Message</label>
-        <div class="col-md-8">                     
-          <textarea class="form-control" id="new-msg-text" name="new-msg-text"></textarea>
-        </div>
-      </div>
-      </fieldset>
-    </form>
-
-     <!-- Button -->
-    <div class="col-md-10">    
-      <button id="new-msg-cancel-btn" class="btn pull-left">Cancel</button>
-      <button id="new-msg-send-btn" class="btn btn-primary pull-right">Send</button>
-    </div>`;
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-$(document).ready(function()
+
+$(document).on('click', "#post-btn", function(evt)
 {
-  document.getElementById("notifs").innerHTML = NewMessageButton + NotifTable; 
-    
+
+  var inpText = $('#new-post-input').val();
+  var toPost = $('#post-to').val();
+
+  postNum = postNum + 1;
+  var newPost = document.createElement('div');
+  console.log("Post Id" + postNum);
+  newPost.innerHTML = constructPost( inpText, toPost, postNum);
+  newPost.id = "post-" + postNum;
+  newPost.className = "announcement";
+  console.log(newPost);
+  $('#all-posts').prepend(newPost);
+
+  // Clear the Current Post
+  $('#new-post-input').val("");
+
+
 });
 
 
-$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
-  var target = $(e.target).attr("href") // activated tab
-  if (!$(target).is('notifs')) {
-    document.getElementById("notifs").innerHTML = NewMessageButton + NotifTable; 
-    setButtonClasses();
-  }
+// Deleting a post 
+$(document).on('click', ".post-del", function(evt)
+{
+   var delBtnId = $(this).attr('id');
+   var id = delBtnId.substring(13);  
+   var post = $("#post-" + id).remove();
+   console.log(id);
 });
 
-$(document).on('click', "#new-msg-btn", function(evt){
-    document.getElementById('notifs').innerHTML = NotifForm;
+// Glo
+var currentPostId;
+
+// Editing  a post 
+$(document).on('click', ".post-edit", function(evt)
+{
+   var editBtnId = $(this).attr('id');
+   var id = editBtnId.substring(14);  
+   currentPostId = id;
+
+   console.log("Editing Post", currentPostId);
+   var msgText = $('#edit-post-input');
+   var postDetails = $('#post-details-'+ id);
+   var postTo = $('#post-to-' + currentPostId).text();
+
+   console.log("Setting Post to Val to:", postTo );
+
+   var editPostTo = document.getElementById('edit-post-to');
+
+   if (postTo == "Waiters") {
+      editPostTo.value = "1";
+   }
+   if (postTo == "Chefs") {
+      editPostTo.value = "2";
+   }
+   if (postTo == "Cashiers") {
+      editPostTo.value = "3";
+   } 
+   if (postTo == "All") {
+      editPostTo.value = "4";
+   }
+
+   console.log("Edit Post To:", $('#edit-post-to'))
+   console.log("Post Details:", postDetails)
+   msgText.val(postDetails.text());
+
 });
 
-$(document).on('click', "#new-msg-cancel-btn", function(evt){
-  //window.location.href = "./LayoutPage.html";
-  document.getElementById('notifs').innerHTML = NewMessageButton+ NotifTable;
-  setButtonClasses();
+$(document).ready(function() {
+  console.log("Here")
+  initialDate = new Date(); // for now
 
 });
 
-$(document).on('click', "#new-msg-send-btn", function(evt){
-  console.log('Send Clicked');
-  var NotifSuccess = NewMessageButton + NewMsgSuccessAlert + NotifTable;
-  document.getElementById('notifs').innerHTML = NotifSuccess;
-  setButtonClasses();
+
+// Saving a post
+$(document).on('click', "#edit-save-btn", function(evt)
+{
+   
+  console.log(" Saving Post", currentPostId);
+  var msgText = $('#edit-post-input');
+  var postDetails = $('#post-details-'+ currentPostId);
+  var postTo = $('#post-to-' + currentPostId);
+  var editTo = $('#edit-post-to');
+
+  postDetails.text( msgText.val());
   
+  
+   if (editTo.val()== "1") {
+      postTo.text("Waiters");
+   }
+   if (editTo.val()== "2") {
+      postTo.text("Chefs");
+   }
+   if (editTo.val()== "3") {
+      postTo.text("Cashiers");
+   }
+   if (editTo.val()== "4") {
+      postTo.text("All");
+   }
+
+
+  console.log("Saved Details:", msgText.val(), editTo.val(), editTo.text());
+
+
 });
+
+
+
+
+
+
+
