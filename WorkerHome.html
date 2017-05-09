@@ -27,6 +27,8 @@
   <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
   <script src='CalendarSetup.js'></script>
+<<<<<<< HEAD
+  <script src='validation.js'></script>
   <script src='announcement.js'></script>
 
 <script>
@@ -149,6 +151,10 @@ $(document).ready(function()
   addAbsenceEvent("2017-05-12", "1pm", "2pm", "Family");
 }); //document.ready()
 
+  $("body").on("hidden.bs.modal", function(){
+    $("#absence-form").trigger('reset');
+  });
+
   function handleAbsenceChange() {
     if (document.getElementById('show-absences').checked) {
       $('#calendar').fullCalendar('addEventSource', absenceSources);
@@ -263,6 +269,10 @@ $(document).ready(function()
   }
 
   // function removeHelpout(date, startTime, endTime) {
+  //     var removeID = date + startTime + endTime;
+  //     $('#allAbsences').fullCalendar('removeEvents', removeID);
+  // }
+  // function removeHelpout(date, startTime, endTime) {
   //     var removeID = 'h' + date + startTime + endTime;
   //     var dummy = [];
   //     for (var i = 0; i < otherHelpoutSources.length; i++) {
@@ -285,7 +295,7 @@ $(document).ready(function()
   });
 
   $(document).on('click', '#helpout-close-btn', function(e) {
-    $("#absence-form").trigger('reset');
+    $("#helpout-form").trigger('reset');
   });
 
   $(document).on('click', '#absence-submit-btn', function(e) {
@@ -293,10 +303,44 @@ $(document).ready(function()
     var startTime = $("#absence-start-time").val();
     var endTime = $("#absence-end-time").val();
     var reason = $("#absence-reason").val();
-    addAbsence(date, startTime, endTime, reason);
-    addAbsenceEvent(date, startTime, endTime, reason);
-    $("#absence-form").trigger('reset');
-    $('.nav-tabs a[href="#absences-tab"]').tab('show');
+
+    if (!dateValidation(date)) {
+      $("#date-failed").html("Please enter a date that you have a work shift.");
+    }
+    else {
+      $("#date-failed").html("&nbsp;");
+
+        if (!startValidation(startTime)) {
+          $('#start-failed').html("Please enter a valid start time");
+        }
+        else{
+          $("#start-failed").html("&nbsp;");
+          if (!endValidation(endTime)){
+            $('#end-failed').html("Please enter a valid end time");
+          }else {
+            $("#end-failed").html("&nbsp;");
+          
+            if (!startEndValidation(startTime, endTime)) {
+              $('#end-failed').html("End time should be after start time.");
+            }
+            else {
+              $("#end-failed").html("&nbsp;");
+
+              if (!reasonValidation(reason)) {
+                $("#reason-failed").html("Please enter a reason");
+              }
+              else{
+                $("#reason-failed").html("&nbsp;");
+                addAbsence(date, startTime, endTime, reason);
+                addAbsenceEvent(date, startTime, endTime, reason);
+                $("#absence-form").trigger('reset');
+                $("#absence-close-btn").trigger("click");
+            }
+          }
+        }
+      }
+    }
+    //$('.nav-tabs a[href="#absences-tab"]').tab('show');
     // $('.nav-tabs a[href="#allAbsences"]').tab('show');
   });
 
@@ -389,7 +433,7 @@ $(document).ready(function()
     </div>
     <ul class="nav navbar-nav">
       <li id="calendar-tab" class="active"><a data-toggle="tab" href="#calendar">My Schedule</a></li>
-      <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> All Absences</a></li>
+      <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> Claim Helpout</a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
@@ -562,6 +606,8 @@ $(document).ready(function()
       </table>
     </div>
 
+
+
     <div class="modal fade" id="absenceModal" role="dialog">
       <div class="modal-dialog">       
         <!-- Modal content-->
@@ -576,7 +622,7 @@ $(document).ready(function()
              <div class="container-fluid">
               <div class="row">
                 <form method="post", class="form-horizontal" id="absence-form">
-                 <div class="form-group ">
+                 <div class="form-group has-danger">
                   <div class="row vertical-align">
                     <label class="control-label requiredField col-md-4" for="absence-date">
                      Date
@@ -585,7 +631,9 @@ $(document).ready(function()
                      </span>
                     </label>
                     <div class="controls col-md-8">
-                      <input type="date" id="absence-date" min="2000-01-01" style="width:100%">
+                      <input type="date" id="absence-date" min="2000-01-01" style="width:100%" class='form-control'>
+                      <span style="color: red; font-size: 12px" id="date-failed">&nbsp;  </span>
+
                     </div>
                   </div>
                  </div>
@@ -600,18 +648,6 @@ $(document).ready(function()
                     <div class="controls col-md-8">
                       <select class="select form-control" id="absence-start-time" name="absence-start-time">
                         <option disabled selected value> -- select an option -- </option>
-                       <option value="9am">
-                        9am
-                       </option>
-                       <option value="10am">
-                        10am
-                       </option>
-                       <option value="11am">
-                        11am
-                       </option>
-                       <option value="12pm">
-                        12pm
-                       </option>
                        <option value="1pm">
                         1pm
                        </option>
@@ -637,6 +673,7 @@ $(document).ready(function()
                         8pm
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="start-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -651,18 +688,6 @@ $(document).ready(function()
                     <div class="controls col-md-8">
                       <select class="select form-control" id="absence-end-time" name="absence-end-time">
                         <option disabled selected value> -- select an option -- </option>
-                       <option value="10am">
-                        10am
-                       </option>
-                       <option value="11am">
-                        11am
-                       </option>
-                       <option value="12pm">
-                        12pm
-                       </option>
-                       <option value="1pm">
-                        1pm
-                       </option>
                        <option value="2pm">
                         2pm
                        </option>
@@ -688,6 +713,7 @@ $(document).ready(function()
                         9pm
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="end-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -715,6 +741,7 @@ $(document).ready(function()
                         Other
                        </option>
                       </select>
+                      <span style="color: red; font-size: 12px" id="reason-failed">&nbsp;  </span>
                     </div>
                   </div>
                  </div>
@@ -726,7 +753,7 @@ $(document).ready(function()
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" id="absence-close-btn" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn" data-dismiss="modal">
+            <button type="submit" class="btn btn-primary pull-right" id="absence-submit-btn">
               Submit
             </button>
           </div>
