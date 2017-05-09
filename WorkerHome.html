@@ -14,8 +14,7 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" href="MessageTab.css">
+  <link rel="stylesheet" href="MainLayout.css">
 
 
   <script src='fullcalendar/lib/moment.min.js'></script>
@@ -32,30 +31,7 @@
   <script src='announcement.js'></script>
 
 <script>
-// Final initialization entry point: the Javascript code inside this block
-// runs at the end of start-up when the page has finished loading.
-
-$(document).ready(function()
-{
-  myScheduleSetup(); //sets up My Schedule
-
-  $('#allAbsences').fullCalendar({
-      defaultView: 'agendaWeek',
-      editable: true,
-      //eventLimit: true, // allow "more" link when too many events
-      header: {
-        left: 'today prev, next',
-        center: 'title',
-        right: 'agendaWeek, agendaDay'
-      },
-      height: 'auto',
-      minTime: '9:00',
-      maxTime: '21:00',
-      allDaySlot: false,
-      slotDuration: "1:00:00",
-      selectable: false,
-
-      events: [ //HELPOUTS - hardcoded
+  var helpoutSources = [ //HELPOUTS - hardcoded
           {
               title  : 'Helpout',
               id     : '2017-05-081pm3pm',
@@ -74,7 +50,31 @@ $(document).ready(function()
               startEditable : false,
               durationEditable : false,
           }
-      ],
+      ];
+  var absenceSources = [];
+// Final initialization entry point: the Javascript code inside this block
+// runs at the end of start-up when the page has finished loading.
+$(document).ready(function()
+{
+
+  myScheduleSetup(); //sets up My Schedule
+
+  $('#allAbsences').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+      //eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev, next today',
+        center: 'title',
+        right: 'agendaWeek, agendaDay'
+      },
+      height: 'auto',
+      minTime: '9:00',
+      maxTime: '21:00',
+      allDaySlot: false,
+      slotDuration: "1:00:00",
+      selectable: false,
+      eventSources: [helpoutSources, absenceSources],
       eventClick: function(event, jsEvent, view) {
         var start = new Date();
         start.setHours(event.start._d.getHours() + 4); //actual start time
@@ -84,17 +84,6 @@ $(document).ready(function()
         
         $("#newHelpout").trigger('click');
         
-        var dateText = new Date();
-        var month = start.getMonth() + 1;
-        var date = start.getDate();
-        if (start.getMonth() < 10) {
-          month = '0' + month;
-        }
-        if (start.getDate() < 10) {
-          date = '0' + date;
-        }
-        dateText = start.getFullYear() + '-' + month + '-' + date; 
-        $("#helpout-date").val(dateText);
         var startText = start.getHours() + "am";
         var endText = end.getHours() + 'am';
         if (start.getHours() > 12) {startText = (start.getHours() - 12)+ 'pm';}
@@ -102,21 +91,27 @@ $(document).ready(function()
         if (end.getHours() > 12) { endText = (end.getHours() - 12) + 'pm';}
         else if (end.getHours() == 12) {endText = end.getHours() + 'pm';}
       
-
+        $("#helpout-date").val(event.start._i.slice(0,10));
         $("#helpout-start-time").val(startText);
         $("#helpout-end-time").val(endText);
         },
-    });
-});
+    });  //.fullcalendar()
+}); //document.ready()
 
-  function handleChange(checkbox) {
-    $('#calendar').fullCalendar('rerenderEvents');
-    // if (checkbox.checked == true) {
-    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'absences');
-    //    }
-    //    if (document.getElementById('show-helpouts').checked == true) {
-    //      checkedEvents = checkedEvents.concat(['all', event.id] == 'helpouts');
-    //    }
+  function handleAbsenceChange() {
+    if (document.getElementById('show-absences').checked) {
+      $('#calendar').fullCalendar('addEventSource', absenceSources);
+    } else {
+      $('#calendar').fullCalendar('removeEventSource', absenceSources);
+    }
+  }
+
+  function handleHelpoutChange() {
+    if (document.getElementById('show-helpouts').checked) {
+      $('#allAbsences').fullCalendar('addEventSource', helpoutSources);
+    } else {
+      $('#allAbsences').fullCalendar('removeEventSource', helpoutSources);
+    }
   }
 
   function addAbsence(date, startTime, endTime, reason) {
@@ -138,15 +133,53 @@ $(document).ready(function()
     newEvent.id = 'absences';
     newEvent.start = date + 'T' + startModified + ':00:00Z';
     newEvent.end = date + 'T' + endModified + ':00:00Z';
-    newEvent.color = 'red';
+    newEvent.color = 'black';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    $('#calendar').fullCalendar('renderEvent', newEvent, true)
+    absenceSources.push(newEvent);
+    $('#calendar').fullCalendar('addEventSource', absenceSources);
+  }
+
+  function addHelpout(date, startTime, endTime, calendarID) {
+    var startModified;
+    if (startTime.indexOf('am') != -1) {
+      startModified = startTime.slice(0,-2);
+    } else {
+      startModified = parseInt(startTime.slice(0,-2)) + 12;
+    }
+    var endModified;
+    if (endTime.indexOf('am') != -1) {
+      endModified = endTime.slice(0,-2);
+    } else {
+      endModified = parseInt(endTime.slice(0,-2)) + 12;
+    }
+
+    var newEvent = new Object();
+    newEvent.title = 'Helpout';
+    newEvent.id = 'helpouts';
+    newEvent.start = date + 'T' + startModified + ':00:00Z';
+    newEvent.end = date + 'T' + endModified + ':00:00Z';
+    newEvent.color = 'blue';
+    newEvent.startEditable = false;
+    newEvent.durationEditable = false;
+    if (calendarID == "all") {
+      $('#calendar').fullCalendar('renderEvent', newEvent, true)
+    }
+    else {
+      $('#allAbsences').fullCalendar('renderEvent', newEvent, true)
+    }
   }
 
   function removeHelpout(date, startTime, endTime) {
-      var removeID = date + startTime + endTime
-      $('#allAbsences').fullCalendar('removeEvents', removeID);
+      var removeID = date + startTime + endTime;
+      for (var i = 0; i < helpoutSources.length; i++) {
+        if (helpoutSources[i].id == removeID) {
+          delete helpoutSources[i];
+          break;
+        }
+      }
+      $('#allAbsences').fullCalendar('addEventSource', helpoutSources);
+      // $('#allAbsences').fullCalendar('removeEvents', removeID);
   }
 
   $(document).on('click', '#all-tab', function(e) {
@@ -154,11 +187,6 @@ $(document).ready(function()
         $('.fc-agendaWeek-button').click();
       }, 150) 
   })
-
-// $('#school_selector').on('change',function(){
-//     console.log()
-//     $('#calendar').fullCalendar('rerenderEvents');
-// })
 
   $(document).on('click', '#absence-close-btn', function(e) {
     $("#absence-form").trigger('reset');
@@ -184,8 +212,9 @@ $(document).ready(function()
     var date = $("#helpout-date").val();
     var startTime = $("#helpout-start-time").val();
     var endTime = $("#helpout-end-time").val();
-    // removeHelpout(date, startTime, endTime);
+    removeHelpout(date, startTime, endTime);
     addHelpoutEvent(date, startTime, endTime);
+    addHelpout(date, startTime, endTime, 'all');
     $("#helpout-form").trigger('reset');
     $('.nav-tabs a[href="#helpouts-tab"]').tab('show');
     // $('.nav-tabs a[href="#calendar"]').tab('show');
@@ -230,7 +259,6 @@ $(document).ready(function()
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
-      <!-- <li id="welcome-btn"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</li> -->
       <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> Welcome, Pikachu</a>
         <ul class="dropdown-menu">
@@ -249,9 +277,9 @@ $(document).ready(function()
     <div id = "allAbsences" class="tab-pane fade"> </div>
     <div class='row event-filter container'> 
       <form class='event-filter' id = 'school_selector'> 
-        <input type="checkbox" onchange='handleChange(this);' id='show-absences' value='1' checked>
+        <input class="calFilter" type="checkbox" value='show-absences' onchange='handleAbsenceChange();' id='show-absences' value='1' checked>
            Absences 
-        <input type="checkbox" onchange='handleChange(this);' id='show-helpouts' value='2' checked style='margin-left:20px'>
+        <input class="calFilter" type="checkbox" value='show-helpouts' onchange='handleHelpoutChange(this);' id='show-helpouts' value='2' checked style='margin-left:20px'>
            Helpouts 
       </form>
     </div>
