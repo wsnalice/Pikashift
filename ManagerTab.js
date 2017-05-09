@@ -42,7 +42,7 @@ function constructPost(inpText, toPerson, postNum) {
   var curDate = new Date(); // for now
   console.log(curDate, initialDate);
   var minsPassed = curDate.getMinutes() - initialDate.getMinutes(); 
-  var timeString = minsPassed.toString() + ' mins';
+  var timeString = minsPassed.toString() + ' mins ago';
 
   var result = Header + ToStaff + headToTime + timeString + timeToButtons;
   result = result + delBtn + editBtn + ButtonToContent + msgHTML + Footer; 
@@ -53,6 +53,11 @@ function constructPost(inpText, toPerson, postNum) {
 
 $(document).on('click', "#post-btn", function(evt)
 {
+  if ($('#new-post-input').val() == ''){
+      $('#empty-msg-manager').html("Post cannot be empty");
+  }
+  else {
+      $('#empty-msg-manager').html("");
 
   var inpText = $('#new-post-input').val();
   var toPost = $('#post-to').val();
@@ -68,7 +73,7 @@ $(document).on('click', "#post-btn", function(evt)
 
   // Clear the Current Post
   $('#new-post-input').val("");
-
+  }
 
 });
 
@@ -130,32 +135,35 @@ $(document).ready(function() {
 // Saving a post
 $(document).on('click', "#edit-save-btn", function(evt)
 {
-   
-  console.log(" Saving Post", currentPostId);
-  var msgText = $('#edit-post-input');
-  var postDetails = $('#post-details-'+ currentPostId);
-  var postTo = $('#post-to-' + currentPostId);
-  var editTo = $('#edit-post-to');
+  if ( $('#edit-post-input').val() == '') {
+      $('#empty-edit-manager').html("Post cannot be empty");
+  }
+  else {
+      $('#empty-edit-manager').html("");
 
-  postDetails.text( msgText.val());
-  
-  
-   if (editTo.val()== "1") {
-      postTo.text("Waiters");
-   }
-   if (editTo.val()== "2") {
-      postTo.text("Chefs");
-   }
-   if (editTo.val()== "3") {
-      postTo.text("Cashiers");
-   }
-   if (editTo.val()== "4") {
-      postTo.text("All");
-   }
+    console.log(" Saving Post", currentPostId);
+    var msgText = $('#edit-post-input');
+    var postDetails = $('#post-details-'+ currentPostId);
+    var postTo = $('#post-to-' + currentPostId);
+    var editTo = $('#edit-post-to');
 
+    postDetails.text( msgText.val());
+    
+     if (editTo.val()== "1") {
+        postTo.text("Waiters");
+     }
+     if (editTo.val()== "2") {
+        postTo.text("Chefs");
+     }
+     if (editTo.val()== "3") {
+        postTo.text("Cashiers");
+     }
+     if (editTo.val()== "4") {
+        postTo.text("All");
+     }
 
-  console.log("Saved Details:", msgText.val(), editTo.val(), editTo.text());
-
+    console.log("Saved Details:", msgText.val(), editTo.val(), editTo.text());
+  }
 
 });
 

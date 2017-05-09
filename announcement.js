@@ -50,26 +50,30 @@ function constructPost(inpText, toPerson, postNum) {
   
 }
 
-
 $(document).on('click', "#post-btn", function(evt)
 {
-
+  console.log($('#new-post-input').val());
+  if ($('#new-post-input').val() == ''){
+      $('#empty-msg').html("Cannot post nothing");
+  }
+  else {
+      $('#empty-msg').html("");
   var inpText = $('#new-post-input').val();
   var toPost = $('#post-to').val();
 
   postNum = postNum + 1;
   var newPost = document.createElement('div');
-  console.log("Post Id" + postNum);
+  //console.log("Post Id" + postNum);
   newPost.innerHTML = constructPost( inpText, toPost, postNum);
   newPost.id = "post-" + postNum;
   newPost.className = "announcement";
-  console.log(newPost);
+  //console.log(newPost);
   $('#all-posts').prepend(newPost);
 
   // Clear the Current Post
   $('#new-post-input').val("");
 
-
+  }
 });
 
 

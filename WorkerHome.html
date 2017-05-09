@@ -286,11 +286,6 @@ $(document).ready(function()
   //     $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
   // }
 
-  $(document).on('click', '#post-btn', function (e) {
-    if ($('#new-post-input').val() == null){
-      $('#empty-msg').html("message cannot be empty.");
-    }
-  })
 
   $(document).on('click', '#all-tab', function(e) {
       setTimeout(function(){
