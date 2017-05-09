@@ -118,6 +118,7 @@ $(document).ready(function()
       slotDuration: "1:00:00",
       selectable: false,
       eventSources: [otherHelpoutSources],
+
       eventClick: function(event, jsEvent, view) {
         var start = new Date();
         start.setHours(event.start._d.getHours() + 4); //actual start time
@@ -154,6 +155,7 @@ $(document).ready(function()
   $("body").on("hidden.bs.modal", function(){
     $("#absence-form").trigger('reset');
   });
+
 
   function handleAbsenceChange() {
     if (document.getElementById('show-absences').checked) {
@@ -281,6 +283,7 @@ $(document).ready(function()
   //     otherHelpoutSources = dummy;
   //     $('#allAbsences').fullCalendar('addEventSource', otherHelpoutSources);
   // }
+
 
   $(document).on('click', '#all-tab', function(e) {
       setTimeout(function(){
@@ -502,8 +505,10 @@ $(document).ready(function()
               <option>PassOn</option>
             </select>
           </div>
-          <div class= "col col-md-4"> </div>
-          <div class= "col col-md-5"  align="right">
+          <div class= "col col-md-4">
+            <span style="color: red; font-size: 12px" id="empty-msg"></span>
+          </div>
+          <div class= "col col-md-5" >
             <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
           </div>
         </div> <!-- End of Footer -->
