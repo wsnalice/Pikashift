@@ -1,7 +1,6 @@
 ///set up the My Schedule calendar
 function myScheduleSetup() {
 	$('#calendar').fullCalendar({
-      defaultDate: '2017-04-17',
       defaultView: 'agendaWeek', 
       editable: true,
       //eventLimit: true, // allow "more" link when too many events
