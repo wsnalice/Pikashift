@@ -14,7 +14,6 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
   <link rel="stylesheet" href="MainLayout.css">
 
   <script src='fullcalendar/lib/moment.min.js'></script>
@@ -28,6 +27,7 @@
   <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
   <link rel='stylesheet' href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css"/>
   <script src='CalendarSetup.js'></script>
+  <script src='announcement.js'></script>
 
 <script>
   var otherHelpoutSources = [
@@ -330,57 +330,89 @@ $(document).ready(function()
 <div class="container col-md-5 column">
 
   <ul class="nav nav-tabs nav-justified">
-    <li class="active" id="notif-tab"><a data-toggle="tab" href="#notifs-tab">Notifications</a></li>
+    <li class="active" id="notif-tab"> <a data-toggle="tab" href="#notifs-tab"> Announcements </a></li>
     <li id="absence-tab"><a data-toggle="tab" href="#absences-tab">Absences</a></li>
     <li id="helpout-tab"><a data-toggle="tab" href="#helpouts-tab">Helpouts</a></li>
     
   </ul>
 
   <div class="tab-content">
-
     <div id="notifs-tab" class="tab-pane fade in active">
-      <button type="button" class="btn btn-primary btn-block" id="new-msg-btn"> New Message</button>
-
-      <div id="msg-inbox" class="col-md-12">
-        <!-- Begin Message 1 : Vaporeon --> 
-        <div id="msg-inbox-a" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Vaporeon </h4> </div>
-            <div class="col-md-4"> <h5>8pm, March 14</h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-a"> Mark Seen </button> 
-            </div>
+      <!-- Begin Announcement Code -->
+      <div id="new-post">  
+        <div class="row">
+          <label for="new-post-input">Create an Announcement </label>
+          <textarea class="form-control" rows="3" id="new-post-input" placeholder="Write a new Announcement "></textarea>
+        </div> <!-- End of Textbox -->
+        <div class="row">
+          <div class= "col col-md-3">
+            <select class="form-control gappy" id="post-to">
+              <option selected>Manager</option>
+              <option>Waiters</option>
+              <option>PassOn</option>
+            </select>
           </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> 
-                Table 5 needs coffeee. Table 2,3 needs Cleaning. Reservation for Mr. Lapras at 9pm. 
-                Dishwasher Duty today.
-            </div>
+          <div class= "col col-md-4"> </div>
+          <div class= "col col-md-5" >
+            <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
           </div>
-        </div>  <!-- End Of Message 1 -->
+        </div> <!-- End of Footer -->
+      </div>  <!-- End of New Post -->
 
-        <!-- Begin Message 2 --> 
-        <div id="msg-inbox-b" class="msg-card">
-          <!-- Message Header --> 
-          <div class="row" >
-            <div class="col-md-5"><h4> Manager </h4> </div>
-            <div class="col-md-4"> <h5>9pm, March 2</h5> </div>
-            <div class="col-md-3"> 
-              <button type="button" class="btn btn-danger btn-sm" id="msg-seen-b"> Mark Seen </button> 
-            </div>
-          </div>
-        <!--- Message Body --> 
-          <div class="row">
-            <div class="col-md-12 well"> Holiday Tomorrow due to Snow Day </div>
-          </div>
-        </div>  <!-- End Of Message 2 -->
+      <div id="all-posts">
+          <!-- Sample Post 0 -->
+          <div id="post-0" class="announcement">
+           <div class="row"> 
+            <div class="col col-md-9">
 
-    </div> <!-- Msg Inbox -->
+              <div class="row post-person">Manager  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+                <span id="post-to-0">Waiters</span></div> 
+              <div class="row post-time"> 3 hrs </div> 
+            </div> <!-- To From Stuff --> 
+            <div class="col col-md-3">
+              <!-- No buttons for pikachu -->
+            </div> <!-- End of Edit/ Remove Button Stuff -->
+           </div> <!-- End Post Header -->
+           <div class="row">
+              <div class="col col-md-12 post-details gappy" id="post-details-0"> Happy Hour Today </div>
+            </div> <!-- End of Row Containing Text -->
+          </div> <!-- End Of Sample Post 0-->
 
 
-    </div>
+          <!-- Bristy --> 
+          <!-- Sample Post 1 -->
+          <div id="post-1" class="announcement">
+           <div class="row"> 
+            <div class="col col-md-9">
+
+              <div class="row post-person"> Pikachu  <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>
+                <span id="post-to-1">PassOn</span></div> 
+              <div class="row post-time"> 10 hrs </div> 
+            </div> <!-- To From Stuff --> 
+            <div class="col col-md-3">
+              <!--- Delete Button -->
+              <button class="btn btn-xs  post-del" id="post-del-btn-1"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>
+              <!-- Edit Button -->
+              <button class="btn btn-xs post-edit" id="post-edit-btn-1"> <span class="glyphicon glyphicon-edit " aria-hidden="true"
+              data-toggle="modal" data-target="#postEditModal"></span> </button>
+
+              <!-- No Edit button for this --> 
+            </div> <!-- End of Edit/ Remove Button Stuff -->
+           </div> <!-- End Post Header -->
+           <div class="row">
+              <div class="col col-md-12 post-details gappy" id="post-details-1"> Reservation of Mr. Yokonami at 3pm. Dishwashing Duty today. Clean Tables 1-4 before you leave. </div>
+            </div> <!-- End of Row Containing Text -->
+          </div> <!-- End Of Sample Post 1-->
+
+
+
+            
+        </div> <!-- End of All Posts -->
+
+
+
+    </div> <!--- End of Notifs Tab -->
+   
 
     <!-- Absence -->
     <div id="absences-tab" class="tab-pane fade">
@@ -783,5 +815,50 @@ $(document).ready(function()
   <div class="container col-md-1"></div>
 </div>  <!-- End Tabs Code -->
 
+
+
+<!--- Edit Post Modal Code  : Bristy Sikder--> 
+
+<div class="modal fade" id="postEditModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Announcement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <div class="row">
+            <textarea class="form-control" rows="3" id="edit-post-input" placeholder="Write a new Announcement "></textarea>
+          </div> <!-- End of Textbox -->
+          
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class= "col col-md-3">
+            <select class="form-control gappy" id="edit-post-to">
+              <option value="1">Manager</option>
+              <option value="2">Waiters</option>
+              <option value="3">PassOn</option>
+            </select>
+          </div>
+          <div class= "col col-md-6"> </div>
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-save-btn" data-dismiss="modal" > Save </button>
+          </div>
+          <!-- No delete button for now 
+          <div class= "col col-md-3" >
+            <button type="submit" class="btn btn-primary" id="edit-delete-btn" data-dismiss="modal" > Delete </button>
+          </div>
+          --> 
+        </div> <!-- End of Footer -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Modal -->
 </body>
 </html>

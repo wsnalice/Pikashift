@@ -5,7 +5,7 @@ var initialDate
 
 var Header = ` <div class="row"> 
         <div class="col col-md-9">
-          <div class="row post-person"> Moltres 
+          <div class="row post-person"> Pikachu 
           <span class="glyphicon glyphicon-triangle-right " aria-hidden="true"></span>`
 
 
@@ -101,18 +101,15 @@ $(document).on('click', ".post-edit", function(evt)
 
    var editPostTo = document.getElementById('edit-post-to');
 
-   if (postTo == "Waiters") {
+   if (postTo == "Manager") {
       editPostTo.value = "1";
    }
-   if (postTo == "Chefs") {
+   if (postTo == "Waiters") {
       editPostTo.value = "2";
    }
-   if (postTo == "Cashiers") {
+   if (postTo == "PassOn") {
       editPostTo.value = "3";
    } 
-   if (postTo == "All") {
-      editPostTo.value = "4";
-   }
 
    console.log("Edit Post To:", $('#edit-post-to'))
    console.log("Post Details:", postDetails)
@@ -141,17 +138,15 @@ $(document).on('click', "#edit-save-btn", function(evt)
   
   
    if (editTo.val()== "1") {
-      postTo.text("Waiters");
+      postTo.text("Manager");
    }
    if (editTo.val()== "2") {
-      postTo.text("Chefs");
+      postTo.text("Waiters");
    }
    if (editTo.val()== "3") {
-      postTo.text("Cashiers");
+      postTo.text("PassOn");
    }
-   if (editTo.val()== "4") {
-      postTo.text("All");
-   }
+  
 
 
   console.log("Saved Details:", msgText.val(), editTo.val(), editTo.text());
