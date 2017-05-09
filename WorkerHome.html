@@ -435,6 +435,8 @@ $(document).ready(function()
       <li id="calendar-tab" class="active"><a data-toggle="tab" href="#calendar">My Schedule</a></li>
       <li id="all-tab"><a data-toggle="tab" href="#allAbsences"> Claim Helpout</a></li>
     </ul>
+
+
     
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
@@ -444,6 +446,8 @@ $(document).ready(function()
         </ul>
       </li>    
     </ul>  </div>
+
+    
 </nav>
 
 <!-- Navigation Bar --> 
@@ -453,7 +457,7 @@ $(document).ready(function()
   <div class="tab-content">
     <div id = "calendar" class="tab-pane fade in active"></div>
     <div id = "allAbsences" class="tab-pane fade"> </div>
-    <div class='row event-filter container'> 
+    <div class='row event-filter container' id="filters"> 
       <form class='event-filter' id = 'selector'> 
         <input class="calFilter" type="checkbox" value='show-absences' onchange='handleAbsenceChange();' id='show-absences' value='1' checked>
            Absences 
@@ -463,6 +467,15 @@ $(document).ready(function()
     </div>
   </div>
 </div> 
+
+<script type="text/javascript">
+      $('#calendar-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "visible";
+      });
+      $('#all-tab').on('click', function() {
+        document.getElementById("filters").style.visibility = "hidden";
+      })
+</script>
 <!-- End Calender Code -->
 
 
