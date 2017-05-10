@@ -201,7 +201,6 @@ $(document).ready(function()
   }
 
   function removeAbsence(date, startTime, endTime) {
-    console.log(absenceSources);
     $('#calendar').fullCalendar('removeEventSource', absenceSources);
     var id = 'a' + date + startTime + endTime;
     var dummy = [];
@@ -212,7 +211,6 @@ $(document).ready(function()
     }
     absenceSources = dummy;
     $('#calendar').fullCalendar('addEventSource', absenceSources);
-    console.log(absenceSources);
   }
 
   function addHelpout(date, startTime, endTime, calendarID) {
@@ -237,8 +235,6 @@ $(document).ready(function()
     newEvent.color = 'blue';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    console.log("Beginning my", myHelpoutSources);
-    console.log("Other", otherHelpoutSources);
     $('#allAbsences').fullCalendar('removeEventSource', otherHelpoutSources);
     $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
     if (calendarID == "all") { // I claimed a shift and now we add it to my calendar
@@ -382,9 +378,7 @@ $(document).ready(function()
    var btnId = $(this).attr('id');
    var id = btnId.substring(16);
    var row = $(this).parent().parent();
-   console.log("Row:", row);
    row.remove();
-   console.log(id);
 
    var date = id.substring(1,11);
    var startTime = id.substring(11,14);
@@ -398,9 +392,7 @@ $(document).ready(function()
    var btnId = $(this).attr('id');
    var id = btnId.substring(16);
    var row = $(this).parent().parent();
-   console.log("Row:", row);
    row.remove();
-   console.log(id);
 
    var date = id.substring(1,11);
    var startTime = id.substring(11,14);

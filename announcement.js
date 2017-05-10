@@ -41,20 +41,17 @@ function constructPost(inpText, toPerson, postNum) {
 
 
   var curDate = new Date(); // for now
-  console.log(curDate, initialDate);
   var minsPassed = curDate.getMinutes() - initialDate.getMinutes(); 
   var timeString = minsPassed.toString() + ' mins';
 
   var result = Header + ToStaff + headToTime + timeString + timeToButtons;
   result = result + editBtn + delBtn + ButtonToContent + msgHTML + Footer; 
-  console.log("result:", result);
     return result;
   
 }
 
 $(document).on('click', "#post-btn", function(evt)
 {
-  console.log($('#new-post-input').val());
   if ($('#new-post-input').val() == ''){
       $('#empty-msg').html("Cannot post nothing");
   }
