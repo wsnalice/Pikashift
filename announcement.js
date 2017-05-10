@@ -14,11 +14,12 @@ var headToTime = `</div><div class="row post-time"> `
 var timeToButtons = ` </div> </div> <!-- To From Stuff --> 
         <div class="col col-md-3 no-side-margin"> `
 
-var startEdit = '<button class="btn btn-xs  post-edit" id="post-edit-btn-'
-var endEdit = '"> <span class="glyphicon glyphicon-edit " aria-hidden="true"></span> </button>'
+
+var startDelete = '<button class="btn btn-xs  post-del" id="post-del-btn-'
+var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>'
           
-var startDelete = '<button class="btn btn-xs post-del" id="post-del-btn-'
-var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true" data-toggle="modal" data-target="#postEditModal"></span> </button>'
+var startEdit = '<button class="btn btn-xs post-edit" id="post-edit-btn-'
+var endEdit = '"> <span class="glyphicon glyphicon-edit " aria-hidden="true" data-toggle="modal" data-target="#postEditModal"></span> </button>'
 
 var ButtonToContent = `</div> <!-- End of Edit/ Remove Button Stuff -->
         </div> <!-- End Post Header -->
