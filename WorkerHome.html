@@ -156,6 +156,10 @@ $(document).ready(function()
     $("#absence-form").trigger('reset');
   });
 
+  $('body').click(function(){
+    console.log('clicked');
+  });
+
   function handleAbsenceChange() {
     if (document.getElementById('show-absences').checked) {
       $('#calendar').fullCalendar('addEventSource', absenceSources);
