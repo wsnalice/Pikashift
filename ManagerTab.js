@@ -14,11 +14,12 @@ var headToTime = `</div><div class="row post-time"> `
 var timeToButtons = ` </div> </div> <!-- To From Stuff --> 
         <div class="col col-md-3 no-side-margin"> `
 
-var startDelete = '<button class="btn btn-xs  post-del" id="post-del-btn-'
-var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>'
+ var startDelete = '<button class="btn btn-xs  post-del" id="post-del-btn-'
+ var endDelete = '"> <span class="glyphicon glyphicon-remove " aria-hidden="true"></span> </button>'
           
-var startEdit = '<button class="btn btn-xs post-edit" id="post-edit-btn-'
-var endEdit = '"> <span class="glyphicon glyphicon-edit " aria-hidden="true" data-toggle="modal" data-target="#postEditModal"></span> </button>'
+ var startEdit = '<button class="btn btn-xs post-edit" id="post-edit-btn-'
+ var endEdit = '"> <span class="glyphicon glyphicon-edit " aria-hidden="true" data-toggle="modal" data-target="#postEditModal"></span> </button>'
+
 
 var ButtonToContent = `</div> <!-- End of Edit/ Remove Button Stuff -->
         </div> <!-- End Post Header -->
@@ -40,12 +41,11 @@ function constructPost(inpText, toPerson, postNum) {
 
 
   var curDate = new Date(); // for now
-  console.log(curDate, initialDate);
   var minsPassed = curDate.getMinutes() - initialDate.getMinutes(); 
   var timeString = minsPassed.toString() + ' mins ago';
 
   var result = Header + ToStaff + headToTime + timeString + timeToButtons;
-  result = result + delBtn + editBtn + ButtonToContent + msgHTML + Footer; 
+  result = result + editBtn + delBtn + ButtonToContent + msgHTML + Footer; 
     return result;
   
 }
@@ -64,11 +64,9 @@ $(document).on('click', "#post-btn", function(evt)
 
   postNum = postNum + 1;
   var newPost = document.createElement('div');
-  console.log("Post Id" + postNum);
   newPost.innerHTML = constructPost( inpText, toPost, postNum);
   newPost.id = "post-" + postNum;
   newPost.className = "announcement";
-  console.log(newPost);
   $('#all-posts').prepend(newPost);
 
   // Clear the Current Post
@@ -84,7 +82,6 @@ $(document).on('click', ".post-del", function(evt)
    var delBtnId = $(this).attr('id');
    var id = delBtnId.substring(13);  
    var post = $("#post-" + id).remove();
-   console.log(id);
 });
 
 // Glo
@@ -97,12 +94,9 @@ $(document).on('click', ".post-edit", function(evt)
    var id = editBtnId.substring(14);  
    currentPostId = id;
 
-   console.log("Editing Post", currentPostId);
    var msgText = $('#edit-post-input');
    var postDetails = $('#post-details-'+ id);
    var postTo = $('#post-to-' + currentPostId).text();
-
-   console.log("Setting Post to Val to:", postTo );
 
    var editPostTo = document.getElementById('edit-post-to');
 
@@ -119,14 +113,11 @@ $(document).on('click', ".post-edit", function(evt)
       editPostTo.value = "4";
    }
 
-   console.log("Edit Post To:", $('#edit-post-to'))
-   console.log("Post Details:", postDetails)
    msgText.val(postDetails.text());
 
 });
 
 $(document).ready(function() {
-  console.log("Here")
   initialDate = new Date(); // for now
 
 });
@@ -141,7 +132,6 @@ $(document).on('click', "#edit-save-btn", function(evt)
   else {
       $('#empty-edit-manager').html("");
 
-    console.log(" Saving Post", currentPostId);
     var msgText = $('#edit-post-input');
     var postDetails = $('#post-details-'+ currentPostId);
     var postTo = $('#post-to-' + currentPostId);
@@ -161,8 +151,6 @@ $(document).on('click', "#edit-save-btn", function(evt)
      if (editTo.val()== "4") {
         postTo.text("All");
      }
-
-    console.log("Saved Details:", msgText.val(), editTo.val(), editTo.text());
   }
 
 });

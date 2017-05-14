@@ -11,7 +11,7 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="MainLayout.css">
+  <link rel="stylesheet" href="mainLayout.css">
 
   <script src='fullcalendar/lib/moment.min.js'></script>
   <script src='fullcalendar/fullcalendar.js'></script>
@@ -204,7 +204,6 @@ $(document).ready(function()
   }
 
   function removeAbsence(date, startTime, endTime) {
-    console.log(absenceSources);
     $('#calendar').fullCalendar('removeEventSource', absenceSources);
     var id = 'a' + date + startTime + endTime;
     var dummy = [];
@@ -215,7 +214,6 @@ $(document).ready(function()
     }
     absenceSources = dummy;
     $('#calendar').fullCalendar('addEventSource', absenceSources);
-    console.log(absenceSources);
   }
 
   function addHelpout(date, startTime, endTime, calendarID) {
@@ -240,8 +238,6 @@ $(document).ready(function()
     newEvent.color = 'blue';
     newEvent.startEditable = false;
     newEvent.durationEditable = false;
-    console.log("Beginning my", myHelpoutSources);
-    console.log("Other", otherHelpoutSources);
     $('#allAbsences').fullCalendar('removeEventSource', otherHelpoutSources);
     $('#calendar').fullCalendar('removeEventSource', myHelpoutSources);
     if (calendarID == "all") { // I claimed a shift and now we add it to my calendar
@@ -385,9 +381,7 @@ $(document).ready(function()
    var btnId = $(this).attr('id');
    var id = btnId.substring(16);
    var row = $(this).parent().parent();
-   console.log("Row:", row);
    row.remove();
-   console.log(id);
 
    var date = id.substring(1,11);
    var startTime = id.substring(11,14);
@@ -401,9 +395,7 @@ $(document).ready(function()
    var btnId = $(this).attr('id');
    var id = btnId.substring(16);
    var row = $(this).parent().parent();
-   console.log("Row:", row);
    row.remove();
-   console.log(id);
 
    var date = id.substring(1,11);
    var startTime = id.substring(11,14);
@@ -511,7 +503,7 @@ $(document).ready(function()
           <div class= "col col-md-4">
             <span style="color: red; font-size: 12px" id="empty-msg"></span>
           </div>
-          <div class= "col col-md-5" >
+          <div class= "col col-md-5" align="right">
             <button type="submit" class="btn btn-primary" id="post-btn">Post Announcement</button>
           </div>
         </div> <!-- End of Footer -->
